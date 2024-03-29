@@ -45,7 +45,7 @@ const Verification: FC<{}> = () => {
     console.log(postData);
     try {
       const response = await axios.post(
-        "https://tambackend.onrender.com/TAM/smoobuAccount",
+        "https://tambackendtotem.onrender.com/TAM/smoobuAccount",
         postData
       );
 

@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-// style
+
 import {} from "./style/App.style";
 import ResetPassword from "Pages/Reset Password/ResetPassword";
 import Login from "Pages/Login/Login.component";
@@ -27,6 +27,11 @@ import Example from "Components/Dashboard/Chart/Chart.component";
 import GetSuggestedPrice from "Components/GetSuggestedPrice/GetSuggestedPrice.component";
 import AddOption from "Components/AddOptions/AddOptions.component";
 import YourComponent from "Components/MinStayLogic/ShowMinStay.component";
+
+
+import RulesFAQ from "Components/RulesFAQ/FAQRules.component";
+import ClientAmenities from "Components/AutoCheckin/AutoCheckin.cpomponent";
+import CheckinPage from "Components/CheckinFolder/CheckinPage";
 // import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
 
@@ -47,7 +52,7 @@ const App: FC<{}> = () => {
             <Route path="/" element={<Authenticated />}>
               {verify ? (
                 <>
-
+                  <Route path="/" element={<Home />} /> 
                   <Route path="apartmentpage" element={<ApartmentPage />} />
                   <Route path="forgetpassword" element={<ForgetPassword />} />
                   <Route path="apartmentcard/:id" element={<ApartmentCard />} />
@@ -83,9 +88,12 @@ const App: FC<{}> = () => {
               <Route path="/" element={<Login />} index />
               <Route path="/login" element={<Login />} index />
               
+              <Route path="/checkinpage" element={<CheckinPage />}/>
+              <Route path="/rulesFaq" element={<RulesFAQ />}/>
               <Route path="/register" element={<Register />} />{" "}
               <Route path="tam/registration/:token" element={<SavePasword />} />
               <Route path="/kyc/:token/:token/:token" element={<GradientPage/>}/>
+              <Route path="/apartmentAmenities" element={<ClientAmenities/>}/>
               <Route path="*" element={<Navigate to="/login" replace />} />
             </Route>
           )}

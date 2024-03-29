@@ -14,6 +14,8 @@ import {
   UserMessageBubble,
   BotMessageBubble,
 } from "./Assistant.style";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
 
 interface Message {
   id: number;
@@ -31,6 +33,8 @@ const ChatComponent: React.FC = () => {
       sender: "bot",
     },
   ]);
+  const userId = useSelector((state: RootState) => state.auth.user?.id);
+  console.log(userId);
 
   const chatEndRef = useRef<HTMLDivElement>(null);
 
@@ -70,12 +74,16 @@ const ChatComponent: React.FC = () => {
 
     if (!messages.find((msg) => msg.sender === "user")) {
       axios
-        .post("https://tambackend.onrender.com/TAM/assistant/thread/host", {
-          newMessage,
-        })
+        .post(
+          "https://tambackendtotem.onrender.com/TAM/assistant/thread/host",
+          {
+            newMessage,
+            userId: userId,
+          }
+        )
         .then((response) => {
           const id = response.data.id;
-
+          console.log(response);
           setThreadId(id);
           const botResponse: Message = {
             id: messages.length + 2,
@@ -91,7 +99,7 @@ const ChatComponent: React.FC = () => {
     } else {
       axios
         .post(
-          `https://tambackend.onrender.com/TAM/assistant/chat/${threadId}/host`,
+          `https://tambackendtotem.onrender.com/TAM/assistant/chat/${threadId}/host`,
           {
             content: newMessage,
             role: "user",

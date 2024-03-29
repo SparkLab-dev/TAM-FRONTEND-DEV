@@ -95,7 +95,7 @@ const Home: FC<{}> = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<ApiResponse>(
-          `https://tambackend.onrender.com/TAM/dashboard/${userId}/${selectedOption}`
+          `https://tambackendtotem.onrender.com/TAM/dashboard/${userId}/${selectedOption}`
         );
         setData(response.data);
         console.log(data);

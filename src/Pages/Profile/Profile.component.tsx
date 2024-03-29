@@ -27,7 +27,7 @@ const UserProfile: React.FC = () => {
 
   const fetchData = () => {
     axios
-      .get(`https://tambackend.onrender.com/TAM/user/${userId}`)
+      .get(`https://tambackendtotem.onrender.com/TAM/user/${userId}`)
       .then((response) => {
         setUserData(response.data);
         setEditedData(response.data);
@@ -44,7 +44,10 @@ const UserProfile: React.FC = () => {
   const handleSaveClick = () => {
     if (editedData) {
       axios
-        .post("https://tambackend.onrender.com/TAM/user/update", editedData)
+        .post(
+          "https://tambackendtotem.onrender.com/TAM/user/update",
+          editedData
+        )
         .then((response) => {
           setUserData({ ...editedData });
           setEditable(false);

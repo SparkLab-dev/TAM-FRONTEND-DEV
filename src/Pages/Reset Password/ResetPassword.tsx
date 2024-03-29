@@ -51,7 +51,7 @@ const ResetPassword: FC<{}> = () => {
 
       axios
         .put(
-          `https://tambackend.onrender.com/TAM/resetPassword/${token}`,
+          `https://tambackendtotem.onrender.com/TAM/resetPassword/${token}`,
           requestData
         )
         .then((response) => {

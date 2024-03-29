@@ -62,7 +62,7 @@ const ExistingChat: FC<{}> = () => {
   };
 
   useEffect(() => {
-    fetch("https://tambackend.onrender.com/TAM/conversation/3")
+    fetch("https://tambackendtotem.onrender.com/TAM/conversation/3")
       .then((response) => response.json())
       .then((data: Conversation[]) => {
         setConversations(data);

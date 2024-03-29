@@ -28,7 +28,7 @@ export const loginUser = createAsyncThunk(
   async (userCredentials: object, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://tambackend.onrender.com/TAM/auth/login",
+        "https://tambackendtotem.onrender.com/TAM/auth/login",
         userCredentials
       );
 
@@ -69,7 +69,7 @@ export const logoutUser = createAsyncThunk<void, number | null>(
         throw new Error("User ID not found in user data");
       }
       const response = await axios.post(
-        `https://tambackend.onrender.com/TAM/auth/logout/${userIdFromLocalStorage}`
+        `https://tambackendtotem.onrender.com/TAM/auth/logout/${userIdFromLocalStorage}`
       );
 
       console.log("Logout response:", response.data);

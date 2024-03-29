@@ -37,7 +37,7 @@ export const sendMessage = createAsyncThunk(
   ) => {
     try {
       const response = await axios.post(
-        `https://tambackend.onrender.com/TAM/51902732/message/${userId}`,
+        `https://tambackendtotem.onrender.com/TAM/51902732/message/${userId}`,
         messageProps
       );
 
@@ -75,7 +75,7 @@ export const fetchMessage = createAsyncThunk<
 >("message/fetchMessages", async ({ userId }, { rejectWithValue }) => {
   try {
     const response = await axios.get(
-      `https://tambackend.onrender.com/TAM/${reservationId}/message/${userId}`
+      `https://tambackendtotem.onrender.com/TAM/${reservationId}/message/${userId}`
     );
 
     console.log("res", response);

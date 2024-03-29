@@ -7,14 +7,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import CancelIcon from "@mui/icons-material/Cancel";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import AddOptionForm from "./AddOptionForm.component";
-import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "redux/store";
 
 interface ApartmentOption {
   optionId: number;
@@ -28,7 +20,7 @@ interface AddUrlOption {
   optionName: string;
 }
 
-const AccessibleTable: React.FC = () => {
+const ClientAmenities: React.FC = () => {
   const [apartmentOptionsWithCategories, setApartmentOptionsWithCategories] =
     useState<
       {
@@ -36,31 +28,23 @@ const AccessibleTable: React.FC = () => {
         apartmentOptions: ApartmentOption[];
       }[]
     >([]);
-  // const [apartmentOptions, setApartmentOptions] = useState<ApartmentOption[]>(
-  //   []
-  // );
-  const user = useSelector((state: RootState) => state.auth.user);
-  const userId = user?.id;
+
+  const userId = 2;
   const [urlData, setUrlData] = useState<AddUrlOption[]>([]);
-  const [apartmentId, setApartmentId] = useState<number | null>(null);
-  const [reload, setReload] = useState<boolean>(false);
-  const location = useLocation();
 
   useEffect(() => {
-    const pathParts = location.pathname.split("/");
-    const idFromUrl = pathParts[2];
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://tambackend.onrender.com:8081/TAM/${userId}/apartments/getallApartmentOptions/${idFromUrl}`
+          `https://tambackendtotem.onrender.com/TAM/${userId}/apartments/getallApartmentOptions/2031869`
         );
         setApartmentOptionsWithCategories(
           response.data.apartmentOptionsWithCategories
         );
-        setApartmentId(response.data.apartmentId);
+        // setApartmentId(response.data.apartmentId);
         console.log(response.data);
         const response2 = await axios.get<AddUrlOption[]>(
-          `https://tambackend.onrender.com:8081/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/${idFromUrl}`
+          `https://tambackendtotem.onrender.com/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/203186900`
         );
         setUrlData(response2.data || []);
         console.log(urlData);
@@ -71,52 +55,7 @@ const AccessibleTable: React.FC = () => {
     };
 
     fetchData();
-  }, [location.pathname, reload,userId]);
-
-  const handleDeleteClick = async (optionId: number) => {
-    try {
-      if (apartmentId !== null) {
-        const requestBody = {
-          apartmentId: apartmentId,
-          apartmentOptions: [{ id: optionId }],
-        };
-
-        // Send DELETE request with apartmentId and optionId in the body
-        await axios.delete(
-          `https://tambackend.onrender.com:8081/TAM/${userId}/apartments/deleteApartmentOption/delete`,
-          { data: requestBody }
-        );
-        console.log("DELETE request successful");
-        setReload((prevState) => !prevState);
-      } else {
-        console.error("ApartmentId is not available");
-      }
-    } catch (error) {
-      console.error("Error sending DELETE request:", error);
-    }
-  };
-
-  const handleIconClick = async (optionId: number) => {
-    try {
-      if (apartmentId !== null) {
-        const requestBody = {
-          apartmentId: apartmentId,
-          apartmentOptions: [{ id: optionId }],
-        };
-
-        await axios.post(
-          `https://tambackend.onrender.com:8081/TAM/${userId}/apartments/apartmentOption/saveOrUpdate`,
-          requestBody
-        );
-        console.log("POST request successful");
-        setReload((prevState) => !prevState);
-      } else {
-        console.error("ApartmentId is not available");
-      }
-    } catch (error) {
-      console.error("Error sending POST request:", error);
-    }
-  };
+  }, [userId]);
 
   const openUrlInNewTab = (url: string | URL | undefined) => {
     window.open(url, "_blank");
@@ -131,9 +70,7 @@ const AccessibleTable: React.FC = () => {
           alignItems: "center",
           marginTop: "70px",
         }}
-      >
-        <AddOptionForm />
-      </div>
+      ></div>
       {apartmentOptionsWithCategories.map((categoryGroup) => (
         <div key={categoryGroup.category.id}>
           <TableContainer
@@ -141,7 +78,7 @@ const AccessibleTable: React.FC = () => {
             sx={{
               maxWidth: "1300px",
               marginLeft: "50px",
-              // maxHeight: "70%",
+
               marginTop: "50px",
             }}
           >
@@ -152,9 +89,6 @@ const AccessibleTable: React.FC = () => {
                   <TableCell sx={{ fontSize: "25px" }}>
                     {categoryGroup.category.categoryName}
                   </TableCell>
-                  <TableCell sx={{ fontSize: "25px" }} align="right">
-                    Status
-                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -162,25 +96,6 @@ const AccessibleTable: React.FC = () => {
                   <TableRow key={option.optionId}>
                     <TableCell component="th" scope="row">
                       {option.description}
-                    </TableCell>
-                    <TableCell align="right">
-                      {option.checked ? (
-                        <>
-                          <HighlightOffIcon
-                            onClick={() => handleDeleteClick(option.optionId)}
-                            sx={{ cursor: "pointer" }}
-                          />
-                          <CheckCircleIcon />
-                        </>
-                      ) : (
-                        <>
-                          <CancelIcon />
-                          <CheckCircleOutlineIcon
-                            onClick={() => handleIconClick(option.optionId)}
-                            sx={{ cursor: "pointer" }}
-                          />
-                        </>
-                      )}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -195,7 +110,7 @@ const AccessibleTable: React.FC = () => {
         sx={{
           maxWidth: "1300px",
           marginLeft: "50px",
-          // maxHeight: "70%",
+
           marginTop: "50px",
         }}
       >
@@ -227,4 +142,4 @@ const AccessibleTable: React.FC = () => {
   );
 };
 
-export default AccessibleTable;
+export default ClientAmenities;

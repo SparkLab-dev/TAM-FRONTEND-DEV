@@ -32,7 +32,7 @@ export const registerUser = createAsyncThunk(
   async (userCredentials: object, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://tambackend.onrender.com/TAM/registration",
+        "https://tambackendtotem.onrender.com/TAM/registration",
         userCredentials
       );
 

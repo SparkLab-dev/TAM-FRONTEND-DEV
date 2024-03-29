@@ -73,7 +73,7 @@ const AddOptionForm: React.FC = () => {
         },
       };
       await axios.post(
-        "https://tambackend.onrender.com/TAM/apartmentOption/saveOrUpdateApartmentOption",
+        "https://tambackendtotem.onrender.com/TAM/apartmentOption/saveOrUpdateApartmentOption",
         requestBody
       );
       console.log("POST request successful");

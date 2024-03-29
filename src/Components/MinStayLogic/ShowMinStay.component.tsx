@@ -29,7 +29,7 @@ const YourComponent: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<MinStay[]>(
-          `https://tambackend.onrender.com/TAM/minStay/getMinS/1aysByUser/${userId}`
+          `https://tambackendtotem.onrender.com/TAM/minStay/getMinStaysByUser/${userId}`
         );
         setMinStays(response.data);
       } catch (error) {
@@ -53,7 +53,7 @@ const YourComponent: React.FC = () => {
     if (editedMinStay) {
       try {
         const response = await axios.post(
-          "https://tambackend.onrender.com/TAM/minStay/saveOrUpdate",
+          "https://tambackendtotem.onrender.com/TAM/minStay/saveOrUpdate",
           [editedMinStay]
         );
         console.log("POST request successful", response);
@@ -69,7 +69,7 @@ const YourComponent: React.FC = () => {
   const callApi = async () => {
     try {
       await axios.post(
-        `https://tambackend.onrender.com/TAM/${userId}/reservations/updateMinStayBasedOnRules`
+        `https://tambackendtotem.onrender.com/TAM/${userId}/reservations/updateMinStayBasedOnRules`
       );
       console.log("API call successful");
     } catch (error) {

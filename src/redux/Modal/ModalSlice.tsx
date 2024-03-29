@@ -30,7 +30,7 @@ export const openModal = createAsyncThunk(
   ) => {
     try {
       const response = await axios.post(
-        `https://tambackend.onrender.com/TAM/${userId}/apartmentAvailability`,
+        `https://tambackendtotem.onrender.com/TAM/${userId}/apartmentAvailability`,
         userCredentials
       );
 
@@ -60,7 +60,7 @@ export const openRentList = createAsyncThunk<
   async ({ userId, rentListProperties }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `https://tambackend.onrender.com/TAM/${userId}/apartmentAvailability`,
+        `https://tambackendtotem.onrender.com/TAM/${userId}/apartmentAvailability`,
         { params: rentListProperties }
       );
 

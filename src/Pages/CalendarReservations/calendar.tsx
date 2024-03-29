@@ -10,8 +10,8 @@ interface MonthOption {
 }
 
 function MonthTable() {
-  const [selectedMonth, setSelectedMonth] = useState<number>(1);
-  const [selectedYear, setSelectedYear] = useState<number>(2024); // Default to a specific year (you can set it to the current year)
+  const [selectedMonth, setSelectedMonth] = useState<number>(4);
+  const [selectedYear, setSelectedYear] = useState<number>(2024);
   const [daysOfMonth, setDaysOfMonth] = useState<any>(31);
   const [dayNames, setDayNames] = useState<string[]>([]);
   const [apartmentData, setApartmentData] = useState<any[]>([]);
@@ -20,7 +20,7 @@ function MonthTable() {
   const user = useSelector((state: RootState) => state.auth.user);
   const userId = user?.id;
   const makeApiRequest = () => {
-    const apiUrl = `https://tambackend.onrender.com/TAM/${userId}/reservations/calendar`;
+    const apiUrl = `https://tambackendtotem.onrender.com/TAM/${userId}/reservations/calendar`;
 
     axios
       .get(apiUrl, {

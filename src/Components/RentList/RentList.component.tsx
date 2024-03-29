@@ -44,7 +44,7 @@ const RentList: FC<RentListProps> = () => {
   const apartmentIdFromStore = useSelector(
     (state: RootState) => state.apartmentsCard.apartmentDetails?.id
   );
-
+  console.log(apartmentIdFromStore);
   //startDate &endDate function
   function handleStartDateChange(event: any) {
     if (event) {
@@ -193,23 +193,23 @@ const RentList: FC<RentListProps> = () => {
   }, [rentList]);
 
   const handleMatchPrice = async (rental: any) => {
-    const userCredentialss = {
-      apartments: [1993841],
+    const userCredentialsss = {
+      apartments: [2031869],
       operations: [
         {
           dates: [rental.date],
-          daily_price: rental.suggestedPrice,
-          suggestedPrice: rental.suggestedPrice,
-          min_length_of_stay: rental.min_length_of_stay,
-          suggestedMinimumStay: rental.suggestedMinimumStay,
+          daily_price: 50,
+          suggestedPrice: 50,
+          min_length_of_stay: 5,
+          suggestedMinimumStay: 5,
         },
       ],
     };
 
     try {
       const response = await axios.post(
-        `https://tambackend.onrender.com/TAM/${userId}/apartmentAvailability`,
-        userCredentialss
+        `https://tambackendtotem.onrender.com/TAM/${userId}/apartmentAvailability`,
+        userCredentialsss
       );
 
       if (response.status === 200) {
@@ -225,7 +225,7 @@ const RentList: FC<RentListProps> = () => {
 
   const handleMinStay = async (rental: any) => {
     const userCredentialss = {
-      apartments: [1993841],
+      apartments: [2031872],
       operations: [
         {
           dates: [rental.date],
@@ -239,7 +239,7 @@ const RentList: FC<RentListProps> = () => {
 
     try {
       const response = await axios.post(
-        `https://tambackend.onrender.com/TAM/${userId}/apartmentAvailability`,
+        `https://tambackendtotem.onrender.com/TAM/${userId}/apartmentAvailability`,
         userCredentialss
       );
 

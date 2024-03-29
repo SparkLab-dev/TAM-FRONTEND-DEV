@@ -28,7 +28,7 @@ export const Header = styled.div<{ isOpen: boolean }>`
 
 export const Header2 = styled.div<{ isOpen: boolean }>`
   position: fixed;
-  bottom: ${({ isOpen }) => (isOpen ? "520px" : "520px")};
+  bottom: ${({ isOpen }) => (isOpen ? "480px" : "420px")};
   right: auto;
   border-radius:8px 8px 0 0;
   width: 402px;
@@ -80,7 +80,7 @@ bottom: 20px;
 right: auto;
 width: 400px;
 background-color: white;
-height: ${({ isOpen }) => (isOpen ? "500px" : "0")};
+height: ${({ isOpen }) => (isOpen ? "460px" : "0")};
 //   border: 1px solid #ccc;
 border: ${({ isOpen }) => (isOpen ? "1px solid #ccc" : "0")};
 overflow: hidden;
@@ -149,12 +149,12 @@ export const ChatToggle = styled.div<{ isOpen: boolean }>`
 `;
 
 export const ChatToggle2 = styled.div<{ isOpen: boolean }>`
-  position: fixed;
-  top: 50%;
-  left: 58%;
+  // position: fixed;
+  // top: 50%;
+  // left: 80%;
  
-  transform: translate(-50%, -50%);
-  width: 180px;
+  // transform: translate(-50%, -50%);
+  width: 150px;
   height: 90px;
   background-color: lightblue;
   color: white;

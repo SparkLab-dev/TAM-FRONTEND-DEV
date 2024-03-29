@@ -60,7 +60,7 @@ export const fetchApartmentCardDetails = createAsyncThunk<
   async ({ userId, id }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `https://tambackend.onrender.com/TAM/${userId}/apartments/${id}`
+        `https://tambackendtotem.onrender.com/TAM/${userId}/apartments/${id}`
       );
       console.log("userId", userId);
       console.log("id", id);

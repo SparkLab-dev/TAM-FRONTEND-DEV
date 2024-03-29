@@ -26,7 +26,7 @@ export const fetchApartmentIds = createAsyncThunk<ApartmentProps[], number>(
   async (userId: number) => {
     try {
       const response = await axios.get(
-        `https://tambackend.onrender.com/TAM/${userId}/apartments`
+        `https://tambackendtotem.onrender.com/TAM/${userId}/apartments`
       );
       console.log(response);
       return response.data.apartments;

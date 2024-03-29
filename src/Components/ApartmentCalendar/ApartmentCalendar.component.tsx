@@ -24,7 +24,7 @@
 //         if (!userId) return;
 
 //         const response = await axios.get(
-//           `https://tambackend.onrender.com/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
+//           `https://tambackendtotem.onrender.com/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
 //             visibleRange.start
 //           ).format("YYYY-MM-DD")}&toDate=${moment(visibleRange.end).format(
 //             "YYYY-MM-DD"
@@ -132,7 +132,7 @@ const MyCalendar: FC<MyCalendarProps> = ({ userId, apartamentId }) => {
         if (!userId) return;
 
         const response = await axios.get(
-          `https://tambackend.onrender.com/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
+          `https://tambackendtotem.onrender.com/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
             visibleRange.start
           ).format("YYYY-MM-DD")}&toDate=${moment(visibleRange.end).format(
             "YYYY-MM-DD"

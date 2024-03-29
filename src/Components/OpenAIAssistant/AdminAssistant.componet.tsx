@@ -78,13 +78,13 @@ const ChatComponent2: React.FC = () => {
     if (!messages.find((msg) => msg.sender === "user")) {
       axios
         .post(
-          "https://tambackend.onrender.com/TAM/assistant/thread/client",
+          "https://tambackendtotem.onrender.com/TAM/assistant/thread/client",
           {
             newMessage,
           },
           {
             params: {
-              apartmentId: apartmentId,
+              apartmentId: 2042282,
             },
           }
         )
@@ -92,6 +92,7 @@ const ChatComponent2: React.FC = () => {
           const id = response.data.id;
 
           setThreadId(id);
+          console.log(response);
           const botResponse: Message = {
             id: messages.length + 2,
             text: "How can I help you?",
@@ -102,11 +103,12 @@ const ChatComponent2: React.FC = () => {
         })
         .catch((error) => {
           setIsTyping(false);
+          console.log(error);
         });
     } else {
       axios
         .post(
-          `https://tambackend.onrender.com/TAM/assistant/chat/${threadId}/client`,
+          `https://tambackendtotem.onrender.com/TAM/assistant/chat/${threadId}/client`,
           {
             content: newMessage,
             role: "user",
