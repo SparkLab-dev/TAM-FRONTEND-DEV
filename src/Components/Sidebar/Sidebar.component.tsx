@@ -14,11 +14,11 @@ interface SidebarProps {
 
 const SidebarContainer = styled.div<{ open?: boolean }>`
   position: fixed;
-  top: 50px;
-  left: ${({ open }) => (open ? "0" : "0")};
-  width:50px;
+  // top: 50px;
+  left:0;
+  width:165px;
   height: 100%;
-  background-color: lightblue;
+  background-color: #4F734C;
   transition: left 0.3s ease-in-out;
   z-index: 999;
 
@@ -52,15 +52,15 @@ const SidebarLinks = styled.ul`
 
 const SidebarLink = styled.li`
   padding: 10px;
-  color: black;
+  color: white;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 600;
   display: flex;
     align-items: center;
     gap:10px;
     &:hover {
-      background-color: #e3edf0;;
+      background-color: #50a164;
      }
 `;
 
@@ -104,16 +104,16 @@ const Sidebar: FC<SidebarProps> = ({ open, toggleSidebar }: SidebarProps) => {
       )} */}
       <SidebarLinks>
         <SidebarLink onClick={goToHome}>
-          <HomeIcon /> 
+          <HomeIcon /> Homepage
         </SidebarLink>
         <SidebarLink onClick={goToCalendar}>
-          <CalendarMonthIcon /> 
+          <CalendarMonthIcon /> Calendar
         </SidebarLink>
         <SidebarLink onClick={goToMessages}>
-          <MessageIcon /> 
+          <MessageIcon /> Messages
         </SidebarLink>
         <SidebarLink onClick={goToApartments}>
-          <BusinessIcon /> 
+          <BusinessIcon /> Properties
         </SidebarLink>
       </SidebarLinks>
     </SidebarContainer>

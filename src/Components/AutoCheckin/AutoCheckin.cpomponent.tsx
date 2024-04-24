@@ -36,7 +36,7 @@ const ClientAmenities: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://tambackendtotem.onrender.com/TAM/${userId}/apartments/getallApartmentOptions/2031869`
+          `http://192.168.10.210:8080/TAM/${userId}/apartments/getallApartmentOptions/2031869`
         );
         setApartmentOptionsWithCategories(
           response.data.apartmentOptionsWithCategories
@@ -44,7 +44,7 @@ const ClientAmenities: React.FC = () => {
         // setApartmentId(response.data.apartmentId);
         console.log(response.data);
         const response2 = await axios.get<AddUrlOption[]>(
-          `https://tambackendtotem.onrender.com/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/203186900`
+          `http://192.168.10.210:8080/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/203186900`
         );
         setUrlData(response2.data || []);
         console.log(urlData);

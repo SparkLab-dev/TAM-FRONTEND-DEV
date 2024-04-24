@@ -74,13 +74,10 @@ const ChatComponent: React.FC = () => {
 
     if (!messages.find((msg) => msg.sender === "user")) {
       axios
-        .post(
-          "https://tambackendtotem.onrender.com/TAM/assistant/thread/host",
-          {
-            newMessage,
-            userId: userId,
-          }
-        )
+        .post("http://192.168.10.210:8080/TAM/assistant/thread/host", {
+          newMessage,
+          userId: userId,
+        })
         .then((response) => {
           const id = response.data.id;
           console.log(response);
@@ -99,7 +96,7 @@ const ChatComponent: React.FC = () => {
     } else {
       axios
         .post(
-          `https://tambackendtotem.onrender.com/TAM/assistant/chat/${threadId}/host`,
+          `http://192.168.10.210:8080/TAM/assistant/chat/${threadId}/host`,
           {
             content: newMessage,
             role: "user",

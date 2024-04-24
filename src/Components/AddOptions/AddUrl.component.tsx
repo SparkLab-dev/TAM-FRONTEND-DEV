@@ -76,7 +76,7 @@ const AddUrl: React.FC = () => {
         apartmentId: 2028236,
       };
       await axios.post(
-        "https://tambackendtotem.onrender.com/TAM/specificApartmentOption/saveOrUpdateSpecificApartmentOption",
+        "http://192.168.10.210:8080/TAM/specificApartmentOption/saveOrUpdateSpecificApartmentOption",
         requestBody
       );
       console.log("POST request successful");

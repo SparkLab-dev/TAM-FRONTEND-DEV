@@ -52,7 +52,7 @@ const AccessibleTable: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://tambackend.onrender.com:8081/TAM/${userId}/apartments/getallApartmentOptions/${idFromUrl}`
+          `http://192.168.10.210:8080/TAM/${userId}/apartments/getallApartmentOptions/2042282`
         );
         setApartmentOptionsWithCategories(
           response.data.apartmentOptionsWithCategories
@@ -60,7 +60,7 @@ const AccessibleTable: React.FC = () => {
         setApartmentId(response.data.apartmentId);
         console.log(response.data);
         const response2 = await axios.get<AddUrlOption[]>(
-          `https://tambackend.onrender.com:8081/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/${idFromUrl}`
+          `http://192.168.10.210:8080/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/2042282`
         );
         setUrlData(response2.data || []);
         console.log(urlData);
@@ -71,7 +71,7 @@ const AccessibleTable: React.FC = () => {
     };
 
     fetchData();
-  }, [location.pathname, reload,userId]);
+  }, [location.pathname, reload, userId]);
 
   const handleDeleteClick = async (optionId: number) => {
     try {
@@ -83,7 +83,7 @@ const AccessibleTable: React.FC = () => {
 
         // Send DELETE request with apartmentId and optionId in the body
         await axios.delete(
-          `https://tambackend.onrender.com:8081/TAM/${userId}/apartments/deleteApartmentOption/delete`,
+          `http://192.168.10.210:8080/TAM/${userId}/apartments/deleteApartmentOption/delete`,
           { data: requestBody }
         );
         console.log("DELETE request successful");
@@ -105,7 +105,7 @@ const AccessibleTable: React.FC = () => {
         };
 
         await axios.post(
-          `https://tambackend.onrender.com:8081/TAM/${userId}/apartments/apartmentOption/saveOrUpdate`,
+          `http://192.168.10.210:8080/TAM/${userId}/apartments/apartmentOption/saveOrUpdate`,
           requestBody
         );
         console.log("POST request successful");

@@ -20,7 +20,7 @@ function MonthTable() {
   const user = useSelector((state: RootState) => state.auth.user);
   const userId = user?.id;
   const makeApiRequest = () => {
-    const apiUrl = `https://tambackendtotem.onrender.com/TAM/${userId}/reservations/calendar`;
+    const apiUrl = `http://192.168.10.210:8080/TAM/${userId}/reservations/calendar`;
 
     axios
       .get(apiUrl, {

@@ -54,7 +54,7 @@ const Register: FC<{}> = () => {
   //user role api call
   useEffect(() => {
     axios
-      .get<DropdownItem[]>("https://tambackendtotem.onrender.com/TAM/role")
+      .get<DropdownItem[]>("http://192.168.10.210:8080/TAM/role")
       .then((res) => {
         setRoles(res.data);
         console.log(res.data);

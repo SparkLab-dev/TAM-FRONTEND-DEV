@@ -60,7 +60,7 @@ const GradientPage: React.FC = () => {
         guestName: guestName,
       };
       const response = await axios.post(
-        "https://tambackendtotem.onrender.com/TAM/meeting/generateJitsiMeetLink",
+        "http://192.168.10.210:8080/TAM/meeting/generateJitsiMeetLink",
         requestBody
       );
       console.log("API call successful");
