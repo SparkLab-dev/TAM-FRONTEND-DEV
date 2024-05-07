@@ -5,10 +5,10 @@ export const FormContainer = styled.div`
   flex-direction: column;
   max-width: 400px;
   margin: 0 auto;
-  border:solid 1px black;
-  padding:15px;
-  border-radius:15px;
-  background-color:lightblue;
+  border: solid 1px black;
+  padding: 15px;
+  border-radius: 15px;
+  background-color: #4f734c;
 `;
 
 export const FormGroup = styled.div`
@@ -27,12 +27,12 @@ export const Input = styled.input`
   font-size: 1rem;
   border-radius: 4px;
   border: 1px solid #ccc;
-  min-width:300px;
+  min-width: 300px;
 `;
 
 export const ButtonHolder = styled.div`
-display: flex;
-justify-content:center;
+  display: flex;
+  justify-content: center;
 `;
 
 export const Button = styled.button`

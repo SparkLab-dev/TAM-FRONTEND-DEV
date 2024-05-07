@@ -210,12 +210,12 @@ function MonthTable() {
                   if (reservation) {
                     if (isStartDateOfReservation(reservation, i + 1)) {
                       cellStyle.background =
-                        "linear-gradient(to bottom right, transparent 50%, lightblue 50%)";
+                        "linear-gradient(to bottom right, transparent 50%, #4F734C 50%)";
                     } else if (isEndDateOfReservation(reservation, i + 1)) {
                       cellStyle.background =
-                        "linear-gradient(to top left, transparent 50%, lightblue 50%)";
+                        "linear-gradient(to top left, transparent 50%, #4F734C0 50%)";
                     } else {
-                      cellStyle.background = "lightblue";
+                      cellStyle.background = "#4F734C";
                     }
 
                     if (reservation.blocked_booking) {

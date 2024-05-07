@@ -57,7 +57,7 @@
 //   const eventStyleGetter = (event: any) => ({
 //     className: event.className,
 //     style: {
-//       backgroundColor: "lightblue",
+//       backgroundColor: "#4F734C",
 //     },
 //   });
 
@@ -165,7 +165,7 @@ const MyCalendar: FC<MyCalendarProps> = ({ userId, apartamentId }) => {
   const eventStyleGetter = (event: any) => ({
     className: event.className,
     style: {
-      backgroundColor: "lightblue",
+      backgroundColor: "#9BDFC4",
     },
   });
 

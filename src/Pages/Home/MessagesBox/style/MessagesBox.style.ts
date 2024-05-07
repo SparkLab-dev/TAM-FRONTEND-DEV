@@ -28,13 +28,13 @@ export const OpenMessagesButton = styled.button`
   display: inline-flex;
 
   box-shadow: unset;
-  background: lightblue;
+  background: #4f734c;
   border: 2px solid gray;
   border-radius: 5px;
   padding: 10px 20px;
   text-transform: uppercase;
   cursor: pointer;
   &:hover {
-    background-color: #e3edf0;;
-   }
+    background-color: #e3edf0;
+  }
 `;

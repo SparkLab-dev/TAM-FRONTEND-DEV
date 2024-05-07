@@ -5,11 +5,12 @@ export const Card = styled.div`
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 300px;
-margin:auto;
+  width: 440px;
+  margin: auto;
+  height: 560px;
   @media (max-width: 768px) {
     width: calc(100% - 150px); /* Reduce width by 80px on mobile */
-    margin-left:70px;
+    margin-left: 70px;
   }
 `;
 
@@ -23,8 +24,11 @@ export const UserInfo = styled.div`
 
 export const Button = styled.div`
   display: flex;
+  color: white;
+  width: 150px;
+  justify-content: center;
   box-shadow: unset;
-  background: lightblue;
+  background: #4f734c;
   border: 2px solid gray;
   border-radius: 5px;
   padding: 5px 10px;
@@ -33,8 +37,8 @@ export const Button = styled.div`
   text-align: center;
   font-size: 14px;
   &:hover {
-    background-color: #e3edf0;;
-   }
+    background-color: #50a164;
+  }
 `;
 
 export const Input = styled.input`

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import * as Styled from './Navbar.style'; // Import your styled components
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
+import AddCardIcon from '@mui/icons-material/AddCard';
 
 const Navbar: React.FC = () => {
   const logout = (): void => {
@@ -22,6 +23,7 @@ const Navbar: React.FC = () => {
 
   return (
     <Styled.Header>
+       <Styled.NewButton ><AddCardIcon fontSize='small'/>New booking </Styled.NewButton>
       <Styled.Nav>
      
         <div onClick={goToProfile} style={{display:"flex"}}>

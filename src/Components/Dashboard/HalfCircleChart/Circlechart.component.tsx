@@ -22,7 +22,7 @@ const HalfCircleChart: React.FC<HalfCircleChartProps> = ({ percentage }) => {
         <Pie
           data={data}
           cx="50%"
-          cy="90%"
+          cy="60%"
           startAngle={180}
           endAngle={0}
           innerRadius={60}

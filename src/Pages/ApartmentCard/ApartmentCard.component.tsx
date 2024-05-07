@@ -14,6 +14,7 @@ import {
   ApartmentName,
   CardContainer,
   Div,
+  Div2,
   DivsContentHolder,
   Holder,
   IconContainer,
@@ -113,51 +114,51 @@ const ApartmentCard: FC<{}> = () => {
                 <Label>Type: </Label> {apartmentCardDetails.type.name}
               </Paragraphs>
             </Div>
-            <Div>
+            <Div2>
               <Paragraphs>Rooms: </Paragraphs>
-              <UnorderedList>
-                <ListItem>
+              {/* <UnorderedList> */}
+                <Paragraphs>
                   <Label> Bathrooms: </Label>
                   {apartmentCardDetails.rooms.bathrooms}
-                </ListItem>
-                <ListItem>
+                </Paragraphs>
+                <Paragraphs>
                   <Label>Bedrooms: </Label>
                   {apartmentCardDetails.rooms.bedrooms}
-                </ListItem>
-                <ListItem>
+                </Paragraphs>
+                <Paragraphs>
                   <Label> Child Beds: </Label>
                   {apartmentCardDetails.rooms.childBeds}
-                </ListItem>
-                <ListItem>
+                </Paragraphs>
+                <Paragraphs>
                   <Label> Couches: </Label>
                   {apartmentCardDetails.rooms.couches}
-                </ListItem>
-                <ListItem>
+                </Paragraphs>
+                <Paragraphs>
                   <Label> Double Beds: </Label>
                   {apartmentCardDetails.rooms.doubleBeds}
-                </ListItem>
-                <ListItem>
+                </Paragraphs>
+                <Paragraphs>
                   <Label> King Size Beds: </Label>
                   {apartmentCardDetails.rooms.kingSizeBeds}
-                </ListItem>
-                <ListItem>
+                </Paragraphs>
+                <Paragraphs>
                   <Label> Max Occupancy: </Label>
                   {apartmentCardDetails.rooms.maxOccupancy}
-                </ListItem>
-                <ListItem>
+                </Paragraphs>
+                <Paragraphs>
                   <Label> Queen Size Beds: </Label>
                   {apartmentCardDetails.rooms.queenSizeBeds}
-                </ListItem>
-                <ListItem>
+                </Paragraphs>
+                <Paragraphs>
                   <Label>Single Beds: </Label>
                   {apartmentCardDetails.rooms.singleBeds}
-                </ListItem>
-                <ListItem>
+                </Paragraphs>
+                <Paragraphs>
                   <Label>Sofa Beds: </Label>
                   {apartmentCardDetails.rooms.sofaBeds}
-                </ListItem>
-              </UnorderedList>
-            </Div>
+                </Paragraphs>
+              {/* </UnorderedList> */}
+            </Div2>
           </DivsContentHolder>
           <IconContainer>
             <IconHold>

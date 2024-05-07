@@ -14,6 +14,8 @@ import {
   Header2,
   ChatContainer2,
   ChatToggle2,
+  ChatText,
+  ChatIconn,
 } from "./Assistant.style";
 
 interface Message {
@@ -198,8 +200,9 @@ const ChatComponent2: React.FC = () => {
         )}
       </ChatContainer2>
       <ChatToggle2 isOpen={isOpen} onClick={handleToggle}>
-        <ChatIcon>💬</ChatIcon>
-      </ChatToggle2>
+  <ChatText>Chat</ChatText>
+  <ChatIconn>💬</ChatIconn>
+</ChatToggle2>
     </>
   );
 };

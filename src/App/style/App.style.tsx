@@ -126,7 +126,7 @@ export const StyledForm = styled.form<FormProps>`
   height: ${(props: any) => props.height || "300px"};
   width: 60%;
   max-width: 500px;
-  background-color: lightblue;
+  background-color: #4f734c;
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
@@ -147,11 +147,11 @@ export const StyledForm = styled.form<FormProps>`
 export const Page = styled.div`
   height: 100vh; /* Use viewport height to make it full screen */
   display: flex;
-flex-direction:column;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background: "white";
-  
+ 
 `;
 
 export const Content = styled.div`

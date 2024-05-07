@@ -88,8 +88,8 @@ const YourComponent: React.FC = () => {
             <TableCell align="center" sx={{ fontSize: "18px" }}>
               Minimum Stay
             </TableCell>
-            <TableCell align="center" sx={{ fontSize: "18px" }}>
-              Actions <Button onClick={callApi}>Update Rules</Button>
+            <TableCell align="center" sx={{ fontSize: "18px"}}>
+               <Button style={{color:"#4F734C",fontFamily:"Poppins", fontWeight:"500"}} onClick={callApi}>Update Rules</Button>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -121,9 +121,9 @@ const YourComponent: React.FC = () => {
               </TableCell>
               <TableCell align="center">
                 {editedMinStay && editedMinStay.day === minStay.day ? (
-                  <Button onClick={handleSave}>Save</Button>
+                  <Button style={{color:"#4F734C"}}  onClick={handleSave}>Save</Button>
                 ) : (
-                  <Button
+                  <Button style={{color:"#4F734C",fontFamily:"Poppins", fontWeight:"500"}} 
                     onClick={() =>
                       handleEdit(
                         minStay.day,

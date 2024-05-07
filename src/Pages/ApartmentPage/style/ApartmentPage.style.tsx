@@ -1,41 +1,61 @@
 import styled from "styled-components";
 export const Container = styled.div`
-  display: flex;
   height: 100%;
   width: 100%;
   justify-content: center;
-  align-items: center;
-
-  @media (max-width: 768px) {
+  display: flex;
+  align-items: flex-start;
+  gap: 85px;
+  @media (max-width: 1268px) {
     flex-direction: column;
-
+    align-items: center;
+    margin-top:450px;
+    
   }
-  
 `;
-
+export const ApartmentImg = styled.img`
+  width: 300px;
+  height: 245px;
+`;
+export const ApartmentNameContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+export const HeartIcon = styled.p`
+  margin-right: 10px;
+`;
 export const ApartmentContentHolder = styled.div`
-  width: 100%;
-  height: 100px;
-  max-width: 180px;
-  padding: 10px 5px 10px 5px;
-  margin: 10px;
   box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
-  border: 2px solid white;
-  color:black;
-  font-family: "Poppins";
-  background-color:#77b4c1;
-  cursor:pointer;
+  width: 300px; 
+  height: 300px; /* Height matches the photo height */
+  margin: 15px;
+  cursor: pointer;
   &:hover {
-    background-color: #e3edf0;;
-   }
+    background-color: white;
+  }
+  @media (max-width: 768px) {
+    // width: calc(100% - 30px); 
+    height: auto; 
+    display: flex; 
+    flex-direction: column;
+  }
 `;
 export const Icon = styled.div`
-  text-align: center;
-  font-size: larger;
+font-size: larger; */
+width: 325px;
+height: 245px;
 `;
 export const ApartmentNameParagraph = styled.p`
-  text-align: center;
+  /* text-align: center; */
+  flex: 1;
+  font-size: 14.5px;
+  margin-left: 10px;
+  /* word-wrap: break-word; */
+  color: #000000;
+  font-weight: 400;
+  font-family: "Roboto";
+  line-height: 30px;
+  letter-spacing: 0.15px;
 `;
 export const ErrorMessage = styled.p`
   color: #b42828;

@@ -45,7 +45,7 @@ const StyledTextField = styled(TextField)`
 const Button = styled.button`
   width: 250px;
   height: 45px;
-  background: lightblue;
+  background: #4f734c;
   border: none;
   outline: none;
   border-radius: 40px;

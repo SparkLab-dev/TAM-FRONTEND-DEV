@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const TableAndDatepickerHolder = styled.div`
   width: 100%;
   height: calc(100vh - 150px);
-  max-width:1440px;
+  max-width: 1440px;
   @media (max-width: 1500px) {
     width: 85%;
   }
@@ -13,25 +13,24 @@ export const TableAndDatepickerHolder = styled.div`
   }
 `;
 export const TableContainer = styled.div`
-width: 100%;
-height: calc(100% - 20px);
+  width: 100%;
+  height: calc(100% - 20px);
 
-overflow-x: auto;
-position: relative;
-
-/* Hide the scrollbar */
-scrollbar-width: none; /* Firefox */
--ms-overflow-style: none; /* Internet Explorer/Edge */
-
-/* WebKit-based browsers like Chrome and Safari */
-&::-webkit-scrollbar {
-  display: none;
-}
-@media (max-width: 767px) {
- 
   overflow-x: auto;
-  margin-left:30px;
-}
+  position: relative;
+
+  /* Hide the scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer/Edge */
+
+  /* WebKit-based browsers like Chrome and Safari */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  @media (max-width: 767px) {
+    overflow-x: auto;
+    margin-left: 30px;
+  }
 `;
 
 export const Table = styled.table`
@@ -62,7 +61,6 @@ export const TableCell = styled.td`
   font-size: 15px;
   overflow: hidden;
   text-overflow: ellipsis;
- 
 `;
 export const ActionTableCell = styled.td`
   border: 1px solid #dddddd;
@@ -73,16 +71,15 @@ export const ActionTableCell = styled.td`
   overflow: hidden;
   text-overflow: ellipsis;
   display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    @media (max-width: 767px) {
-      flex-direction: column;
-    
-    }
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
 `;
 export const EditButton = styled.button`
-  background-color: lightblue;
+  background-color: #4f734c;
   border-radius: 5px;
   color: white;
   border: none;
@@ -95,16 +92,15 @@ export const EditButton = styled.button`
   margin: 4px 2px;
   cursor: pointer;
   &:hover {
-    background-color: #e3edf0;;
-   }
+    background-color: #50a164;
+  }
 `;
 export const IconLink = styled(Link)`
   text-decoration: none;
   color: black;
- 
-  
+
   &:hover {
-    color: red;  // Change the color to red on hover
+    color: red; // Change the color to red on hover
   }
 `;
 export const H2 = styled.h2`

@@ -31,7 +31,7 @@ interface ExampleProps {
       const { data } = this.props;
   
       return (
-        <ResponsiveContainer width="100%" minHeight="200px">
+        <ResponsiveContainer width="100%" height="80%" minHeight="200px">
           <PieChart>
             <Pie
               data={data}

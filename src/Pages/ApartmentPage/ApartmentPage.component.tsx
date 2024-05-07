@@ -1,16 +1,22 @@
-import { FC, useEffect, useState} from "react";
+import { FC, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+//style
 import {
   ApartmentContentHolder,
+  ApartmentImg,
+  ApartmentNameContainer,
   ApartmentNameParagraph,
   Container,
   ErrorMessage,
+  HeartIcon,
   Icon,
 } from "./style/ApartmentPage.style";
 // import { Button } from "App/style/App.style";
 //fontawesome-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHotel } from "@fortawesome/free-solid-svg-icons";
-
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
@@ -19,11 +25,9 @@ import {
   fetchApartmentIds,
 } from "redux/Auth/ApartmentsPage/ApartmentsPageSlice";
 import { AppDispatch } from "../../redux/store";
-
-
-//navigation
-import { useNavigate } from "react-router";
+//mui
 import { Button } from "@mui/material";
+import ApartmentImage from "../../apartmentimage.png";
 
 
 const ApartmentPage: FC<{}> = () => {
@@ -78,30 +82,33 @@ const ApartmentPage: FC<{}> = () => {
 
   return (
     <>
-    <div style={{marginTop:"70px"}}>
-    <Button onClick={handleRules}>See the rules</Button>
-   
-  </div>
-    <Container>
-     
-      {error ? (
-        <ErrorMessage>{error}</ErrorMessage>
-      ) : (
-        apartmentName.map((apartment: any) => (
-          <ApartmentContentHolder
-            key={apartment.id}
-            onClick={() => handleApartmentClick(apartment)}
-          >
-            <Icon>
-              <FontAwesomeIcon icon={faHotel} />
-            </Icon>
-            <ApartmentNameParagraph>{apartment.name}</ApartmentNameParagraph>
-           
-          </ApartmentContentHolder>
-        ))
-      )}
- 
-    </Container>
+      <div style={{ marginTop: "70px" }}>
+        <Button onClick={handleRules}>See the rules</Button>
+      </div>
+      <Container>
+        {error ? (
+          <ErrorMessage>{error}</ErrorMessage>
+        ) : (
+          apartmentName.map((apartment: any) => (
+            <ApartmentContentHolder
+              key={apartment.id}
+              onClick={() => handleApartmentClick(apartment)}
+            >
+              <Icon>
+                <ApartmentImg src={ApartmentImage} alt="apartimage" />
+              </Icon>
+              <ApartmentNameContainer>
+                <ApartmentNameParagraph>
+                  {apartment.name}
+                </ApartmentNameParagraph>
+                <HeartIcon>
+                  <FontAwesomeIcon icon={faHeart} style={{ fontSize: "25px" }} />
+                </HeartIcon>
+              </ApartmentNameContainer>
+            </ApartmentContentHolder>
+          ))
+        )}
+      </Container>
     </>
   );
 };

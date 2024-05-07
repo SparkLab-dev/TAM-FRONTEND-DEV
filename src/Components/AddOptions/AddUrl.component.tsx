@@ -5,6 +5,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 // import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
 const StyledModal = styled(Modal)`
   display: flex;
@@ -45,15 +46,21 @@ const StyledTextField = styled(TextField)`
 const Button = styled.button`
   width: 250px;
   height: 45px;
-  background: lightblue;
+  background:#4F734C;
   border: none;
   outline: none;
   border-radius: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  font-size: 16px;
-  color: black;
-  font-weight: 700;
+  font-size: 18px;
+  color: white;
+  font-family:roboto;
+  font-weight:500;
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:15px;
 `;
 
 const AddUrl: React.FC = () => {
@@ -90,7 +97,10 @@ const AddUrl: React.FC = () => {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Add a video</Button>
+    <div style={{display: "flex",
+    justifyContent: "center"}}>
+      <Button onClick={() => setOpen(true)}>Add a video <AddCircleOutlinedIcon/> </Button>
+      </div>
       <StyledModal open={open} onClose={() => setOpen(false)}>
         <StyledWrapper>
           <Title>Add an Video Url</Title>

@@ -121,7 +121,7 @@ const Example: React.FC<ExampleProps> = ({ data }) => {
   };
 
   return (
-    <ResponsiveContainer width="120%" minHeight="200px" minWidth="250px" >
+    <ResponsiveContainer width="105%" height="70%" minHeight="200px" minWidth="250px" >
     <AreaChart
       width={500}
       height={400}

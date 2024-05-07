@@ -7,10 +7,13 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
+
 interface Rule {
   id: number;
   ruleDescription: string;
 }
+
+
 
 function Rules() {
   const [rules, setRules] = useState<Rule[]>([]);
@@ -27,6 +30,7 @@ function Rules() {
   }, []);
 
   return (
+    
     <TableContainer component={Paper}>
       <Table
         sx={{ minWidth: 650, marginBottom: "50px" }}
@@ -49,6 +53,7 @@ function Rules() {
         </TableBody>
       </Table>
     </TableContainer>
+   
   );
 }
 

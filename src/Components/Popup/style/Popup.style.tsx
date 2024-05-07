@@ -18,7 +18,7 @@ export const Modal = styled.div`
   align-items: center;
   padding: 0px;
   position: fixed;
-  background-color: lightblue;
+  background-color: #4f734c;
   color: black;
   box-shadow: 0px 4px 20px rgba(25, 29, 58, 0.1);
   border-radius: 10px;
@@ -26,7 +26,7 @@ export const Modal = styled.div`
   max-width: 380px;
   @media (max-width: 767px) {
     max-width: 80%;
-    left: calc(50% + 25px); 
+    left: calc(50% + 25px);
     top: 50%;
     transform: translate(-50%, -50%);
   }
@@ -34,7 +34,7 @@ export const Modal = styled.div`
 export const ModalHeader = styled.div`
   display: flex;
   flex-direction: row;
-  background-color: lightblue;
+  background-color: #4f734c;
   align-items: flex-start;
   padding: 14px 16px;
   border-radius: 10px 10px 0px 0px;

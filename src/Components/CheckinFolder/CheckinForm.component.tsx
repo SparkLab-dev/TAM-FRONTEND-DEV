@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import CallIcon from '@mui/icons-material/Call';
 
 import Box from "@mui/material/Box";
 
@@ -8,8 +9,8 @@ import TextField from "@mui/material/TextField";
 
 const StyledWrapper = styled(Box)`
   background: white;
-  width: 30%;
-  max-width: 450px;
+ height:700px;
+  width: 450px;
   border: 2px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(30px);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -39,35 +40,38 @@ const StyledTextField = styled(TextField)`
 `;
 
 const Button = styled.button`
-  width: 250px;
+  width: 200px;
   height: 45px;
-  background: lightblue;
-  border: none;
+  background: #4f734c;
+  border: 1px;
   outline: none;
-  border-radius: 40px;
+  border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   font-size: 16px;
-  color: black;
+  color: white;
   font-weight: 700;
+  padding:6px, 6px, 6px, 8px;
 `;
 const Label = styled.text`
   font-weight: 500;
   color: black;
 `;
 const CallButton = styled.button`
-  width: 250px;
+  width: 200px;
   height: 45px;
-  background: lightblue;
+  background: #4f734c;
   border: none;
   outline: none;
-  border-radius: 40px;
+  border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   font-size: 16px;
-  color: black;
+  color: white;
   font-weight: 700;
-  margin-top: 70px;
+display:flex;
+align-items:center;
+justify-content:center;
 `;
 
 const SuccessMessage = styled.div`
@@ -221,11 +225,14 @@ const CheckinForm: React.FC = () => {
           <Label>Passport photo</Label>
           <StyledTextField type="file" onChange={handlePhotoChange} required />
         </InputBox>
+        <div style={{display:"flex",width:"500px",justifyContent: "space-evenly"}}>
         <Button onClick={handleSubmit}>Check-in</Button>
+        <CallButton onClick={call}><CallIcon/> Call the host</CallButton>
+        </div>
         {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
       </StyledWrapper>
 
-      <CallButton onClick={call}>Call the host</CallButton>
+     
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </>
   );

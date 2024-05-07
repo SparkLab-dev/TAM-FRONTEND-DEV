@@ -7,7 +7,8 @@ export const Box = styled.div`
     justify-content: center;
 
     flex-basis: 30%;
-    width: 100%;
+    width:277px;
+   
 `;
 
 export const Content = styled.div`

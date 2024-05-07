@@ -26,6 +26,7 @@ const UserInfoBox: FC<{}> = () => {
     const role=useSelector( (state: RootState) => state.auth.user?.role)
     return (
         <Box>
+            
             <Content>
                 <DetailRow>
                     <Label>Name</Label>

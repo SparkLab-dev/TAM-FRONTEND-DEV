@@ -20,7 +20,7 @@ const Container = styled.div`
   gap: 10px;
   align-items:center;
   max-width: 300px;
-  padding-top:20px;
+
   padding-bottom:20px;
  min-width:250px;
   border: 1px solid #ccc;
@@ -36,7 +36,8 @@ const Container = styled.div`
 
 const Label = styled.label`
   font-size: 14px;
-  font-weight: bold;
+  font-family:poppins;
+  font-weight: 500;
 `;
 
 const Field = styled.input`
@@ -56,13 +57,15 @@ const Button = styled.button`
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
-  background-color: lightblue;
-  color: black;
-
+  background-color: #4F734C;
+  color:white;
+  font-family:roboto;
+  font-weight:500;
+  
   &:hover {
-   background-color: #e3edf0;;
+   background-color: #50a164;
   }
 
   &:not(:last-child) {
@@ -117,7 +120,7 @@ const MyComponent: React.FC<MyComponentProps> = ({ id }) => {
 
   return (
     <Container>
-     <h2>Connect your device</h2>
+     <h2 style={{fontFamily:"Poppins",fontWeight:700,fontSize:"21px"}}>Connect your device</h2>
     <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
       <Label style={{alignSelf:"flex-start"}}>Lock ID:</Label>
       <Field
@@ -135,7 +138,7 @@ const MyComponent: React.FC<MyComponentProps> = ({ id }) => {
       />
     </div>
     
-    <Button onClick={handleSave}>Connect</Button>
+    <Button onClick={handleSave}>CONNECT</Button>
   </Container>
   );
 };

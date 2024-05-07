@@ -32,6 +32,11 @@ import YourComponent from "Components/MinStayLogic/ShowMinStay.component";
 import RulesFAQ from "Components/RulesFAQ/FAQRules.component";
 import ClientAmenities from "Components/AutoCheckin/AutoCheckin.cpomponent";
 import CheckinPage from "Components/CheckinFolder/CheckinPage";
+import HomepageTest from "Components/HomeComponents/links";
+import LoginPage from "Pages/Login/LoginPage";
+import MultiActionAreaCard from "Components/websiteCards/website.component";
+import RegisterPage from "Pages/Register/RegisterPage";
+import Template1 from "Components/websiteCards/template1";
 // import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
 
@@ -58,13 +63,17 @@ const App: FC<{}> = () => {
                   <Route path="apartmentcard/:id" element={<ApartmentCard />} />
                   <Route path="modal" element={<Modal />} />
                   <Route path="calendar" element={<MonthTable />} />
-                  <Route path="home" element={<Home />} />
+                  <Route path="home" element={<HomepageTest />} />
+                  <Route path="hometest" element={<HomepageTest />} />
                   <Route path="userprofile" element={<UserProfile />} />
                   <Route path="resetpassword" element={<ResetPassword/>} />
                   <Route path="chat" element={<ChatComponent/>} />
                   <Route path="chart" element={<Example data={[]}/>} />
                   <Route path="minstay" element={<YourComponent/>} />
                   <Route path="/add/:apartmentId" element={<AddOption />}  />
+                  <Route path="/websites" element={<MultiActionAreaCard />}  />
+                  <Route path="/website/template1" element={<Template1 />}  />
+                 
                   <Route
                     path="rentlist"
                     element={<RentList rentalData={[]} />}
@@ -85,12 +94,12 @@ const App: FC<{}> = () => {
             </Route>
           ) : (
             <Route path="/" element={<AuthPage />}>
-              <Route path="/" element={<Login />} index />
-              <Route path="/login" element={<Login />} index />
-              
+              <Route path="/" element={<LoginPage />} index />
+              <Route path="/login" element={<LoginPage />} index />
+              <Route path="/loginpage" element={<LoginPage />} />
               <Route path="/checkinpage" element={<CheckinPage />}/>
               <Route path="/rulesFaq" element={<RulesFAQ />}/>
-              <Route path="/register" element={<Register />} />{" "}
+              <Route path="/register" element={<RegisterPage />} />{" "}
               <Route path="tam/registration/:token" element={<SavePasword />} />
               <Route path="/kyc/:token/:token/:token" element={<GradientPage/>}/>
               <Route path="/apartmentAmenities" element={<ClientAmenities/>}/>
