@@ -4,8 +4,8 @@ import UserInfoBox from "Pages/Home/UserInfoBox/UserInfoBox.component";
 import Example from "Components/Dashboard/Chart/Chart.component";
 import HalfCircleChart from "Components/Dashboard/HalfCircleChart/Circlechart.component";
 import ApartmentOutlinedIcon from "@mui/icons-material/ApartmentOutlined";
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
@@ -14,65 +14,59 @@ import PieChartComponent from "Components/Dashboard/PieChart/Piechart.component"
 
 const Container = styled.div`
   display: flex;
-  margin-top:50px;
+  margin-top: 50px;
   @media (max-width: 768px) {
-    margin-top:1550px;
-   width:500px;
-   margin-left:-100px;
+    margin-top: 1550px;
+    width: 500px;
+    margin-left: -100px;
   }
   @media (max-width: 500px) {
-    margin-top:1550px;
-   width:500px;
-   margin-left:-270px;
+    margin-top: 1550px;
+    width: 500px;
+    margin-left: -270px;
   }
 `;
 
- const Content = styled.div`
+const Content = styled.div`
   display: flex;
-   width: 100vw;
+  width: 100vw;
   flex-wrap: wrap;
   margin-left: 250px;
   justify-content: center;
   @media (max-width: 768px) {
     flex-direction: column;
-   
-   
   }
-  
 `;
 
 const Box = styled.div<{ width: number; height: number }>`
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
-  
+
   margin: 10px;
 
   border: 1px solid black;
   border-radius: 12px;
   border-color: #e6e6e6;
   @media (max-width: 768px) {
-   width:300px;
-   
+    width: 300px;
   }
 `;
 const Box2 = styled.div`
-  width:820px;
-  height:312px;
-  
+  width: 820px;
+  height: 312px;
+
   margin: 10px;
 
   border: 1px solid black;
   border-radius: 12px;
   border-color: #e6e6e6;
   @media (max-width: 768px) {
-    width:300px;
- height:800px;
-   display:flex;
-   justify-content:center;
-   flex-direction:column;
-
+    width: 300px;
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
   }
-  
 `;
 
 const CardContainer = styled.div`
@@ -81,40 +75,37 @@ const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
+
   padding: 20px;
- 
- 
 `;
 
 const Text = styled.div`
   font-size: 18px;
-  text-align:center;
+  text-align: center;
 `;
 
 const IconContainer = styled.div`
   display: flex;
   justify-content: center;
-  color:grey;
+  color: grey;
 `;
 
 const Button = styled.button`
-  background-color: #4F734C;
+  background-color: #4f734c;
   color: white;
   text-align: center;
   padding: 10px;
   border-radius: 4px;
-  border:none;
-font-family:roboto;
-font-weight:500;
-font-size:14px;
-
+  border: none;
+  font-family: roboto;
+  font-weight: 500;
+  font-size: 14px;
 
   text-transform: uppercase;
   cursor: pointer;
   &:hover {
     background-color: #50a164;
-   }
+  }
   //  @media (max-width: 768px) {
   //   font-size: 10px;
   //   width:50px;
@@ -123,18 +114,18 @@ font-size:14px;
 const Dropdown = styled.select`
   margin-top: 10px;
   padding: 5px;
-  height:30px;
-  margin-right:10px;
+  height: 30px;
+  margin-right: 10px;
 `;
-const DIV=styled.div`
-display:flex;
-justify-content:space-around;
-@media (max-width: 768px) {
- flex-direction:column;
- display: flex;
+const DIV = styled.div`
+  display: flex;
+  justify-content: space-around;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    display: flex;
     align-items: center;
-}
-`
+  }
+`;
 // Component for the homepage
 interface NightsPortalReport {
   name: string;
@@ -156,22 +147,21 @@ interface ApiResponse {
 }
 const HomepageTest: React.FC = () => {
   const navigate = useNavigate();
-  const newMessagesHandler = () => navigate('/messagepage');
-  const propertiesHandler = () => navigate('/apartmentpage');
-  const calendarHandler = () => navigate('/calendar');
+  const newMessagesHandler = () => navigate("/messagepage");
+  const propertiesHandler = () => navigate("/apartmentpage");
+  const calendarHandler = () => navigate("/calendar");
   const [data, setData] = useState<ApiResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const user = useSelector((state: RootState) => state.auth.user);
-  const [selectedOption, setSelectedOption] =
-    useState<string>("thismonth");
+  const [selectedOption, setSelectedOption] = useState<string>("thismonth");
   const userId = user?.id;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get<ApiResponse>(
-          `http://192.168.10.210:8080/TAM/dashboard/${userId}/${selectedOption}`
+          `http://192.168.10.153:8080/TAM/dashboard/${userId}/${selectedOption}`
         );
         setData(response.data);
         console.log(data);
@@ -209,64 +199,67 @@ const HomepageTest: React.FC = () => {
   return (
     <Container>
       <Content>
-     
         {/* First row */}
         <Box width={277} height={312}>
-        <h2 style={{paddingLeft:"10px"}} >Nights/Portal</h2>
-        <PieChartComponent
-              data={
-                Object.entries(data?.nightsPortalReport || {}).map(
-                  ([name, value]) => ({ name, value })
-                ) || []
-              }
-            />
+          <h2 style={{ paddingLeft: "10px" }}>Nights/Portal</h2>
+          <PieChartComponent
+            data={
+              Object.entries(data?.nightsPortalReport || {}).map(
+                ([name, value]) => ({ name, value })
+              ) || []
+            }
+          />
         </Box>
         <Box width={277} height={312}>
-        <h2 style={{paddingLeft:"10px"}} >Occupancy</h2>
+          <h2 style={{ paddingLeft: "10px" }}>Occupancy</h2>
           <HalfCircleChart percentage={data?.occupancyPercentage || 0} />
-         
         </Box>
         <Box width={522} height={312}>
-          <div style={{display:"flex",justifyContent: "space-between",
-    alignItems: "center"}}>
-        <h2 style={{paddingLeft:"10px"}} >Occupancy & Revenue</h2>
-        <Dropdown value={selectedOption} onChange={handleDropdownChange}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <h2 style={{ paddingLeft: "10px" }}>Occupancy & Revenue</h2>
+            <Dropdown value={selectedOption} onChange={handleDropdownChange}>
               <option value="thismonth">This Month</option>
               <option value="nextmonth">Next Month</option>
               <option value="plusthreemonths">Next three months</option>
             </Dropdown>
-            </div>
+          </div>
           <Example data={chartData} />
         </Box>
         {/* Second row */}
         <Box2>
-          <h2 style={{paddingLeft:"10px"}} >Nights/Portal</h2>
-         <DIV>
-          <CardContainer>
-            <Text>Properties</Text>
-            <IconContainer>
-              <ApartmentOutlinedIcon fontSize="large" />
-            </IconContainer>
-            <Button onClick={propertiesHandler}>GO TO PROPERTIES</Button>
-          </CardContainer>
-          <CardContainer>
-            <Text>Messages</Text>
-            <IconContainer>
-              <EmailOutlinedIcon fontSize="large" />
-            </IconContainer>
-            <Button onClick={newMessagesHandler}>GO TO MESSAGES</Button>
-          </CardContainer>
-          <CardContainer>
-            <Text>Historical Data</Text>
-            <IconContainer>
-              <CalendarMonthOutlinedIcon fontSize="large" />
-            </IconContainer>
-            <Button onClick={calendarHandler}>GO TO CALENDAR</Button>
-          </CardContainer>
+          <h2 style={{ paddingLeft: "10px" }}>Nights/Portal</h2>
+          <DIV>
+            <CardContainer>
+              <Text>Properties</Text>
+              <IconContainer>
+                <ApartmentOutlinedIcon fontSize="large" />
+              </IconContainer>
+              <Button onClick={propertiesHandler}>GO TO PROPERTIES</Button>
+            </CardContainer>
+            <CardContainer>
+              <Text>Messages</Text>
+              <IconContainer>
+                <EmailOutlinedIcon fontSize="large" />
+              </IconContainer>
+              <Button onClick={newMessagesHandler}>GO TO MESSAGES</Button>
+            </CardContainer>
+            <CardContainer>
+              <Text>Historical Data</Text>
+              <IconContainer>
+                <CalendarMonthOutlinedIcon fontSize="large" />
+              </IconContainer>
+              <Button onClick={calendarHandler}>GO TO CALENDAR</Button>
+            </CardContainer>
           </DIV>
         </Box2>
         <Box width={277} height={312}>
-          <h2 style={{marginLeft:"10px"}}>Profile</h2>
+          <h2 style={{ marginLeft: "10px" }}>Profile</h2>
           <UserInfoBox />{" "}
         </Box>
       </Content>

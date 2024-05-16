@@ -16,7 +16,7 @@ const ForgetPassword: FC<{}> = () => {
 
     try {
       const response = await axios.post(
-        `http://192.168.10.210:8080/TAM/forgetPassword/${email}`
+        `http://192.168.10.153:8080/TAM/forgetPassword/${email}`
       );
       console.log("API Response:", response.data);
 

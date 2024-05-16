@@ -7,20 +7,17 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-
 interface Rule {
   id: number;
   ruleDescription: string;
 }
-
-
 
 function Rules() {
   const [rules, setRules] = useState<Rule[]>([]);
 
   useEffect(() => {
     // Fetch rules from API when component mounts
-    fetch("http://192.168.10.210:8080/TAM/apartmentRule/getByApartment/2031869")
+    fetch("http://192.168.10.153:8080/TAM/apartmentRule/getByApartment/2031869")
       .then((response) => response.json())
       .then((data) => {
         // Update the state with the fetched rules
@@ -30,7 +27,6 @@ function Rules() {
   }, []);
 
   return (
-    
     <TableContainer component={Paper}>
       <Table
         sx={{ minWidth: 650, marginBottom: "50px" }}
@@ -53,7 +49,6 @@ function Rules() {
         </TableBody>
       </Table>
     </TableContainer>
-   
   );
 }
 

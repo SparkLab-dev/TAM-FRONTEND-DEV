@@ -13,13 +13,10 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-
 interface FAQItem {
   question: string;
   answer: string;
 }
-
-
 
 function Row(props: { row: FAQItem }) {
   const [open, setOpen] = useState(false);
@@ -69,7 +66,7 @@ export default function CollapsibleTable() {
 
   useEffect(() => {
     // Fetch data from API when component mounts
-    fetch("http://192.168.10.210:8080/TAM/apartmentFAQ/getByApartment/2031869")
+    fetch("http://192.168.10.153:8080/TAM/apartmentFAQ/getByApartment/2031869")
       .then((response) => response.json())
       .then((data: FAQItem[]) => {
         // Update the state with the fetched data

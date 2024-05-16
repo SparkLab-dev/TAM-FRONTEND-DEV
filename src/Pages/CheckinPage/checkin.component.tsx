@@ -5,7 +5,6 @@
 // import styled from "styled-components";
 // import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
-
 // const PageContainer = styled.div`
 //   height: 100vh;
 //   width: 100vw;
@@ -53,7 +52,6 @@
 //   color:#979797;
 // `;
 
-
 // const GradientPage: React.FC = () => {
 //   const currentURL = window.location.href;
 //   const urlParts = currentURL.split("/");
@@ -72,7 +70,7 @@
 //         guestName: guestName,
 //       };
 //       const response = await axios.post(
-//         "http://192.168.10.210:8080/TAM/meeting/generateJitsiMeetLink",
+//         "http://192.168.10.153:8080/TAM/meeting/generateJitsiMeetLink",
 //         requestBody
 //       );
 //       console.log("API call successful");
@@ -115,9 +113,9 @@ import ChatComponent2 from "Components/OpenAIAssistant/AdminAssistant.componet";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
-import ChecklistOutlinedIcon from '@mui/icons-material/ChecklistOutlined';
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
+import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
 
 const PageContainer = styled.div`
   height: 100vh;
@@ -126,7 +124,7 @@ const PageContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(${require('../../background.png')}); /* Adjust the path to your image */
+  background-image: url(${require("../../background.png")}); /* Adjust the path to your image */
   background-size: cover;
   background-position: center;
   gap: 80px;
@@ -144,7 +142,7 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   padding: 12px 24px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
@@ -169,12 +167,12 @@ const Button = styled.button`
 const Icon = styled(TaskAltIcon)`
   margin-top: 15px;
 `;
-const Icon2=styled(QuizOutlinedIcon)`
-margin-top: 15px;
-`
-const Icon3=styled(ChecklistOutlinedIcon)`
-margin-top:15px;
-`
+const Icon2 = styled(QuizOutlinedIcon)`
+  margin-top: 15px;
+`;
+const Icon3 = styled(ChecklistOutlinedIcon)`
+  margin-top: 15px;
+`;
 const GradientPage: React.FC = () => {
   const navigate = useNavigate();
 
@@ -190,11 +188,15 @@ const GradientPage: React.FC = () => {
           Check-in
           <Icon fontSize="large" />
         </Button>
-      {/* </ButtonHolder>
+        {/* </ButtonHolder>
 
       <ButtonHolder> */}
-        <Button onClick={goToRulesFAQ}>Rules / FAQ <Icon2 fontSize="large"/></Button>
-        <Button onClick={goToAmenities}>Amenities <Icon3 fontSize="large"/> </Button>
+        <Button onClick={goToRulesFAQ}>
+          Rules / FAQ <Icon2 fontSize="large" />
+        </Button>
+        <Button onClick={goToAmenities}>
+          Amenities <Icon3 fontSize="large" />{" "}
+        </Button>
       </ButtonHolder>
     </PageContainer>
   );

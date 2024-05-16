@@ -21,7 +21,6 @@ interface AddUrlOption {
   optionName: string;
 }
 const PageContainer = styled.div`
-
   width: 99vw;
   display: flex;
   flex-direction: column;
@@ -47,7 +46,7 @@ const ClientAmenities: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.10.210:8080/TAM/${userId}/apartments/getallApartmentOptions/2031869`
+          `http://192.168.10.153:8080/TAM/${userId}/apartments/getallApartmentOptions/2031869`
         );
         setApartmentOptionsWithCategories(
           response.data.apartmentOptionsWithCategories
@@ -55,7 +54,7 @@ const ClientAmenities: React.FC = () => {
         // setApartmentId(response.data.apartmentId);
         console.log(response.data);
         const response2 = await axios.get<AddUrlOption[]>(
-          `http://192.168.10.210:8080/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/2031869`
+          `http://192.168.10.153:8080/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/2031869`
         );
         setUrlData(response2.data || []);
         console.log(urlData);
@@ -74,10 +73,9 @@ const ClientAmenities: React.FC = () => {
 
   return (
     <PageContainer>
-      <div style={{height:"fit-content"}}>
-        
+      <div style={{ height: "fit-content" }}>
         {apartmentOptionsWithCategories.map((categoryGroup) => (
-          <div key={categoryGroup.category.id} >
+          <div key={categoryGroup.category.id}>
             <TableContainer
               component={Paper}
               sx={{

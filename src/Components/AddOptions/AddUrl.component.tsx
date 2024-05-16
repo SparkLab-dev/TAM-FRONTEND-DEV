@@ -5,7 +5,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 // import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 
 const StyledModal = styled(Modal)`
   display: flex;
@@ -46,7 +46,7 @@ const StyledTextField = styled(TextField)`
 const Button = styled.button`
   width: 250px;
   height: 45px;
-  background:#4F734C;
+  background: #4f734c;
   border: none;
   outline: none;
   border-radius: 40px;
@@ -54,13 +54,13 @@ const Button = styled.button`
   cursor: pointer;
   font-size: 18px;
   color: white;
-  font-family:roboto;
-  font-weight:500;
- 
+  font-family: roboto;
+  font-weight: 500;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  gap:15px;
+  gap: 15px;
 `;
 
 const AddUrl: React.FC = () => {
@@ -83,7 +83,7 @@ const AddUrl: React.FC = () => {
         apartmentId: 2028236,
       };
       await axios.post(
-        "http://192.168.10.210:8080/TAM/specificApartmentOption/saveOrUpdateSpecificApartmentOption",
+        "http://192.168.10.153:8080/TAM/specificApartmentOption/saveOrUpdateSpecificApartmentOption",
         requestBody
       );
       console.log("POST request successful");
@@ -97,9 +97,10 @@ const AddUrl: React.FC = () => {
 
   return (
     <>
-    <div style={{display: "flex",
-    justifyContent: "center"}}>
-      <Button onClick={() => setOpen(true)}>Add a video <AddCircleOutlinedIcon/> </Button>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Button onClick={() => setOpen(true)}>
+          Add a video <AddCircleOutlinedIcon />{" "}
+        </Button>
       </div>
       <StyledModal open={open} onClose={() => setOpen(false)}>
         <StyledWrapper>

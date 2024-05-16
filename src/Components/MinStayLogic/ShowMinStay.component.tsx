@@ -29,7 +29,7 @@ const YourComponent: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<MinStay[]>(
-          `http://192.168.10.210:8080/TAM/minStay/getMinStaysByUser/${userId}`
+          `http://192.168.10.153:8080/TAM/minStay/getMinStaysByUser/${userId}`
         );
         setMinStays(response.data);
       } catch (error) {
@@ -53,7 +53,7 @@ const YourComponent: React.FC = () => {
     if (editedMinStay) {
       try {
         const response = await axios.post(
-          "http://192.168.10.210:8080/TAM/minStay/saveOrUpdate",
+          "http://192.168.10.153:8080/TAM/minStay/saveOrUpdate",
           [editedMinStay]
         );
         console.log("POST request successful", response);
@@ -69,7 +69,7 @@ const YourComponent: React.FC = () => {
   const callApi = async () => {
     try {
       await axios.post(
-        `http://192.168.10.210:8080/TAM/${userId}/reservations/updateMinStayBasedOnRules`
+        `http://192.168.10.153:8080/TAM/${userId}/reservations/updateMinStayBasedOnRules`
       );
       console.log("API call successful");
     } catch (error) {
@@ -88,8 +88,17 @@ const YourComponent: React.FC = () => {
             <TableCell align="center" sx={{ fontSize: "18px" }}>
               Minimum Stay
             </TableCell>
-            <TableCell align="center" sx={{ fontSize: "18px"}}>
-               <Button style={{color:"#4F734C",fontFamily:"Poppins", fontWeight:"500"}} onClick={callApi}>Update Rules</Button>
+            <TableCell align="center" sx={{ fontSize: "18px" }}>
+              <Button
+                style={{
+                  color: "#4F734C",
+                  fontFamily: "Poppins",
+                  fontWeight: "500",
+                }}
+                onClick={callApi}
+              >
+                Update Rules
+              </Button>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -121,9 +130,16 @@ const YourComponent: React.FC = () => {
               </TableCell>
               <TableCell align="center">
                 {editedMinStay && editedMinStay.day === minStay.day ? (
-                  <Button style={{color:"#4F734C"}}  onClick={handleSave}>Save</Button>
+                  <Button style={{ color: "#4F734C" }} onClick={handleSave}>
+                    Save
+                  </Button>
                 ) : (
-                  <Button style={{color:"#4F734C",fontFamily:"Poppins", fontWeight:"500"}} 
+                  <Button
+                    style={{
+                      color: "#4F734C",
+                      fontFamily: "Poppins",
+                      fontWeight: "500",
+                    }}
                     onClick={() =>
                       handleEdit(
                         minStay.day,

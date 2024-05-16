@@ -157,6 +157,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MessageIcon from '@mui/icons-material/Message';
 import BusinessIcon from '@mui/icons-material/Business';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import FactCheckIcon from '@mui/icons-material/FactCheck';
 
 interface SidebarProps {
   open: boolean;
@@ -244,6 +245,8 @@ const Sidebar: FC<SidebarProps> = ({ open, toggleSidebar }: SidebarProps) => {
   const goToMessages = () => navigate('/messagepage');
   const goToApartments = () => navigate('/apartmentpage');
   const goToWebsites = () => navigate('/websites');
+  const goToCheckins = () => navigate('/allcheckins');
+  
 
   return (
     <SidebarContainer>
@@ -279,6 +282,12 @@ const Sidebar: FC<SidebarProps> = ({ open, toggleSidebar }: SidebarProps) => {
           <SidebarIconWrapper>
             <DashboardIcon />
             <span id="dashboard">Website</span>
+          </SidebarIconWrapper>
+        </SidebarLink>
+        <SidebarLink onClick={goToCheckins}>
+          <SidebarIconWrapper>
+            <FactCheckIcon />
+            <span id="checkin">Check-in</span>
           </SidebarIconWrapper>
         </SidebarLink>
       </SidebarLinks>

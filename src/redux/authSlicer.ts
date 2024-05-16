@@ -28,7 +28,7 @@ export const loginUser = createAsyncThunk(
   async (userCredentials: object, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://192.168.10.210:8080/TAM/auth/login",
+        "http://192.168.10.153:8080/TAM/auth/login",
         userCredentials
       );
 
@@ -69,7 +69,7 @@ export const logoutUser = createAsyncThunk<void, number | null>(
         throw new Error("User ID not found in user data");
       }
       const response = await axios.post(
-        `http://192.168.10.210:8080/TAM/auth/logout/${userIdFromLocalStorage}`
+        `http://192.168.10.153:8080/TAM/auth/logout/${userIdFromLocalStorage}`
       );
 
       console.log("Logout response:", response.data);

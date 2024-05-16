@@ -82,7 +82,7 @@ const ErrorMessage = styled.div`
   color: red;
 `;
 
-const CheckinForm: React.FC = () => {
+const CheckinFormOnline: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [surname, setSurname] = useState<string>("");
   const [identifierDocumentId, setIdentifierDocumentId] = useState<string>("");
@@ -111,23 +111,26 @@ const CheckinForm: React.FC = () => {
     setBirthday(event.target.value);
   };
   const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]; // Get the selected file
+    const file = event.target.files?.[0]; 
     if (file) {
-      setPhoto(file); // Set the selected file to the state
+      setPhoto(file);
     }
   };
 
+  const apartmentId = localStorage.getItem('apartmentIdCheckin') || '';
+  const reservationId = localStorage.getItem('reservationIdCheckin') || '';
   const handleSubmit = async () => {
     try {
-      const formData = new FormData(); // Create form data object
+      const formData = new FormData(); 
       formData.append("name", name);
       formData.append("surname", surname);
       formData.append("identifierDocumentId", identifierDocumentId);
       formData.append("identifierDocumentExpiry", identifierDocumentExpiry);
       formData.append("birthDate", birthday);
-      formData.append("apartmentId", "2042282");
+      formData.append("apartmentId", apartmentId);
+      formData.append("reservation.smoobuId", reservationId);
       if (photo) {
-        formData.append("documents", photo); // Append the selected photo file to the form data
+        formData.append("documents", photo); 
       }
       await axios.post(
         "http://192.168.10.153:8080/TAM/checkin/saveTotemCheckin",
@@ -245,4 +248,4 @@ const CheckinForm: React.FC = () => {
   );
 };
 
-export default CheckinForm;
+export default CheckinFormOnline;

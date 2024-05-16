@@ -37,6 +37,12 @@ import LoginPage from "Pages/Login/LoginPage";
 import MultiActionAreaCard from "Components/websiteCards/website.component";
 import RegisterPage from "Pages/Register/RegisterPage";
 import Template1 from "Components/websiteCards/template1";
+import MediaCard from "Pages/Reservations/reservations";
+// import ParentComponent from "Pages/CheckinApprove/parent";
+import Card from "Pages/CheckinApprove/SingleCheckinPage";
+import CheckInsTable from "Pages/CheckinApprove/parent";
+import OnlineCheckin from "Pages/CheckinPage/checkinonline.component";
+import CheckinPageOnline from "Components/CheckinFolder/CheckinPageOnline";
 // import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
 
@@ -73,6 +79,10 @@ const App: FC<{}> = () => {
                   <Route path="/add/:apartmentId" element={<AddOption />}  />
                   <Route path="/websites" element={<MultiActionAreaCard />}  />
                   <Route path="/website/template1" element={<Template1 />}  />
+                  <Route path="/reservation" element={<MediaCard />}  />
+                  <Route path="/singlecheckin/:id" element={<Card />}  />
+                  <Route path="/allcheckins" element={<CheckInsTable />}  />
+                  
                  
                   <Route
                     path="rentlist"
@@ -98,10 +108,13 @@ const App: FC<{}> = () => {
               <Route path="/login" element={<LoginPage />} index />
               <Route path="/loginpage" element={<LoginPage />} />
               <Route path="/checkinpage" element={<CheckinPage />}/>
+              <Route path="/checkinpage/form" element={<CheckinPageOnline />}/>
+              
               <Route path="/rulesFaq" element={<RulesFAQ />}/>
               <Route path="/register" element={<RegisterPage />} />{" "}
               <Route path="tam/registration/:token" element={<SavePasword />} />
-              <Route path="/kyc/:token/:token/:token" element={<GradientPage/>}/>
+              <Route path="/kyc/:id" element={<GradientPage/>}/>
+              <Route path="/kyc/:token/:token/" element={<OnlineCheckin/>}/>
               <Route path="/apartmentAmenities" element={<ClientAmenities/>}/>
               <Route path="*" element={<Navigate to="/login" replace />} />
             </Route>
