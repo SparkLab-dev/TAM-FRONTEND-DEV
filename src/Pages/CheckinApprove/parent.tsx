@@ -29,8 +29,8 @@ const Dropdown = styled.select`
   padding: 5px;
   height: 30px;
   margin-right: 10px;
-  width:150px;
-  border-radius:8px;
+  width: 150px;
+  border-radius: 8px;
 `;
 
 interface CheckIn {
@@ -38,13 +38,15 @@ interface CheckIn {
   name: string;
   surname: string;
   checkInStatus: string;
+  smoobuId: number;
 }
 
 const CheckInsTable: React.FC = () => {
   const [checkIns, setCheckIns] = useState<CheckIn[]>([]);
+
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState<string>("Pending");
-  
+
   useEffect(() => {
     fetchData();
   }, [selectedOption]);
@@ -55,12 +57,14 @@ const CheckInsTable: React.FC = () => {
         "http://192.168.10.153:8080/TAM/checkin/getCheckIns/Filtered",
         {
           params: {
-            apartmentId: 2031869,
+            apartmentId: 2102219,
             checkInStatus: selectedOption,
           },
         }
       );
       setCheckIns(response.data);
+
+      console.log(checkIns);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -71,47 +75,81 @@ const CheckInsTable: React.FC = () => {
     setSelectedOption(event.target.value);
   };
 
-  
-
   const handleCheckInClick = (checkinId: number) => {
     navigate(`/singlecheckin/${checkinId}`);
   };
   return (
-    <div style={{display:"flex",height:"auto",position:"absolute",top:"150px",flexDirection:"column",gap:"30px"}}>
-        <div style={{display:"flex",justifyContent:"end"}}>
+    <div
+      style={{
+        display: "flex",
+        height: "auto",
+        position: "absolute",
+        top: "150px",
+        flexDirection: "column",
+        gap: "30px",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "end" }}>
         <Dropdown value={selectedOption} onChange={handleDropdownChange}>
-              <option value="Pending">Pending</option>
-              <option value="Successfully">Approved</option>
-             
-            </Dropdown>
-            </div>
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650,}} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell sx={{ fontSize: "20px",fontWeight:500 }}>Name</TableCell>
-            <TableCell sx={{ fontSize: "20px",fontWeight:500 }} align="right">Surname</TableCell>
-            <TableCell sx={{ fontSize: "20px",fontWeight:500 }} align="right">Check-in status</TableCell>
-            <TableCell sx={{ fontSize: "20px",fontWeight:500 }} align="right">Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {checkIns.map((checkIn) => (
-            <TableRow
-              key={checkIn.id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {checkIn.name}
+          <option value="Pending">Pending</option>
+          <option value="Successfully">Approved</option>
+        </Dropdown>
+      </div>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ fontSize: "20px", fontWeight: 500 }}>
+                Name
               </TableCell>
-              <TableCell align="right">{checkIn.surname}</TableCell>
-              <TableCell align="right">{checkIn.checkInStatus}</TableCell>
-              <TableCell align="right"><Button onClick={() => handleCheckInClick(checkIn.id)}>View Details</Button></TableCell>
+              <TableCell
+                sx={{ fontSize: "20px", fontWeight: 500 }}
+                align="right"
+              >
+                Surname
+              </TableCell>
+              <TableCell
+                sx={{ fontSize: "20px", fontWeight: 500 }}
+                align="right"
+              >
+                Check-in status
+              </TableCell>
+              <TableCell
+                sx={{ fontSize: "20px", fontWeight: 500 }}
+                align="right"
+              >
+                Reservation nr
+              </TableCell>
+              <TableCell
+                sx={{ fontSize: "20px", fontWeight: 500 }}
+                align="right"
+              >
+                Actions
+              </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {checkIns.map((checkIn) => (
+              <TableRow
+                key={checkIn.id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {checkIn.name}
+                </TableCell>
+                <TableCell align="right">{checkIn.surname}</TableCell>
+                <TableCell align="right">{checkIn.checkInStatus}</TableCell>
+                <TableCell align="right">{checkIn.smoobuId}</TableCell>
+                <TableCell align="right">
+                  <Button onClick={() => handleCheckInClick(checkIn.id)}>
+                    View Details
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 };
