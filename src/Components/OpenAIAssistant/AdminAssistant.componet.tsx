@@ -86,7 +86,7 @@ const ChatComponent2: React.FC = () => {
           },
           {
             params: {
-              apartmentId: 2102219,
+              apartmentId: 2112479 ,
             },
           }
         )

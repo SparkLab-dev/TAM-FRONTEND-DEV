@@ -42,7 +42,7 @@ const StyledTextField = styled(TextField)`
   width: 100%;
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   width: 250px;
   height: 45px;
   background: #4f734c;

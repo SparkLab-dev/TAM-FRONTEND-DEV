@@ -52,7 +52,7 @@ const AccessibleTable: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.10.153:8080/TAM/${userId}/apartments/getallApartmentOptions/2042282`
+          `http://192.168.10.153:8080/TAM/${userId}/apartments/getallApartmentOptions/2112479 `
         );
         setApartmentOptionsWithCategories(
           response.data.apartmentOptionsWithCategories
@@ -60,7 +60,7 @@ const AccessibleTable: React.FC = () => {
         setApartmentId(response.data.apartmentId);
         console.log(response.data);
         const response2 = await axios.get<AddUrlOption[]>(
-          `http://192.168.10.153:8080/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/2042282`
+          `http://192.168.10.153:8080/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/2112479 `
         );
         setUrlData(response2.data || []);
         console.log(urlData);

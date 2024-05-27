@@ -111,17 +111,17 @@ const CheckinFormOnline: React.FC = () => {
     setBirthday(event.target.value);
   };
   const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]; 
+    const file = event.target.files?.[0];
     if (file) {
       setPhoto(file);
     }
   };
 
-  const apartmentId = localStorage.getItem('apartmentIdCheckin') || '';
-  const reservationId = localStorage.getItem('reservationIdCheckin') || '';
+  const apartmentId = localStorage.getItem("apartmentIdCheckin") || "";
+  const reservationId = localStorage.getItem("reservationIdCheckin") || "";
   const handleSubmit = async () => {
     try {
-      const formData = new FormData(); 
+      const formData = new FormData();
       formData.append("name", name);
       formData.append("surname", surname);
       formData.append("identifierDocumentId", identifierDocumentId);
@@ -130,7 +130,7 @@ const CheckinFormOnline: React.FC = () => {
       formData.append("apartmentId", apartmentId);
       formData.append("reservation.smoobuId", reservationId);
       if (photo) {
-        formData.append("documents", photo); 
+        formData.append("documents", photo);
       }
       await axios.post(
         "http://192.168.10.153:8080/TAM/checkin/saveTotemCheckin",
@@ -164,8 +164,8 @@ const CheckinFormOnline: React.FC = () => {
     }
     try {
       const requestBody = {
-        apartmentId: "2042282",
-        checkInId: 1,
+        apartmentId: 2112479 ,
+        checkInId: 12,
       };
       const response = await axios.post(
         "http://192.168.10.153:8080/TAM/meeting/generateTotemJitsiMeetLink",

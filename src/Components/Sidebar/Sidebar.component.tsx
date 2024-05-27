@@ -46,7 +46,7 @@
 // const SidebarLinks = styled.ul`
 //   list-style: none;
 //   padding: 0;
-  
+
 //       display: flex;
 //     flex-direction: column;
 //     row-gap: 35px;
@@ -69,7 +69,7 @@
 // const OuterDiv = styled.div`
 //   width: 165px;
 //   height: 50px;
-  
+
 //   display: flex;
 //   justify-content: center;
 //   align-items: center;
@@ -83,14 +83,11 @@
 //   text-align: center;
 //   line-height: 30px;
 //   border-radius: 5px;
-  
+
 // `;
 // SidebarContainer.defaultProps = {
 //   open: false,
 // };
-
-
-  
 
 // const Sidebar: FC<SidebarProps> = ({ open, toggleSidebar }: SidebarProps) => {
 //   const [isMobile, setIsMobile] = useState(false);
@@ -117,10 +114,9 @@
 //   const goToApartments = () => navigate('/apartmentpage');
 //   const goToWebsites = () => navigate('/websites');
 
-
 //   return (
 //     <SidebarContainer open={isMobile ? false : open}>
-     
+
 //       <OuterDiv>
 //         <InnerButton>Logo</InnerButton>
 //       </OuterDiv>
@@ -132,7 +128,7 @@
 //           <CalendarMonthIcon /> Calendar
 //         </SidebarLink>
 //         <SidebarLink onClick={goToMessages}>
-//           <MessageIcon /> Messages 
+//           <MessageIcon /> Messages
 //         </SidebarLink>
 //         <SidebarLink onClick={goToApartments}>
 //           <BusinessIcon /> Properties
@@ -147,17 +143,16 @@
 
 // export default Sidebar;
 
-
-
-import React, { FC, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import HomeIcon from '@mui/icons-material/Home';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import MessageIcon from '@mui/icons-material/Message';
-import BusinessIcon from '@mui/icons-material/Business';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import FactCheckIcon from '@mui/icons-material/FactCheck';
+import React, { FC, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import HomeIcon from "@mui/icons-material/Home";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import MessageIcon from "@mui/icons-material/Message";
+import BusinessIcon from "@mui/icons-material/Business";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import FactCheckIcon from "@mui/icons-material/FactCheck";
+import BookOnlineIcon from "@mui/icons-material/BookOnline";
 
 interface SidebarProps {
   open: boolean;
@@ -167,15 +162,14 @@ interface SidebarProps {
 const SidebarContainer = styled.div`
   position: fixed;
   left: 0;
-  
+
   width: 185px;
   height: 100vh;
-  background-color: #4F734C;
+  background-color: #4f734c;
   z-index: 999;
 
   @media (max-width: 768px) {
     width: 50px;
-    
   }
 `;
 
@@ -183,8 +177,8 @@ const SidebarLinks = styled.ul`
   list-style: none;
   padding: 0;
   display: flex;
-     flex-direction: column;
-     row-gap: 25px;
+  flex-direction: column;
+  row-gap: 25px;
 `;
 
 const SidebarLink = styled.li`
@@ -210,7 +204,7 @@ const SidebarLink = styled.li`
 const SidebarIconWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap:10px;
+  gap: 10px;
 `;
 
 const OuterDiv = styled.div`
@@ -220,7 +214,7 @@ const OuterDiv = styled.div`
   justify-content: center;
   align-items: center;
   @media (max-width: 768px) {
-    width:50px;
+    width: 50px;
   }
 `;
 
@@ -233,20 +227,20 @@ const InnerButton = styled.div`
   line-height: 30px;
   border-radius: 5px;
   @media (max-width: 768px) {
-    width:40px;
+    width: 40px;
   }
 `;
 
 const Sidebar: FC<SidebarProps> = ({ open, toggleSidebar }: SidebarProps) => {
   const navigate = useNavigate();
 
-  const goToHome = () => navigate('/home');
-  const goToCalendar = () => navigate('/calendar');
-  const goToMessages = () => navigate('/messagepage');
-  const goToApartments = () => navigate('/apartmentpage');
-  const goToWebsites = () => navigate('/websites');
-  const goToCheckins = () => navigate('/allcheckins');
-  
+  const goToHome = () => navigate("/home");
+  const goToCalendar = () => navigate("/calendar");
+  const goToMessages = () => navigate("/messagepage");
+  const goToApartments = () => navigate("/apartmentpage");
+  const goToWebsites = () => navigate("/websites");
+  const goToCheckins = () => navigate("/allcheckins");
+  const goToReservations = () => navigate("/reservation");
 
   return (
     <SidebarContainer>
@@ -288,6 +282,12 @@ const Sidebar: FC<SidebarProps> = ({ open, toggleSidebar }: SidebarProps) => {
           <SidebarIconWrapper>
             <FactCheckIcon />
             <span id="checkin">Check-in</span>
+          </SidebarIconWrapper>
+        </SidebarLink>
+        <SidebarLink onClick={goToReservations}>
+          <SidebarIconWrapper>
+            <BookOnlineIcon />
+            <span id="reservations">Reservations</span>
           </SidebarIconWrapper>
         </SidebarLink>
       </SidebarLinks>

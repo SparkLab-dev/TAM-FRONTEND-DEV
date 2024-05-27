@@ -44,57 +44,64 @@
 } 
 
  */
-
-
+ 
  .page {
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-x: auto; 
-  overflow-y: hidden; /* hide vertical scrollbar */
-
-  @media (max-width: 768px) {
-    width: calc(100% - 80px);
-    overflow-y: auto; 
-    margin-left: 30px;
-  }
-}
-
-.content {
-  max-width: 100%; /* set the max width to 100% for responsiveness */
-  overflow-x: auto; /* enable horizontal scrolling within the content */
-}
-
-.table-container {
-  margin-top: 20px;
-  border-spacing: 0;
-  white-space: nowrap; /* prevent text from wrapping to the next line */
-}
-
-.table-header {
-  border-top: 1px solid;
-  border-color: #c5c5c5;
-  white-space: nowrap; /* prevent text from wrapping to the next line */
-}
-
-.table-header th {
-  padding: 7px;
-  background-color: rgb(255, 255, 255);
-  border-left: 1px solid;
-  border-right: 1px solid;
-  border-color: #c5c5c5;
-  white-space: nowrap; /* prevent text from wrapping to the next line */
-}
-
-.table-body {
-  background-color: white;
-  white-space: nowrap; /* prevent text from wrapping to the next line */
-}
-
-.table-body td {
-  border: 1px solid;
-  border-color: #c5c5c5;
-  padding: 10px;
-  white-space: nowrap; /* prevent text from wrapping to the next line */
-}
+     width: 100vw;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     overflow-x: auto;
+     overflow-y: hidden;
+     /* hide vertical scrollbar */
+     @media (max-width: 768px) {
+         width: calc(100% - 80px);
+         overflow-y: auto;
+         margin-left: 30px;
+     }
+ }
+ 
+ .content {
+     max-width: 100%;
+     /* set the max width to 100% for responsiveness */
+     overflow-x: auto;
+     /* enable horizontal scrolling within the content */
+     margin-left: 170px;
+ }
+ 
+ .table-container {
+     margin-top: 20px;
+     border-spacing: 0;
+     white-space: nowrap;
+     /* prevent text from wrapping to the next line */
+ }
+ 
+ .table-header {
+     border-top: 1px solid;
+     border-color: #c5c5c5;
+     white-space: nowrap;
+     /* prevent text from wrapping to the next line */
+ }
+ 
+ .table-header th {
+     padding: 7px;
+     background-color: rgb(255, 255, 255);
+     border-left: 1px solid;
+     border-right: 1px solid;
+     border-color: #c5c5c5;
+     white-space: nowrap;
+     /* prevent text from wrapping to the next line */
+ }
+ 
+ .table-body {
+     background-color: white;
+     white-space: nowrap;
+     /* prevent text from wrapping to the next line */
+ }
+ 
+ .table-body td {
+     border: 1px solid;
+     border-color: #c5c5c5;
+     padding: 10px;
+     white-space: nowrap;
+     /* prevent text from wrapping to the next line */
+ }

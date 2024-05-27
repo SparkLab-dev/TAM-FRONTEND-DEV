@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import Popup from "Components/Popup/Popup.component";
+import {
+  AccountTypeName,
+  AccountsTypeNAmeHolder,
+  PopupButton,
+  PopupName,
+  TextArea,
+} from "./style/SingleCheckinPage.style";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
 
 const CardContainer = styled.div`
   background-color: #f0f0f0;
@@ -26,6 +36,7 @@ const Button = styled.button`
   font-size: 15px;
   font-family: poppins;
   font-weight: 400;
+  margin: 10px;
 `;
 
 const ImageModal = styled.div<{ isOpen: boolean }>`
@@ -62,12 +73,18 @@ const Card: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedDocument, setSelectedDocument] = useState<string | null>(null);
   const [checkinId, setCheckinId] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [reason, setReason] = useState<string>("");
+  const [checkInStatus, setCheckInStatus] = useState(data?.checkInStatus || "");
   const currentUrl = window.location.href;
   const url = new URL(currentUrl);
 
   const checkin = url.pathname.split("/");
   const checkinIdd = checkin[checkin.length - 1];
   console.log(checkinIdd);
+
+  const user = useSelector((state: RootState) => state.auth.user);
+  const userId = user?.id;
 
   useEffect(() => {
     fetchData();
@@ -100,7 +117,7 @@ const Card: React.FC = () => {
   const updateCheckInStatus = async (): Promise<void> => {
     try {
       await axios.put(
-        `http://192.168.10.153:8080/TAM/checkin/checkInStatus/${checkinIdd}/Successfully`
+        `http://192.168.10.153:8080/TAM/checkin/${userId}/checkInStatus/${checkinIdd}/Successfully`
       );
       console.log("Check-in status updated successfully");
       window.location.reload();
@@ -109,6 +126,27 @@ const Card: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    fetchData(); // Fetch data when component mounts or checkInStatus changes
+  }, [checkInStatus]);
+
+  const openPopup = () => {
+    setIsModalOpen(true);
+  };
+
+  const denieCheckInStatus = async (): Promise<void> => {
+    try {
+      await axios.put(
+        `http://192.168.10.153:8080/TAM/checkin/${userId}/checkInStatus/${checkinIdd}/Failed?reasonOfFailed=${reason}`
+      );
+      console.log("Check-in status updated successfully");
+      setCheckInStatus("Denied");
+      setIsModalOpen(false);
+      // window.location.reload();
+    } catch (error) {
+      console.error("Error updating check-in status:", error);
+    }
+  };
   return (
     <CardContainer>
       {data && (
@@ -182,21 +220,26 @@ const Card: React.FC = () => {
       {data?.checkInStatus === "Pending" ? (
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Button onClick={updateCheckInStatus}>Approve</Button>
+          <Button onClick={openPopup}>Deny</Button>
         </div>
       ) : (
         <div
           style={{
             display: "flex",
             justifyContent: "center",
-            color: "rgb(101 193 93)",
+            color:
+              data?.checkInStatus === "Successfully"
+                ? "green"
+                : "rgb(193 93 93)",
             fontFamily: "poppins",
             fontWeight: 400,
             fontSize: "15px",
           }}
         >
-          Approved
+          {data?.checkInStatus === "Successfully" ? "Approved" : "Denied"}
         </div>
       )}
+
       {modalOpen && (
         <ImageModal isOpen={modalOpen} onClick={closeModal}>
           <ModalContent>
@@ -206,6 +249,27 @@ const Card: React.FC = () => {
           </ModalContent>
         </ImageModal>
       )}
+      <Popup
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+        }}
+        headerContent={<PopupName>Write the reason</PopupName>}
+        bodyContent={
+          <>
+            <AccountsTypeNAmeHolder>
+              <TextArea
+                placeholder="Enter the reason for denying the check-in"
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+              />
+            </AccountsTypeNAmeHolder>
+          </>
+        }
+        footerContent={
+          <PopupButton onClick={denieCheckInStatus}>Save</PopupButton>
+        }
+      />
     </CardContainer>
   );
 };

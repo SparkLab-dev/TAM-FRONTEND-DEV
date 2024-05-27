@@ -33,9 +33,9 @@ export const Button = styled.button<ButtonProps>`
   text-align: center;
   height: ${(props: any) => props.h || "100%"};
   width: ${(props: any) => props.w || "100%"};
-  color:black;
-  background-color:white;
-  border: 2px solid gray;
+  color: black;
+  background-color: white;
+  border: 2px solid #4f734c;
   border-radius: 5px;
   text-decoration: none;
   font-family: ${(props: any) => props.fontFamily || "Poppins"};
@@ -43,19 +43,14 @@ export const Button = styled.button<ButtonProps>`
   font-weight: ${(props: any) => props.fontWeight};
   margin-top: ${(props: any) => props.marginTop};
   margin: ${(props: any) => props.margin || "25px 0 0 0"};
-
+  cursor: pointer;
   &:hover:not(:disabled),
   &:active:not(:disabled),
   &:hover {
     outline: 0;
-    color:black;
+    color: black;
 
-    background: #e3edf0;;
-     };
-
-
-    border-radius: ${(props: any) => props.borderRadius};
-    cursor: pointer;
+    background: #e3edf0;
   }
 
   &:disabled {
@@ -151,7 +146,6 @@ export const Page = styled.div`
   align-items: center;
   justify-content: center;
   background: "white";
- 
 `;
 
 export const Content = styled.div`

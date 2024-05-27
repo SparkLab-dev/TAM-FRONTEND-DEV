@@ -57,7 +57,7 @@ const CheckInsTable: React.FC = () => {
         "http://192.168.10.153:8080/TAM/checkin/getCheckIns/Filtered",
         {
           params: {
-            apartmentId: 2102219,
+            apartmentId: 2112479 ,
             checkInStatus: selectedOption,
           },
         }
@@ -93,6 +93,7 @@ const CheckInsTable: React.FC = () => {
         <Dropdown value={selectedOption} onChange={handleDropdownChange}>
           <option value="Pending">Pending</option>
           <option value="Successfully">Approved</option>
+          <option value="Failed">Denied</option>
         </Dropdown>
       </div>
       <TableContainer component={Paper}>

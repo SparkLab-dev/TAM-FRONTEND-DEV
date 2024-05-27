@@ -36,6 +36,7 @@ export const ModalHeader = styled.div`
   flex-direction: row;
   background-color: #4f734c;
   align-items: flex-start;
+  justify-content: center;
   padding: 14px 16px;
   border-radius: 10px 10px 0px 0px;
   font-family: "Poppins";

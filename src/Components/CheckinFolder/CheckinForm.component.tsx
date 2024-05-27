@@ -125,7 +125,7 @@ const CheckinForm: React.FC = () => {
       formData.append("identifierDocumentId", identifierDocumentId);
       formData.append("identifierDocumentExpiry", identifierDocumentExpiry);
       formData.append("birthDate", birthday);
-      formData.append("apartmentId", "2042282");
+      formData.append("apartmentId","2112479 ");
       if (photo) {
         formData.append("documents", photo); // Append the selected photo file to the form data
       }
@@ -161,7 +161,7 @@ const CheckinForm: React.FC = () => {
     }
     try {
       const requestBody = {
-        apartmentId: "2042282",
+        apartmentId: "2112479  ",
         checkInId: 1,
       };
       const response = await axios.post(

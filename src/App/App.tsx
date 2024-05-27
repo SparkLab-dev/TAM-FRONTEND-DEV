@@ -43,6 +43,7 @@ import Card from "Pages/CheckinApprove/SingleCheckinPage";
 import CheckInsTable from "Pages/CheckinApprove/parent";
 import OnlineCheckin from "Pages/CheckinPage/checkinonline.component";
 import CheckinPageOnline from "Components/CheckinFolder/CheckinPageOnline";
+import ReservationDetail from "Pages/ReservationDetail/ReservationDetail.component";
 // import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
 
@@ -80,10 +81,9 @@ const App: FC<{}> = () => {
                   <Route path="/websites" element={<MultiActionAreaCard />}  />
                   <Route path="/website/template1" element={<Template1 />}  />
                   <Route path="/reservation" element={<MediaCard />}  />
+                  <Route path="/reservationDetail/:id" element={<ReservationDetail />}  />
                   <Route path="/singlecheckin/:id" element={<Card />}  />
-                  <Route path="/allcheckins" element={<CheckInsTable />}  />
-                  
-                 
+                  <Route path="/allcheckins" element={<CheckInsTable />}  />               
                   <Route
                     path="rentlist"
                     element={<RentList rentalData={[]} />}
@@ -109,7 +109,6 @@ const App: FC<{}> = () => {
               <Route path="/loginpage" element={<LoginPage />} />
               <Route path="/checkinpage" element={<CheckinPage />}/>
               <Route path="/checkinpage/form" element={<CheckinPageOnline />}/>
-              
               <Route path="/rulesFaq" element={<RulesFAQ />}/>
               <Route path="/register" element={<RegisterPage />} />{" "}
               <Route path="tam/registration/:token" element={<SavePasword />} />
