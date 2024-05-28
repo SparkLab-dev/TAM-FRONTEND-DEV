@@ -3,24 +3,21 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 //redux
-import { RootState } from "redux/store";
-import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { openModal } from "redux/Modal/ModalSlice";
 
 //style
 import "./calendar.css";
-import Popup from "Components/Popup/Popup.component";
 import { Button } from "App/style/App.style";
-import EditIcon from "@mui/icons-material/Edit";
-import {
-  TextfieldDiv,
-} from "Components/Modal/style/Modal.style";
 
-// date picker from MUI
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+//mui
+import EditIcon from "@mui/icons-material/Edit";
+import { TextfieldDiv } from "Components/Modal/style/Modal.style";
 import TextField from "@mui/material/TextField";
+
+//components
+import Popup from "Components/Popup/Popup.component";
 
 interface MonthOption {
   value: number;
@@ -34,16 +31,15 @@ function MonthTable() {
   const [daysOfMonth, setDaysOfMonth] = useState<number>(31);
   const [dayNames, setDayNames] = useState<string[]>([]);
   const [apartmentData, setApartmentData] = useState<any[]>([]);
+  console.log(apartmentData);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [editedReservation, setEditedReservation] = useState<any | null>(null);
   const [startDatePopup, setStartDatePopup] = useState<string>("");
-  const [endDatePopup, setEndDatePopup] = useState<string>("");
   const [price, setPrice] = useState<string>("");
   const [minLength, setMinLength] = useState<string>("");
   const [selectedReservation, setSelectedReservation] = useState<any>(null);
 
-  const user = useSelector((state: RootState) => state.auth.user);
-  const userId = user?.id;
+  //get userId
+  const userId = useSelector((state: RootState) => state.auth.user?.id);
 
   const fetchData = async () => {
     try {
@@ -51,7 +47,6 @@ function MonthTable() {
         `http://192.168.10.153:8080/TAM/${userId}/reservations/reservationCalendar?fromDate=${firstDate}&toDate=${lastDate}`
       );
       setApartmentData(response.data);
-      console.log(apartmentData);
     } catch (error) {
       console.error("Error fetching reservation details:", error);
     }
@@ -116,21 +111,8 @@ function MonthTable() {
   }
 
   const firstDate = startDate(selectedMonth, selectedYear);
-  console.log("Selected Date:", firstDate);
   const lastDate = endDate(selectedMonth, selectedYear);
-  console.log("Selected Date:", lastDate);
-
-  // const isStartDateOfReservation = (reservation: any, day: number) => {
-  //   const startDate = new Date(reservation.allDates[0]);
-  //   return startDate.getDate() === day;
-  // };
-
-  // const isEndDateOfReservation = (reservation: any, day: number) => {
-  //   const endDate = new Date(
-  //     reservation.allDates[reservation.allDates.length - 1]
-  //   );
-  //   return endDate.getDate() === day;
-  // };
+  console.log(lastDate);
   const openPopup = () => {
     setIsModalOpen(true);
   };
@@ -138,27 +120,54 @@ function MonthTable() {
   const handleGoToReservationDetailClick = (reservationId: string) => {
     navigate(`/reservationDetail/${reservationId}`);
   };
+  const handleGoToEditDetailClick = (
+    event: React.MouseEvent,
+    apartment: any,
+    dateClicked: string
+  ) => {
+    // Prevent event propagation
+    event.stopPropagation();
+    setStartDatePopup(dateClicked);
+    console.log(dateClicked);
+    setSelectedReservation(apartment);
+    openPopup();
+  };
 
+  const dispatch: AppDispatch = useDispatch();
+  const handleSave = async () => {
+    if (!userId || !selectedReservation) {
+      console.log(userId);
 
-  //startDate & endDate function
-  function handleStartDateChange(event: any) {
-    if (event) {
-      const year = event.$y;
-      const month = (event.$M + 1).toString().padStart(2, "0");
-      const day = event.$D.toString().padStart(2, "0");
-      setStartDatePopup(`${year}-${month}-${day}`);
+      console.error("User is not authenticated or no item is selected");
+      return;
     }
-  }
+    console.log(selectedReservation);
+    console.log("PRICE", price);
+    const userCredentials = {
+      apartments: [selectedReservation.apartmentId],
+      operations: [
+        {
+          dates: [startDatePopup],
+          daily_price: parseFloat(price),
 
-  function handleEndDateChange(event: any) {
-    if (event) {
-      const year = event.$y;
-      const month = (event.$M + 1).toString().padStart(2, "0");
-      const day = event.$D.toString().padStart(2, "0");
-      setEndDatePopup(`${year}-${month}-${day}`);
+          min_length_of_stay: parseInt(minLength),
+        },
+      ],
+    };
+
+    try {
+      const response = await dispatch(openModal({ userId, userCredentials }));
+      if (openModal.fulfilled.match(response)) {
+        await fetchData();
+        console.log("Update successful", response.payload);
+        setIsModalOpen(false); // Close the popup
+      } else {
+        console.error("Update failed", response.error);
+      }
+    } catch (error) {
+      console.error("Error in handleSave:", error);
     }
-  }
-  
+  };
   return (
     <div className="page">
       <div className="content">
@@ -301,19 +310,25 @@ function MonthTable() {
                         <div
                           style={{ display: "flex", flexDirection: "column" }}
                         >
-                          <div
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              openPopup();
-                            }}
-                            style={{
-                              marginLeft: "20px",
-                              padding: "0",
-                              marginTop: "0",
-                            }}
-                          >
-                            <EditIcon style={{ fontSize: "15px" }} />
-                          </div>
+                          {reservation.type === "Available" && (
+                            <div
+                              onClick={(e) => {
+                                handleGoToEditDetailClick(
+                                  e,
+                                  apartment,
+                                  reservation.allDates[0]
+                                );
+                              }}
+                              style={{
+                                marginLeft: "20px",
+                                padding: "0",
+                                marginTop: "0",
+                                cursor: "pointer",
+                              }}
+                            >
+                              <EditIcon style={{ fontSize: "15px" }} />
+                            </div>
+                          )}
                           <span
                             style={{
                               fontSize: "13px",
@@ -349,20 +364,14 @@ function MonthTable() {
         }
         bodyContent={
           <>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={["DatePicker"]}>
-                <DatePicker
-                  label="Start date"
-                  onChange={handleStartDateChange}
-                  // sx={{ marginTop: "10px !important" }}
-                />
-                <DatePicker
-                  label="End date"
-                  onChange={handleEndDateChange}
-                  // sx={{ marginTop: "10px !important" }}
-                />
-              </DemoContainer>
-            </LocalizationProvider>
+            <TextField
+              id="outlined-basic"
+              label="Date"
+              value={startDatePopup || ""}
+              variant="outlined"
+              fullWidth
+              sx={{ margin: "10px 0" }}
+            />
 
             <TextfieldDiv>
               <TextField
@@ -390,7 +399,7 @@ function MonthTable() {
             </TextfieldDiv>
           </>
         }
-        footerContent={<Button>Submit</Button>}
+        footerContent={<Button onClick={handleSave}>Submit</Button>}
       />
     </div>
   );
