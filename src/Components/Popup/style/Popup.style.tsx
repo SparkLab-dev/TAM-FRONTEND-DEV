@@ -37,7 +37,7 @@ export const ModalHeader = styled.div`
   background-color: #4f734c;
   align-items: flex-start;
   justify-content: center;
-  padding: 14px 16px;
+  padding: 10px 0px;
   border-radius: 10px 10px 0px 0px;
   font-family: "Poppins";
   font-style: normal;
@@ -61,5 +61,5 @@ export const ModalFooter = styled.div`
   height: 40px;
   align-items: center;
   justify-content: center;
-  padding: 5px 0px 25px 0px;
+  padding: 10px 0px 33px 0px;
 `;

@@ -15,6 +15,9 @@ import { Button } from "App/style/App.style";
 import EditIcon from "@mui/icons-material/Edit";
 import { TextfieldDiv } from "Components/Modal/style/Modal.style";
 import TextField from "@mui/material/TextField";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 //components
 import Popup from "Components/Popup/Popup.component";
@@ -37,7 +40,8 @@ function MonthTable() {
   const [price, setPrice] = useState<string>("");
   const [minLength, setMinLength] = useState<string>("");
   const [selectedReservation, setSelectedReservation] = useState<any>(null);
-
+  const [endDatePicker, setEndDatePicker] = useState<string>("");
+  console.log(endDatePicker);
   //get userId
   const userId = useSelector((state: RootState) => state.auth.user?.id);
 
@@ -113,6 +117,17 @@ function MonthTable() {
   const firstDate = startDate(selectedMonth, selectedYear);
   const lastDate = endDate(selectedMonth, selectedYear);
   console.log(lastDate);
+
+  const handleEndDateChange = (event: any) => {
+    if (event) {
+      const date = new Date(event);
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, "0");
+      const day = date.getDate().toString().padStart(2, "0");
+      const formattedDate = `${year}-${month}-${day}`;
+      setEndDatePicker(formattedDate);
+    }
+  };
   const openPopup = () => {
     setIsModalOpen(true);
   };
@@ -147,7 +162,7 @@ function MonthTable() {
       apartments: [selectedReservation.apartmentId],
       operations: [
         {
-          dates: [startDatePopup],
+          dates: [`${startDatePopup}:${endDatePicker}`],
           daily_price: parseFloat(price),
 
           min_length_of_stay: parseInt(minLength),
@@ -357,22 +372,36 @@ function MonthTable() {
         }}
         headerContent={
           <p
-            style={{ fontFamily: "Poppins", fontSize: "30px", color: "black" }}
+            style={{ fontFamily: "Poppins", fontSize: "30px", color: "white",margin:"20px" }}
           >
             Edit Price
           </p>
         }
         bodyContent={
           <>
-            <TextField
-              id="outlined-basic"
-              label="Date"
-              value={startDatePopup || ""}
-              variant="outlined"
-              fullWidth
-              sx={{ margin: "10px 0" }}
-            />
-
+            <TextfieldDiv>
+              <TextField
+                id="outlined-basic"
+                label="Start Date"
+                value={startDatePopup || ""}
+                variant="outlined"
+                fullWidth
+                sx={{
+                  margin: "10px 0",
+                  width: "230px",
+                }}
+              />
+            </TextfieldDiv>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="End Date"
+                onChange={handleEndDateChange}
+                sx={{
+                  width: "230px",
+                }}
+                format="YYYY-MM-DD"
+              />
+            </LocalizationProvider>
             <TextfieldDiv>
               <TextField
                 id="outlined-basic"
@@ -383,6 +412,9 @@ function MonthTable() {
                 }
                 type="number"
                 variant="outlined"
+                sx={{
+                  width: "230px",
+                }}
               />
             </TextfieldDiv>
             <TextfieldDiv>
@@ -395,6 +427,9 @@ function MonthTable() {
                 }
                 type="number"
                 variant="outlined"
+                sx={{
+                  width: "230px",
+                }}
               />
             </TextfieldDiv>
           </>

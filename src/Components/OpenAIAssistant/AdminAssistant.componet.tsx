@@ -3,8 +3,6 @@ import axios from "axios";
 import SendIcon from "@mui/icons-material/Send";
 
 import {
-  ChatIcon,
-  ChatToggle,
   MessageContainer,
   SendButton,
   InputContainer,
@@ -86,7 +84,7 @@ const ChatComponent2: React.FC = () => {
           },
           {
             params: {
-              apartmentId: 2112479 ,
+              apartmentId: 2112479,
             },
           }
         )

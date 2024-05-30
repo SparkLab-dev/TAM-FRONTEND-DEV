@@ -50,7 +50,7 @@ export const Button = styled.button<ButtonProps>`
     outline: 0;
     color: black;
 
-    background: #e3edf0;
+    background: #ebeff0;
   }
 
   &:disabled {
