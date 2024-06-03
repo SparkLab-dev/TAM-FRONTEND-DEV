@@ -53,7 +53,7 @@ interface CheckIn {
 
 const CheckInsTable: React.FC = () => {
 
-  const [checkIns, setCheckIns] = useState<CheckIn[]>([]);
+  
   const { t } = useTranslation();
 
   const navigate = useNavigate();
