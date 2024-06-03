@@ -9,6 +9,8 @@ import {
 } from './style/UserInfoBox.style';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
+import { useTranslation } from 'react-i18next';
+
 
 
 const USER_DUMMY_DATA = {
@@ -24,24 +26,25 @@ const UserInfoBox: FC<{}> = () => {
     const name=useSelector( (state: RootState) => state.auth.user?.firstName)
     const surname=useSelector( (state: RootState) => state.auth.user?.lastName)
     const role=useSelector( (state: RootState) => state.auth.user?.role)
+    const { t } = useTranslation();
     return (
         <Box>
             
             <Content>
                 <DetailRow>
-                    <Label>Name</Label>
+                    <Label>{t("name")}</Label>
 
                     <LabelValue>{name}</LabelValue>
                 </DetailRow>
 
                 <DetailRow>
-                    <Label>Surname</Label>
+                    <Label>{t("surname")}</Label>
 
                     <LabelValue>{surname}</LabelValue>
                 </DetailRow>
 
                 <DetailRow>
-                    <Label>Role</Label>
+                    <Label>{t("role")}</Label>
 
                     <LabelValue>{role}</LabelValue>
                 </DetailRow>

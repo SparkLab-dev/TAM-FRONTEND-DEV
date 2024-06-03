@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import axios from "axios";
 import PieChartComponent from "Components/Dashboard/PieChart/Piechart.component";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   display: flex;
@@ -156,7 +157,7 @@ const HomepageTest: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
   const [selectedOption, setSelectedOption] = useState<string>("thismonth");
   const userId = user?.id;
-
+  const { t } = useTranslation();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -196,12 +197,13 @@ const HomepageTest: React.FC = () => {
       occupancy: item.data.occupancy,
     })) || [];
   console.log("Chart Data:", chartData);
+  
   return (
     <Container>
       <Content>
         {/* First row */}
         <Box width={277} height={312}>
-          <h2 style={{ paddingLeft: "10px" }}>Nights/Portal</h2>
+          <h2 style={{ paddingLeft: "10px" }}>{t("nightsportal")}</h2>
           <PieChartComponent
             data={
               Object.entries(data?.nightsPortalReport || {}).map(
@@ -211,7 +213,7 @@ const HomepageTest: React.FC = () => {
           />
         </Box>
         <Box width={277} height={312}>
-          <h2 style={{ paddingLeft: "10px" }}>Occupancy</h2>
+          <h2 style={{ paddingLeft: "10px" }}>{t("occupancy")}</h2>
           <HalfCircleChart percentage={data?.occupancyPercentage || 0} />
         </Box>
         <Box width={522} height={312}>
@@ -222,44 +224,44 @@ const HomepageTest: React.FC = () => {
               alignItems: "center",
             }}
           >
-            <h2 style={{ paddingLeft: "10px" }}>Occupancy & Revenue</h2>
+            <h2 style={{ paddingLeft: "10px" }}>{t("occupancyrevenue")}</h2>
             <Dropdown value={selectedOption} onChange={handleDropdownChange}>
-              <option value="thismonth">This Month</option>
-              <option value="nextmonth">Next Month</option>
-              <option value="plusthreemonths">Next three months</option>
+              <option value="thismonth">{t("thismonth")}</option>
+              <option value="nextmonth">{t("nextmonth")}</option>
+              <option value="plusthreemonths">{t("next3months")}</option>
             </Dropdown>
           </div>
           <Example data={chartData} />
         </Box>
         {/* Second row */}
         <Box2>
-          <h2 style={{ paddingLeft: "10px" }}>Nights/Portal</h2>
+          <h2 style={{ paddingLeft: "10px" }}>{t("nightsportal")}</h2>
           <DIV>
             <CardContainer>
-              <Text>Properties</Text>
+              <Text>{t("properties")}</Text>
               <IconContainer>
                 <ApartmentOutlinedIcon fontSize="large" />
               </IconContainer>
-              <Button onClick={propertiesHandler}>GO TO PROPERTIES</Button>
+              <Button onClick={propertiesHandler}>{t("gotoproperties")}</Button>
             </CardContainer>
             <CardContainer>
-              <Text>Messages</Text>
+              <Text>{t("messages")}</Text>
               <IconContainer>
                 <EmailOutlinedIcon fontSize="large" />
               </IconContainer>
-              <Button onClick={newMessagesHandler}>GO TO MESSAGES</Button>
+              <Button onClick={newMessagesHandler}>{t("gotomessages")}</Button>
             </CardContainer>
             <CardContainer>
-              <Text>Historical Data</Text>
+              <Text>{t("historicaldata")}</Text>
               <IconContainer>
                 <CalendarMonthOutlinedIcon fontSize="large" />
               </IconContainer>
-              <Button onClick={calendarHandler}>GO TO CALENDAR</Button>
+              <Button onClick={calendarHandler}>{t("gotocalendar")}</Button>
             </CardContainer>
           </DIV>
         </Box2>
         <Box width={277} height={312}>
-          <h2 style={{ marginLeft: "10px" }}>Profile</h2>
+          <h2 style={{ marginLeft: "10px" }}>{t("profile")}</h2>
           <UserInfoBox />{" "}
         </Box>
       </Content>

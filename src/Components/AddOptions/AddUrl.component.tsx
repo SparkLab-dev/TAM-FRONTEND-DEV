@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 // import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
+import { useTranslation } from "react-i18next";
 
 const StyledModal = styled(Modal)`
   display: flex;
@@ -67,6 +68,7 @@ const AddUrl: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState<string>("");
   const [url, setUrl] = useState<string>("");
+  const {t}=useTranslation();
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -99,16 +101,16 @@ const AddUrl: React.FC = () => {
     <>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Button onClick={() => setOpen(true)}>
-          Add a video <AddCircleOutlinedIcon />{" "}
+          {t("addavideo")} <AddCircleOutlinedIcon />{" "}
         </Button>
       </div>
       <StyledModal open={open} onClose={() => setOpen(false)}>
         <StyledWrapper>
-          <Title>Add an Video Url</Title>
+          <Title>{t("addavideourl")}</Title>
           <InputBox>
             <StyledTextField
               type="text"
-              placeholder="Video Name"
+              placeholder={t("videotitle")}
               value={name}
               onChange={handleNameChange}
               required
@@ -117,13 +119,13 @@ const AddUrl: React.FC = () => {
           <InputBox>
             <StyledTextField
               type="url"
-              placeholder="Video URL"
+              placeholder={t("videourl")}
               value={url}
               onChange={handleUrlChange}
               required
             />
           </InputBox>
-          <Button onClick={handleSubmit}>Add</Button>
+          <Button onClick={handleSubmit}>{t("add")}</Button>
         </StyledWrapper>
       </StyledModal>
     </>

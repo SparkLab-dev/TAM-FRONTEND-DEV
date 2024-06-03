@@ -9,12 +9,16 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import styled from "styled-components";
+
+import { useTranslation } from "react-i18next";
+
 import { AppDispatch, RootState } from "redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import {
   ApartmentProps,
   fetchApartmentIds,
 } from "redux/Auth/ApartmentsPage/ApartmentsPageSlice";
+
 
 const Button = styled.button`
   width: 100px;
@@ -48,6 +52,10 @@ interface CheckIn {
 }
 
 const CheckInsTable: React.FC = () => {
+
+  const [checkIns, setCheckIns] = useState<CheckIn[]>([]);
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
 
   const [checkIns, setCheckIns] = useState<CheckIn[]>([]);
@@ -161,14 +169,10 @@ const CheckInsTable: React.FC = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell
-                sx={{
-                  fontSize: "17px",
-                  fontWeight: 500,
-                  fontFamily: "Poppins",
-                }}
-              >
-                Name
+
+              <TableCell sx={{ fontSize: "20px", fontWeight: 500 }}>
+                {t("name")}
+
               </TableCell>
               <TableCell
                 sx={{
@@ -178,7 +182,7 @@ const CheckInsTable: React.FC = () => {
                 }}
                 align="right"
               >
-                Surname
+                {t("surname")}
               </TableCell>
               <TableCell
                 sx={{
@@ -188,7 +192,9 @@ const CheckInsTable: React.FC = () => {
                 }}
                 align="right"
               >
-                Check-in Status
+
+                {t("status")}
+
               </TableCell>
               <TableCell
                 sx={{
@@ -198,7 +204,9 @@ const CheckInsTable: React.FC = () => {
                 }}
                 align="right"
               >
-                Reservation Nr
+
+                {t("reservationnr")}
+
               </TableCell>
               <TableCell
                 sx={{
@@ -208,7 +216,7 @@ const CheckInsTable: React.FC = () => {
                 }}
                 align="right"
               >
-                Actions
+                {t("actions")}
               </TableCell>
             </TableRow>
           </TableHead>
@@ -226,7 +234,7 @@ const CheckInsTable: React.FC = () => {
                 <TableCell align="right">{checkIn.smoobuId}</TableCell>
                 <TableCell align="right">
                   <Button onClick={() => handleCheckInClick(checkIn.id)}>
-                    View Details
+                    {t("viewdetails")}
                   </Button>
                 </TableCell>
               </TableRow>

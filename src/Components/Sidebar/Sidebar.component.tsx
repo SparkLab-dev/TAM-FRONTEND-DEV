@@ -153,6 +153,7 @@ import BusinessIcon from "@mui/icons-material/Business";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
 import BookOnlineIcon from "@mui/icons-material/BookOnline";
+import { useTranslation } from "react-i18next";
 
 interface SidebarProps {
   open: boolean;
@@ -241,6 +242,7 @@ const Sidebar: FC<SidebarProps> = ({ open, toggleSidebar }: SidebarProps) => {
   const goToWebsites = () => navigate("/websites");
   const goToCheckins = () => navigate("/allcheckins");
   const goToReservations = () => navigate("/reservation");
+  const { t } = useTranslation();
 
   return (
     <SidebarContainer>
@@ -251,31 +253,31 @@ const Sidebar: FC<SidebarProps> = ({ open, toggleSidebar }: SidebarProps) => {
         <SidebarLink onClick={goToHome}>
           <SidebarIconWrapper>
             <HomeIcon />
-            <span id="home">Homepage</span>
+            <span id="home">Home</span>
           </SidebarIconWrapper>
         </SidebarLink>
         <SidebarLink onClick={goToCalendar}>
           <SidebarIconWrapper>
             <CalendarMonthIcon />
-            <span id="calendar">Calendar</span>
+            <span id="calendar">{t("calendar")}</span>
           </SidebarIconWrapper>
         </SidebarLink>
         <SidebarLink onClick={goToMessages}>
           <SidebarIconWrapper>
             <MessageIcon />
-            <span id="message">Messages</span>
+            <span id="message">{t("messages")}</span>
           </SidebarIconWrapper>
         </SidebarLink>
         <SidebarLink onClick={goToApartments}>
           <SidebarIconWrapper>
             <BusinessIcon />
-            <span id="business">Properties</span>
+            <span id="business">{t("properties")}</span>
           </SidebarIconWrapper>
         </SidebarLink>
         <SidebarLink onClick={goToWebsites}>
           <SidebarIconWrapper>
             <DashboardIcon />
-            <span id="dashboard">Website</span>
+            <span id="dashboard">{t("website")}</span>
           </SidebarIconWrapper>
         </SidebarLink>
         <SidebarLink onClick={goToCheckins}>
@@ -287,7 +289,7 @@ const Sidebar: FC<SidebarProps> = ({ open, toggleSidebar }: SidebarProps) => {
         <SidebarLink onClick={goToReservations}>
           <SidebarIconWrapper>
             <BookOnlineIcon />
-            <span id="reservations">Reservations</span>
+            <span id="reservations">{t("reservations")}</span>
           </SidebarIconWrapper>
         </SidebarLink>
       </SidebarLinks>

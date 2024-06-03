@@ -28,6 +28,7 @@ import { AppDispatch } from "../../redux/store";
 //mui
 import { Button } from "@mui/material";
 import ApartmentImage from "../../apartmentimage.png";
+import { useTranslation } from "react-i18next";
 
 
 const ApartmentPage: FC<{}> = () => {
@@ -38,6 +39,7 @@ const ApartmentPage: FC<{}> = () => {
 
   const user = useSelector((state: RootState) => state.auth.user);
   const userId = user?.id;
+  const { t } = useTranslation();
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -83,7 +85,7 @@ const ApartmentPage: FC<{}> = () => {
   return (
     <>
       <div style={{ marginTop: "70px" }}>
-        <Button onClick={handleRules}>See the rules</Button>
+        <Button onClick={handleRules}>{t("seetherules")}</Button>
       </div>
       <Container>
         {error ? (

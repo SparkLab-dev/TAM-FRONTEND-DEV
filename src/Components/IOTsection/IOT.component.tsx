@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 // Define types for your data
 interface MyComponentProps {
@@ -75,6 +76,7 @@ const Button = styled.button`
 
 const MyComponent: React.FC<MyComponentProps> = ({ id }) => {
   const [data, setData] = useState<MyData>({ field1: 'test1', field2: 'test2' });
+  const {t}=useTranslation();
 
   // Fetch data when the component mounts
   useEffect(() => {
@@ -120,9 +122,9 @@ const MyComponent: React.FC<MyComponentProps> = ({ id }) => {
 
   return (
     <Container>
-     <h2 style={{fontFamily:"Poppins",fontWeight:700,fontSize:"21px"}}>Connect your device</h2>
+     <h2 style={{fontFamily:"Poppins",fontWeight:700,fontSize:"21px"}}>{t("connectyourdevice")}</h2>
     <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-      <Label style={{alignSelf:"flex-start"}}>Lock ID:</Label>
+      <Label style={{alignSelf:"flex-start"}}>{t("lockid")}:</Label>
       <Field
         type="text"
         value={data.field1}
@@ -130,7 +132,7 @@ const MyComponent: React.FC<MyComponentProps> = ({ id }) => {
       />
     </div>
     <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-      <Label style={{alignSelf:"flex-start"}}>Lock Key:</Label>
+      <Label style={{alignSelf:"flex-start"}}>{t("lockkey")}:</Label>
       <Field
         type="text"
         value={data.field2}
@@ -138,7 +140,7 @@ const MyComponent: React.FC<MyComponentProps> = ({ id }) => {
       />
     </div>
     
-    <Button onClick={handleSave}>CONNECT</Button>
+    <Button onClick={handleSave}>{t("connect")}</Button>
   </Container>
   );
 };

@@ -29,6 +29,7 @@ import {
 import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 import MyComponent from "Components/IOTsection/IOT.component";
 import AddUrl from "Components/AddOptions/AddUrl.component";
+import { useTranslation } from "react-i18next";
 
 
 const ApartmentCard: FC<{}> = () => {
@@ -42,6 +43,7 @@ const ApartmentCard: FC<{}> = () => {
   const { id } = useParams();
   const apartmentId = id ? parseInt(id) : 0;
   const apartmentID = apartmentId ? String(apartmentId) : '';
+  const { t } = useTranslation();
   useEffect(() => {
     if (userId && apartmentId) {
       dispatch(fetchApartmentCardDetails({ userId, id: apartmentId }))
@@ -74,87 +76,87 @@ const ApartmentCard: FC<{}> = () => {
           <DivsContentHolder>
             <Div>
               <Paragraphs>
-                <Label>City: </Label> {apartmentCardDetails.location.city}
+                <Label>{t("city")}</Label> {apartmentCardDetails.location.city}
               </Paragraphs>
               <Paragraphs>
-                <Label>Country: </Label>
+                <Label>{t("country")} </Label>
                 {apartmentCardDetails.location.country}
               </Paragraphs>
               <Paragraphs>
-                <Label>Street: </Label>
+                <Label>{t("street")} </Label>
                 {apartmentCardDetails.location.street}
               </Paragraphs>
               <Paragraphs>
-                <Label>Zip: </Label> {apartmentCardDetails.location.zip}
+                <Label>{t("zip")} </Label> {apartmentCardDetails.location.zip}
               </Paragraphs>
               <Paragraphs>
-                <Label>Latitude: </Label>
+                <Label>{t("latitude")} </Label>
                 {apartmentCardDetails.location.latitude}
               </Paragraphs>
               <Paragraphs>
-                <Label>Longitude: </Label>
+                <Label>{t("longtitude")} </Label>
                 {apartmentCardDetails.location.longitude}
               </Paragraphs>
               <Paragraphs>
-                <Label>Currency: </Label>"{apartmentCardDetails.currency}"
+                <Label>{t("currency")} </Label>"{apartmentCardDetails.currency}"
               </Paragraphs>
               <Paragraphs>
-                <Label> Minimal price: </Label>"
+                <Label> {t("minimalprice")} </Label>"
                 {apartmentCardDetails.price.minimal}"
               </Paragraphs>
               <Paragraphs>
-                <Label>Maximal price: </Label>"
+                <Label>{t("maximalprice")} </Label>"
                 {apartmentCardDetails.price.maximal}"
               </Paragraphs>
               <Paragraphs>
-                <Label>Time Zone: </Label>
+                <Label>{t("timezone")} </Label>
                 {apartmentCardDetails.timeZone}
               </Paragraphs>
               <Paragraphs>
-                <Label>Type: </Label> {apartmentCardDetails.type.name}
+                <Label>{t("type")} </Label> {apartmentCardDetails.type.name}
               </Paragraphs>
             </Div>
             <Div2>
-              <Paragraphs>Rooms: </Paragraphs>
+              <Paragraphs>{t("rooms")}</Paragraphs>
               {/* <UnorderedList> */}
                 <Paragraphs>
-                  <Label> Bathrooms: </Label>
+                  <Label>{t("bathrooms")}  </Label>
                   {apartmentCardDetails.rooms.bathrooms}
                 </Paragraphs>
                 <Paragraphs>
-                  <Label>Bedrooms: </Label>
+                  <Label>{t("bedrooms")} </Label>
                   {apartmentCardDetails.rooms.bedrooms}
                 </Paragraphs>
                 <Paragraphs>
-                  <Label> Child Beds: </Label>
+                  <Label>{t("childbeds")}  </Label>
                   {apartmentCardDetails.rooms.childBeds}
                 </Paragraphs>
                 <Paragraphs>
-                  <Label> Couches: </Label>
+                  <Label>{t("couches")}  </Label>
                   {apartmentCardDetails.rooms.couches}
                 </Paragraphs>
                 <Paragraphs>
-                  <Label> Double Beds: </Label>
+                  <Label>{t("doublebeds")}  </Label>
                   {apartmentCardDetails.rooms.doubleBeds}
                 </Paragraphs>
                 <Paragraphs>
-                  <Label> King Size Beds: </Label>
+                  <Label>{t("kingsizebeds")}</Label>
                   {apartmentCardDetails.rooms.kingSizeBeds}
                 </Paragraphs>
                 <Paragraphs>
-                  <Label> Max Occupancy: </Label>
+                  <Label>{t("maxoccupancy")}</Label>
                   {apartmentCardDetails.rooms.maxOccupancy}
                 </Paragraphs>
                 <Paragraphs>
-                  <Label> Queen Size Beds: </Label>
+                  <Label>{t("queensizebeds")}  </Label>
                   {apartmentCardDetails.rooms.queenSizeBeds}
                 </Paragraphs>
                 <Paragraphs>
-                  <Label>Single Beds: </Label>
+                  <Label>{t("singlebeds")}</Label>
                   {apartmentCardDetails.rooms.singleBeds}
                 </Paragraphs>
                 <Paragraphs>
-                  <Label>Sofa Beds: </Label>
+                  <Label>{t("sofabeds")}</Label>
                   {apartmentCardDetails.rooms.sofaBeds}
                 </Paragraphs>
               {/* </UnorderedList> */}
@@ -162,13 +164,13 @@ const ApartmentCard: FC<{}> = () => {
           </DivsContentHolder>
           <IconContainer>
             <IconHold>
-              <RentLink to="/rentlist">EDIT PRICE</RentLink>
+              <RentLink to="/rentlist">{t("editprice")}</RentLink>
             </IconHold>
             <IconHold>
-              <RentLink to="/modal">ADD PRICE</RentLink>
+              <RentLink to="/modal">{t("addprice")}</RentLink>
             </IconHold>
             <IconHold>
-              <RentLink to={`/add/${apartmentId}`}>SEE AMENITIES</RentLink>
+              <RentLink to={`/add/${apartmentId}`}>{t("seeamenities")}</RentLink>
             </IconHold>
             
           </IconContainer>

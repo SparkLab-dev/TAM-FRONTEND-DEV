@@ -5,6 +5,7 @@ import Icon from "./assets/829452_user_512x512.png";
 import { Card, Label, UserInfo, Button, Input } from "./Style";
 import { RootState } from "redux/store";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 interface UserProfileProps {
   firstName: string;
@@ -18,7 +19,7 @@ const UserProfile: React.FC = () => {
   const [editable, setEditable] = useState(false);
   const [editedData, setEditedData] = useState<UserProfileProps | null>(null);
   const user = useSelector((state: RootState) => state.auth.user);
-
+  const { t } = useTranslation();
   const userId = user?.id;
 
   useEffect(() => {
@@ -75,7 +76,7 @@ const UserProfile: React.FC = () => {
           <img src={Icon} alt="test" style={{ width: "35%" }} />
         </div>
         <UserInfo>
-          <Label>First Name:</Label>
+          <Label>{t("name")}:</Label>
           {editable ? (
             <Input
               type="text"
@@ -88,7 +89,7 @@ const UserProfile: React.FC = () => {
           )}
         </UserInfo>
         <UserInfo>
-          <Label>Last Name:</Label>
+          <Label>{t("surname")}:</Label>
           {editable ? (
             <Input
               type="text"
@@ -114,7 +115,7 @@ const UserProfile: React.FC = () => {
           )}
         </UserInfo>
         <UserInfo>
-          <Label>Role:</Label>
+          <Label>{t("role")}:</Label>
           {editable ? (
             <Input
               type="text"
@@ -135,7 +136,7 @@ const UserProfile: React.FC = () => {
               gap: "20px",
             }}
           >
-            <Button onClick={handleSaveClick}>Save</Button>
+            <Button onClick={handleSaveClick}>{t("save")}</Button>
             <Button onClick={handleCancelClick}>Cancel</Button>
           </div>
         ) : (
@@ -146,7 +147,7 @@ const UserProfile: React.FC = () => {
               justifyContent: "center",
             }}
           >
-            <Button onClick={handleEditClick}>Edit</Button>
+            <Button onClick={handleEditClick}>{t("edit")}</Button>
           </div>
         )}
       </Card>

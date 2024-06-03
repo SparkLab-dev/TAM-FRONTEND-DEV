@@ -10,6 +10,7 @@ import App from "./App/App";
 
 // style
 import "./index.css";
+import "./i18n";
 
 ReactDOM.render(
   <React.StrictMode>
