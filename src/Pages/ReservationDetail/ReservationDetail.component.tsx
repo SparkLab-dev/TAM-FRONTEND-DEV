@@ -103,6 +103,10 @@ const ReservationDetail: FC<{}> = () => {
             <DetailsValue>{reservationData.pricePaid}</DetailsValue>
           </Details>
           <Details>
+            <DetailsDescription>Channel Name</DetailsDescription>
+            <DetailsValue>{reservationData.channelName}</DetailsValue>
+          </Details>
+          <Details>
             <DetailsDescription>Check In Status</DetailsDescription>
             <DetailsValue>{reservationData.checkInStatus}</DetailsValue>
           </Details>

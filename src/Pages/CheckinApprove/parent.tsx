@@ -9,7 +9,16 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import styled from "styled-components";
+
 import { useTranslation } from "react-i18next";
+
+import { AppDispatch, RootState } from "redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  ApartmentProps,
+  fetchApartmentIds,
+} from "redux/Auth/ApartmentsPage/ApartmentsPageSlice";
+
 
 const Button = styled.button`
   width: 100px;
@@ -43,42 +52,81 @@ interface CheckIn {
 }
 
 const CheckInsTable: React.FC = () => {
+
   const [checkIns, setCheckIns] = useState<CheckIn[]>([]);
   const { t } = useTranslation();
+
   const navigate = useNavigate();
+
+  const [checkIns, setCheckIns] = useState<CheckIn[]>([]);
   const [selectedOption, setSelectedOption] = useState<string>("Pending");
+  const [apartmentName, setApartmentNames] = useState<ApartmentProps[]>([]);
+  const [selectedApartment, setSelectedApartment] = useState<number | null>(
+    null
+  );
+  console.log("apartmentName", apartmentName);
+
+  const user = useSelector((state: RootState) => state.auth.user);
+  const userId = user?.id;
+
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
+    const fetchData = () => {
+      if (userId) {
+        console.log(userId);
+        dispatch(fetchApartmentIds(userId))
+          .then((result: any) => {
+            console.log(result);
+            if (fetchApartmentIds.fulfilled.match(result)) {
+              setApartmentNames(result.payload);
+            } else if (fetchApartmentIds.rejected.match(result)) {
+            }
+          })
+          .catch((error: any) => {
+            console.error("Error fetching apartment names:", error);
+          });
+      }
+    };
+
     fetchData();
-  }, [selectedOption]);
+  }, [dispatch, userId]);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get<CheckIn[]>(
-        "http://192.168.10.153:8080/TAM/checkin/getCheckIns/Filtered",
-        {
-          params: {
-            apartmentId: 2112479 ,
-            checkInStatus: selectedOption,
-          },
-        }
-      );
-      setCheckIns(response.data);
-
-      console.log(checkIns);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+  const fetchCheckIns = async () => {
+    if (selectedApartment !== null) {
+      try {
+        const response = await axios.get<CheckIn[]>(
+          "http://192.168.10.153:8080/TAM/checkin/getCheckIns/Filtered",
+          {
+            params: {
+              apartmentId: selectedApartment,
+              checkInStatus: selectedOption,
+            },
+          }
+        );
+        setCheckIns(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     }
   };
-  const handleDropdownChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+
+  useEffect(() => {
+    fetchCheckIns();
+  }, [selectedOption, selectedApartment]);
+
+  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(event.target.value);
+  };
+
+  const handleApartmentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedApartment(Number(e.target.value));
   };
 
   const handleCheckInClick = (checkinId: number) => {
     navigate(`/singlecheckin/${checkinId}`);
   };
+
   return (
     <div
       style={{
@@ -90,40 +138,82 @@ const CheckInsTable: React.FC = () => {
         gap: "30px",
       }}
     >
-      <div style={{ display: "flex", justifyContent: "end" }}>
-        <Dropdown value={selectedOption} onChange={handleDropdownChange}>
-          <option value="Pending">Pending</option>
-          <option value="Successfully">Approved</option>
-          <option value="Failed">Denied</option>
-        </Dropdown>
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <div>
+          <Dropdown
+            value={selectedApartment ?? ""}
+            onChange={handleApartmentChange}
+            style={{ fontFamily: "Poppins" }}
+          >
+            <option value="">Select Apartment</option>
+            {apartmentName.map((apartment: any) => (
+              <option key={apartment.id} value={apartment.id}>
+                {apartment.name}
+              </option>
+            ))}
+          </Dropdown>
+        </div>
+        <div>
+          <Dropdown
+            value={selectedOption}
+            onChange={handleStatusChange}
+            style={{ fontFamily: "Poppins" }}
+          >
+            <option value="Pending">Pending</option>
+            <option value="Successfully">Approved</option>
+            <option value="Failed">Denied</option>
+          </Dropdown>
+        </div>
       </div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
+
               <TableCell sx={{ fontSize: "20px", fontWeight: 500 }}>
                 {t("name")}
+
               </TableCell>
               <TableCell
-                sx={{ fontSize: "20px", fontWeight: 500 }}
+                sx={{
+                  fontSize: "17px",
+                  fontWeight: 500,
+                  fontFamily: "Poppins",
+                }}
                 align="right"
               >
                 {t("surname")}
               </TableCell>
               <TableCell
-                sx={{ fontSize: "20px", fontWeight: 500 }}
+                sx={{
+                  fontSize: "17px",
+                  fontWeight: 500,
+                  fontFamily: "Poppins",
+                }}
                 align="right"
               >
+
                 {t("status")}
+
               </TableCell>
               <TableCell
-                sx={{ fontSize: "20px", fontWeight: 500 }}
+                sx={{
+                  fontSize: "17px",
+                  fontWeight: 500,
+                  fontFamily: "Poppins",
+                }}
                 align="right"
               >
+
                 {t("reservationnr")}
+
               </TableCell>
               <TableCell
-                sx={{ fontSize: "20px", fontWeight: 500 }}
+                sx={{
+                  fontSize: "17px",
+                  fontWeight: 500,
+                  fontFamily: "Poppins",
+                }}
                 align="right"
               >
                 {t("actions")}
