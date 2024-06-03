@@ -44,6 +44,7 @@ import CheckInsTable from "Pages/CheckinApprove/parent";
 import OnlineCheckin from "Pages/CheckinPage/checkinonline.component";
 import CheckinPageOnline from "Components/CheckinFolder/CheckinPageOnline";
 import ReservationDetail from "Pages/ReservationDetail/ReservationDetail.component";
+
 // import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
 
@@ -83,7 +84,8 @@ const App: FC<{}> = () => {
                   <Route path="/reservation" element={<MediaCard />}  />
                   <Route path="/reservationDetail/:id" element={<ReservationDetail />}  />
                   <Route path="/singlecheckin/:id" element={<Card />}  />
-                  <Route path="/allcheckins" element={<CheckInsTable />}  />               
+                  <Route path="/allcheckins" element={<CheckInsTable />}  />    
+                    
                   <Route
                     path="rentlist"
                     element={<RentList rentalData={[]} />}

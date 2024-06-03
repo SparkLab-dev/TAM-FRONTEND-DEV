@@ -23,6 +23,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 interface RentListProps {
   rentalData: Modal[];
@@ -38,7 +39,7 @@ const RentList: FC<RentListProps> = () => {
   console.log(error);
   const [result, setResult] = useState<any[]>([]);
   console.log(selectedItem, "selected/ITem");
-
+  const {t}=useTranslation();
   //get userId &apartmentId from store
   const userId = useSelector((state: RootState) => state.auth.user?.id);
   const apartmentIdFromStore = useSelector(
@@ -285,12 +286,12 @@ const RentList: FC<RentListProps> = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <th>Date</th>
-              <th>Price</th>
-              <th>S. Price</th>
-              <th>Minimum Length of Stay</th>
-              <th>S.Min Stay</th>
-              <th>Actions</th>
+              <th>{t("date")}</th>
+              <th>{t("pricee")}</th>
+              <th>S. {t("pricee")}</th>
+              <th>{t("minlengstay")}</th>
+              <th>S.{t("minstay")}</th>
+              <th>{t("actions")}</th>
             </TableRow>
           </TableHead>
           <tbody>
@@ -313,7 +314,7 @@ const RentList: FC<RentListProps> = () => {
                 </TableCell>
                 <ActionTableCell>
                   <EditButton onClick={() => handleEdit(rental)}>
-                    Edit
+                    {t("edit")}
                   </EditButton>
 
                   <IconLink to="">

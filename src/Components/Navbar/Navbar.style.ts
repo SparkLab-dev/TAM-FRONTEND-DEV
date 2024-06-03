@@ -80,7 +80,7 @@ export const NewButton = styled.button`
   background-color: #9BDFC4;
   color: black;
   border: 0;
- width:170px;
+ width:180px;
  height:36px;
   padding: 8px 26px;
   margin-right: 20px;

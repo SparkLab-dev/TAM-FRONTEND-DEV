@@ -93,6 +93,7 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { ReservationsButton } from "./style/Reservations.style";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { useTranslation } from "react-i18next";
 
 export default function MediaCard() {
   // const handleDownloadInvoice = async (invoiceId:any) => {
@@ -116,6 +117,7 @@ export default function MediaCard() {
 
   const user = useSelector((state: RootState) => state.auth.user);
   const userId = user?.id;
+  const { t } = useTranslation();
   console.log(userId);
   console.log(startDate);
   console.log(endDate);
@@ -233,7 +235,7 @@ export default function MediaCard() {
             sx={{ justifyContent: "center" }}
           >
             <DatePicker
-              label="Start date"
+              label={t("startdate")}
               onChange={handleStartDateChange}
               sx={{
                 margin: "10px  !important",
@@ -242,7 +244,7 @@ export default function MediaCard() {
               }}
             />
             <DatePicker
-              label="End date"
+              label={t("enddate")}
               onChange={handleEndDateChange}
               sx={{
                 margin: "10px  !important",
@@ -252,7 +254,7 @@ export default function MediaCard() {
             />
             <div style={{ marginTop: "10px" }}>
               <ReservationsButton onClick={() => handleDownloadZIPfile()}>
-                Download
+                {t("download")}
               </ReservationsButton>
             </div>
           </DemoContainer>
@@ -304,10 +306,10 @@ export default function MediaCard() {
           </CardContent>
           <CardActions>
             <Button size="small" onClick={() => handleDownloadInvoice()}>
-              Download Invoice
+            {t("download")} {t("invoice")}
             </Button>
             <Button size="small" onClick={() => handleDownloadInvoiceXml()}>
-              Download Xml Invoice
+            {t("download")} Xml {t("invoice")}
             </Button>
           </CardActions>
         </Card>
@@ -330,10 +332,10 @@ export default function MediaCard() {
           </CardContent>
           <CardActions>
             <Button size="small" onClick={() => handleDownloadInvoice()}>
-              Download Invoice
+            {t("download")} {t("invoice")}
             </Button>
             <Button size="small" onClick={() => handleDownloadInvoiceXml()}>
-              Download Xml Invoice
+            {t("download")} Xml {t("invoice")}
             </Button>
           </CardActions>
         </Card>

@@ -11,6 +11,7 @@ import {
 } from "./style/SingleCheckinPage.style";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { useTranslation } from "react-i18next";
 
 const CardContainer = styled.div`
   background-color: #f0f0f0;
@@ -78,7 +79,7 @@ const Card: React.FC = () => {
   const [checkInStatus, setCheckInStatus] = useState(data?.checkInStatus || "");
   const currentUrl = window.location.href;
   const url = new URL(currentUrl);
-
+  const { t } = useTranslation();
   const checkin = url.pathname.split("/");
   const checkinIdd = checkin[checkin.length - 1];
   console.log(checkinIdd);
@@ -152,65 +153,65 @@ const Card: React.FC = () => {
       {data && (
         <>
           <Row>
-            <div>Arrival:</div>
+            <div>{t("arrival")}:</div>
             <div>{data.reservation.arrival}</div>
           </Row>
           <Row>
-            <div>Departure:</div>
+            <div>{t("departure")}:</div>
             <div>{data.reservation.departure}</div>
           </Row>
           <Row>
-            <div>Apartment Name:</div>
+            <div>{t("spartmentname")}:</div>
             <div>{data.reservation.apartmentName}</div>
           </Row>
           <Row>
-            <div>Guest Name:</div>
+            <div>{t("guestname")}:</div>
             <div>{data.reservation.guestName}</div>
           </Row>
           <Row>
-            <div>Phone:</div>
+            <div>{t("phone")}:</div>
             <div>{data.reservation.phone}</div>
           </Row>
           <Row>
-            <div>Adults:</div>
+            <div>{t("adults")}:</div>
             <div>{data.reservation.adults}</div>
           </Row>
           <Row>
-            <div>Children:</div>
+            <div>{t("children")}:</div>
             <div>{data.reservation.children}</div>
           </Row>
           <Row>
-            <div>Price:</div>
+            <div>{t("price")}:</div>
             <div>{data.reservation.price}</div>
           </Row>
-          <h3>Checkin details</h3>
+          <h3>{t("checkindetails")}</h3>
           <Row>
-            <div>Name:</div>
+            <div>{t("name")}:</div>
             <div>{data.name}</div>
           </Row>
           <Row>
-            <div>Surname:</div>
+            <div>{t("surname")}:</div>
             <div>{data.surname}</div>
           </Row>
           <Row>
-            <div>Document ID:</div>
+            <div>{t("documentid")}:</div>
             <div>{data.documentId}</div>
           </Row>
           <Row>
-            <div>Birth Date:</div>
+            <div>{t("birthdate")}:</div>
             <div>{data.birthDate}</div>
           </Row>
           <Row>
-            <div>Document Expiry:</div>
+            <div>{t("documentexpiry")}:</div>
             <div>{data.documentExpiry}</div>
           </Row>
           {data.checkInDocuments.length > 0 && (
             <>
-              <h3>Check-In Documents:</h3>
+              <h3>Check-In {t("documents")}:</h3>
               {data.checkInDocuments.map((doc: any) => (
                 <Row key={doc.id} onClick={() => openModal(doc.document)}>
-                  <div>Document {doc.id}:</div>
-                  <div>Click to Preview</div>
+                  <div>{t("documents")} {doc.id}:</div>
+                  <div>{t("clicktopreview")}</div>
                 </Row>
               ))}
             </>
@@ -219,8 +220,8 @@ const Card: React.FC = () => {
       )}
       {data?.checkInStatus === "Pending" ? (
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Button onClick={updateCheckInStatus}>Approve</Button>
-          <Button onClick={openPopup}>Deny</Button>
+          <Button onClick={updateCheckInStatus}>{t("approve")}</Button>
+          <Button onClick={openPopup}>{t("deny")}</Button>
         </div>
       ) : (
         <div
@@ -254,20 +255,20 @@ const Card: React.FC = () => {
         onClose={() => {
           setIsModalOpen(false);
         }}
-        headerContent={<PopupName>Write the reason</PopupName>}
+        headerContent={<PopupName>{t("writethereason")}</PopupName>}
         bodyContent={
           <>
             <AccountsTypeNAmeHolder>
               <TextArea
                 placeholder="Enter the reason for denying the check-in"
                 value={reason}
-                onChange={(e) => setReason(e.target.value)}
+                onChange={(e:any) => setReason(e.target.value)}
               />
             </AccountsTypeNAmeHolder>
           </>
         }
         footerContent={
-          <PopupButton onClick={denieCheckInStatus}>Save</PopupButton>
+          <PopupButton onClick={denieCheckInStatus}>{t("save")}</PopupButton>
         }
       />
     </CardContainer>

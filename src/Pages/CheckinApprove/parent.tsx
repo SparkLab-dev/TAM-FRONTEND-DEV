@@ -9,6 +9,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const Button = styled.button`
   width: 100px;
@@ -43,7 +44,7 @@ interface CheckIn {
 
 const CheckInsTable: React.FC = () => {
   const [checkIns, setCheckIns] = useState<CheckIn[]>([]);
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState<string>("Pending");
 
@@ -101,31 +102,31 @@ const CheckInsTable: React.FC = () => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ fontSize: "20px", fontWeight: 500 }}>
-                Name
+                {t("name")}
               </TableCell>
               <TableCell
                 sx={{ fontSize: "20px", fontWeight: 500 }}
                 align="right"
               >
-                Surname
+                {t("surname")}
               </TableCell>
               <TableCell
                 sx={{ fontSize: "20px", fontWeight: 500 }}
                 align="right"
               >
-                Check-in status
+                {t("status")}
               </TableCell>
               <TableCell
                 sx={{ fontSize: "20px", fontWeight: 500 }}
                 align="right"
               >
-                Reservation nr
+                {t("reservationnr")}
               </TableCell>
               <TableCell
                 sx={{ fontSize: "20px", fontWeight: 500 }}
                 align="right"
               >
-                Actions
+                {t("actions")}
               </TableCell>
             </TableRow>
           </TableHead>
@@ -143,7 +144,7 @@ const CheckInsTable: React.FC = () => {
                 <TableCell align="right">{checkIn.smoobuId}</TableCell>
                 <TableCell align="right">
                   <Button onClick={() => handleCheckInClick(checkIn.id)}>
-                    View Details
+                    {t("viewdetails")}
                   </Button>
                 </TableCell>
               </TableRow>
