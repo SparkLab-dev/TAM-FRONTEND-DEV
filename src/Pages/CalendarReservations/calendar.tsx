@@ -29,9 +29,9 @@ interface MonthOption {
 
 function MonthTable() {
   const navigate = useNavigate();
-  const [selectedMonth, setSelectedMonth] = useState<number>(5);
+  const [selectedMonth, setSelectedMonth] = useState<number>(6);
   const [selectedYear, setSelectedYear] = useState<number>(2024);
-  const [daysOfMonth, setDaysOfMonth] = useState<number>(31);
+  const [daysOfMonth, setDaysOfMonth] = useState<number>(30);
   const [dayNames, setDayNames] = useState<string[]>([]);
   const [apartmentData, setApartmentData] = useState<any[]>([]);
   console.log(apartmentData);
@@ -325,36 +325,61 @@ function MonthTable() {
                         <div
                           style={{ display: "flex", flexDirection: "column" }}
                         >
-                          {reservation.type === "Available" && (
-                            <div
-                              onClick={(e) => {
-                                handleGoToEditDetailClick(
-                                  e,
-                                  apartment,
-                                  reservation.allDates[0]
-                                );
-                              }}
+                          <div
+                            style={{ display: "flex", flexDirection: "row" }}
+                          >
+                            {reservation.type === "Available" && (
+                              <div>{reservation.minStay}</div>
+                            )}
+                            {reservation.type === "Available" && (
+                              <div
+                                onClick={(e) => {
+                                  handleGoToEditDetailClick(
+                                    e,
+                                    apartment,
+                                    reservation.allDates[0]
+                                  );
+                                }}
+                                style={{
+                                  marginLeft: "20px",
+                                  padding: "0",
+                                  marginTop: "0",
+                                  cursor: "pointer",
+                                }}
+                              >
+                                <EditIcon style={{ fontSize: "15px" }} />
+                              </div>
+                            )}
+                          </div>
+                          {reservation.type === "Available" ? (
+                            <span
                               style={{
-                                marginLeft: "20px",
-                                padding: "0",
-                                marginTop: "0",
-                                cursor: "pointer",
+                                fontSize: "13px",
+                                color: "black",
+                                fontFamily: "Poppins",
+                                fontWeight: "500",
+                                flex: "1",
+                                border: " 1px solid black",
+                                borderRadius: "4px",
+                                textAlign: "center",
                               }}
                             >
-                              <EditIcon style={{ fontSize: "15px" }} />
-                            </div>
+                              €{reservation.pricePerNight}
+                            </span>
+                          ) : (
+                            <span
+                              style={{
+                                fontSize: "13px",
+                                color: "black",
+                                fontFamily: "Poppins",
+                                fontWeight: "500",
+                                flex: "1",
+                                textAlign: "center",
+                              }}
+                            >
+                              €{reservation.pricePerNight}
+                            </span>
                           )}
-                          <span
-                            style={{
-                              fontSize: "13px",
-                              color: "black",
-                              fontFamily: "Poppins",
-                              fontWeight: "500",
-                              flex: "1",
-                            }}
-                          >
-                            €{reservation.pricePerNight}
-                          </span>
                         </div>
                       )}
                     </td>
@@ -372,7 +397,12 @@ function MonthTable() {
         }}
         headerContent={
           <p
-            style={{ fontFamily: "Poppins", fontSize: "30px", color: "white",margin:"20px" }}
+            style={{
+              fontFamily: "Poppins",
+              fontSize: "30px",
+              color: "white",
+              margin: "20px",
+            }}
           >
             Edit Price
           </p>
