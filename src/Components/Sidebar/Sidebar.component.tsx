@@ -153,6 +153,7 @@ import BusinessIcon from "@mui/icons-material/Business";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
 import BookOnlineIcon from "@mui/icons-material/BookOnline";
+import StorefrontIcon from "@mui/icons-material/Storefront";
 import { useTranslation } from "react-i18next";
 
 interface SidebarProps {
@@ -242,6 +243,7 @@ const Sidebar: FC<SidebarProps> = ({ open, toggleSidebar }: SidebarProps) => {
   const goToWebsites = () => navigate("/websites");
   const goToCheckins = () => navigate("/allcheckins");
   const goToReservations = () => navigate("/reservation");
+  const goToApartmentSearch = () => navigate("/newtest");
   const { t } = useTranslation();
 
   return (
@@ -290,6 +292,12 @@ const Sidebar: FC<SidebarProps> = ({ open, toggleSidebar }: SidebarProps) => {
           <SidebarIconWrapper>
             <BookOnlineIcon />
             <span id="reservations">{t("reservations")}</span>
+          </SidebarIconWrapper>
+        </SidebarLink>
+        <SidebarLink onClick={goToApartmentSearch}>
+          <SidebarIconWrapper>
+            <StorefrontIcon />
+            <span id="apartmentSearch">Market Data</span>
           </SidebarIconWrapper>
         </SidebarLink>
       </SidebarLinks>

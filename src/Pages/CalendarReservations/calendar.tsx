@@ -283,7 +283,7 @@ function MonthTable() {
                   };
                   if (reservation) {
                     if (reservation.type === "Available") {
-                      cellStyle.background = "#4CAF50"; // Green for available days
+                      cellStyle.background = "#4f734c"; // Green for available days
                     } else if (
                       reservation.type === "Reservation" &&
                       !reservation.blocked_booking
@@ -359,7 +359,7 @@ function MonthTable() {
                                 fontFamily: "Poppins",
                                 fontWeight: "500",
                                 flex: "1",
-                                border: " 1px solid black",
+                               
                                 borderRadius: "4px",
                                 textAlign: "center",
                               }}
