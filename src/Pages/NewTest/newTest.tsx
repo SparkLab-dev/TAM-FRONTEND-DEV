@@ -53,8 +53,8 @@ const ApartmentSearch: React.FC = () => {
             lat2,
             long1,
             long2,
-            cursor:
-              "yJzZWN0aW9uX29mZnNldCI6MCwiaXRlbXNfb2Zmc2V0IjowLCJ2ZXJzaW9uIjoxfQ%3D%3D",
+            // cursor:
+            //   "yJzZWN0aW9uX29mZnNldCI6MCwiaXRlbXNfb2Zmc2V0IjowLCJ2ZXJzaW9uIjoxfQ%3D%3D",
           },
         }
       );

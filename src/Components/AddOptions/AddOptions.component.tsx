@@ -264,7 +264,7 @@ interface ApiResponse {
   apartments: Apartment[];
 }
 
-const ApartmentSearch: React.FC = () => {
+const ApartmentSearch1: React.FC = () => {
   const [checkin, setCheckin] = useState<string>("");
   const [checkout, setCheckout] = useState<string>("");
   const [adults, setAdults] = useState<number>(1);
@@ -430,4 +430,4 @@ const ApartmentSearch: React.FC = () => {
   );
 };
 
-export default ApartmentSearch;
+export default ApartmentSearch1;

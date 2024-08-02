@@ -45,6 +45,8 @@ import OnlineCheckin from "Pages/CheckinPage/checkinonline.component";
 import CheckinPageOnline from "Components/CheckinFolder/CheckinPageOnline";
 import ReservationDetail from "Pages/ReservationDetail/ReservationDetail.component";
 import ApartmentSearch from "Pages/NewTest/newTest";
+import ApartmentSearch1 from "Components/AddOptions/AddOptions.component";
+import ReservationsTable from "Pages/ReservationsNFT/reservationsNFT";
 
 // import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
@@ -87,6 +89,9 @@ const App: FC<{}> = () => {
                   <Route path="/singlecheckin/:id" element={<Card />}  />
                   <Route path="/allcheckins" element={<CheckInsTable />}  />    
                    <Route path="/apartmentsearch" element={<ApartmentSearch/>} />
+                   <Route path="/apartmentsearchh" element={<ApartmentSearch1/>} />
+                   <Route path="/nft" element={<ReservationsTable/>} />
+                   
                   <Route
                     path="rentlist"
                     element={<RentList rentalData={[]} />}

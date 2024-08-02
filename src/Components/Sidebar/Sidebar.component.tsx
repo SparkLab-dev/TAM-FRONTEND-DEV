@@ -243,7 +243,9 @@ const Sidebar: FC<SidebarProps> = ({ open, toggleSidebar }: SidebarProps) => {
   const goToWebsites = () => navigate("/websites");
   const goToCheckins = () => navigate("/allcheckins");
   const goToReservations = () => navigate("/reservation");
-  const goToApartmentSearch = () => navigate("/newtest");
+  // const goToApartmentSearch = () => navigate("/apartmentsearch");
+  const goToMarketData = () => navigate("/apartmentsearch");
+  const goToNFT = () => navigate("/nft");
   const { t } = useTranslation();
 
   return (
@@ -294,12 +296,19 @@ const Sidebar: FC<SidebarProps> = ({ open, toggleSidebar }: SidebarProps) => {
             <span id="reservations">{t("reservations")}</span>
           </SidebarIconWrapper>
         </SidebarLink>
-        <SidebarLink onClick={goToApartmentSearch}>
+        <SidebarLink onClick={goToMarketData}>
           <SidebarIconWrapper>
             <StorefrontIcon />
             <span id="apartmentSearch">Market Data</span>
           </SidebarIconWrapper>
         </SidebarLink>
+        <SidebarLink onClick={goToNFT}>
+          <SidebarIconWrapper>
+            <StorefrontIcon />
+            <span id="apartmentSearch">Create NFT</span>
+          </SidebarIconWrapper>
+        </SidebarLink>
+        
       </SidebarLinks>
     </SidebarContainer>
   );
