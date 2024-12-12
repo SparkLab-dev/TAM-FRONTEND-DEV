@@ -10,8 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import styled from "styled-components";
 
-import { useTranslation } from "react-i18next"; 
-
+import { useTranslation } from "react-i18next";
 
 import { AppDispatch, RootState } from "redux/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +18,6 @@ import {
   ApartmentProps,
   fetchApartmentIds,
 } from "redux/Auth/ApartmentsPage/ApartmentsPageSlice";
-
 
 const Button = styled.button`
   width: 100px;
@@ -45,16 +43,85 @@ const Dropdown = styled.select`
 `;
 
 interface CheckIn {
-  id: number;
-  name: string;
-  surname: string;
+  checkInId: number;
+  smoobuId: string;
+  checkInTime: string;
+  alloggiatiWebapartmentId: number | null;
+  tipoAlloggiato: {
+    id: number;
+    codice: number;
+    descrizione: string;
+  };
+  smoobuApartmentId: string;
+  reservation: {
+    id: number;
+    referenceId: number;
+    smoobuId: number;
+    arrival: string;
+    departure: string;
+    apartmentId: number;
+    apartmentName: string;
+    guestName: string;
+    firstname: string;
+    lastname: string;
+    email: string;
+    phone: string;
+    adults: number;
+    children: number;
+    checkIn: string | null;
+    checkOut: string | null;
+    price: number;
+    pricePaid: string;
+    blockedBooking: boolean;
+    checkInStatus: string;
+    channelId: number;
+    channelName: string;
+    hostId: number;
+    numberOfActualGuests: number;
+    totalNumberOfGuests: number;
+  };
+  numberOfGuests: number;
+  numeroGiornoDiPermanenza: number;
+  cognome: string;
+  nome: string;
+  sesso: number;
+  dataNascita: string;
+  comuni: string | null;
+  statoNascita: {
+    id: number;
+    codice: string;
+    descrizione: string;
+    provincia: string;
+    dataFineValue: string | null;
+  };
+  cittadinaza: {
+    id: number;
+    codice: string;
+    descrizione: string;
+    provincia: string;
+    dataFineValue: string | null;
+  };
+  allogiatiWebDocumenti: {
+    id: number;
+    codice: string;
+    descrizione: string;
+  };
+  numeroDocumento: string;
+  luogoRilacioDocumento: {
+    id: number;
+    codice: string;
+    descrizione: string;
+    provincia: string;
+    dataFineValue: string | null;
+  };
+  cappo: string | null;
   checkInStatus: string;
-  smoobuId: number;
+  checkinPlatform: string;
+  failed: boolean | null;
 }
 
-const CheckInsTable: React.FC = () => {
 
-  
+const CheckInsTable: React.FC = () => {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
@@ -97,7 +164,7 @@ const CheckInsTable: React.FC = () => {
     if (selectedApartment !== null) {
       try {
         const response = await axios.get<CheckIn[]>(
-          "http://192.168.10.153:8080/TAM/checkin/getCheckIns/Filtered",
+          "http://192.168.10.141:8080/TAM/checkin/getCheckIns/Filtered",
           {
             params: {
               apartmentId: selectedApartment,
@@ -106,6 +173,7 @@ const CheckInsTable: React.FC = () => {
           }
         );
         setCheckIns(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -170,10 +238,8 @@ const CheckInsTable: React.FC = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-
               <TableCell sx={{ fontSize: "20px", fontWeight: 500 }}>
                 {t("name")}
-
               </TableCell>
               <TableCell
                 sx={{
@@ -193,9 +259,7 @@ const CheckInsTable: React.FC = () => {
                 }}
                 align="right"
               >
-
                 {t("status")}
-
               </TableCell>
               <TableCell
                 sx={{
@@ -205,9 +269,17 @@ const CheckInsTable: React.FC = () => {
                 }}
                 align="right"
               >
-
                 {t("reservationnr")}
-
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontSize: "17px",
+                  fontWeight: 500,
+                  fontFamily: "Poppins",
+                }}
+                align="right"
+              >
+                Guests
               </TableCell>
               <TableCell
                 sx={{
@@ -219,22 +291,24 @@ const CheckInsTable: React.FC = () => {
               >
                 {t("actions")}
               </TableCell>
+              
             </TableRow>
           </TableHead>
           <TableBody>
             {checkIns.map((checkIn) => (
               <TableRow
-                key={checkIn.id}
+                key={checkIn.checkInId}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {checkIn.name}
+                  {checkIn.reservation.firstname}
                 </TableCell>
-                <TableCell align="right">{checkIn.surname}</TableCell>
+                <TableCell align="right">{checkIn.reservation.lastname}</TableCell>
                 <TableCell align="right">{checkIn.checkInStatus}</TableCell>
                 <TableCell align="right">{checkIn.smoobuId}</TableCell>
+                <TableCell align="right">{checkIn.reservation.numberOfActualGuests}/{checkIn.reservation.totalNumberOfGuests}</TableCell>
                 <TableCell align="right">
-                  <Button onClick={() => handleCheckInClick(checkIn.id)}>
+                  <Button onClick={() => handleCheckInClick(checkIn.checkInId)}>
                     {t("viewdetails")}
                   </Button>
                 </TableCell>

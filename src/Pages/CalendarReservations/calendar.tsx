@@ -48,7 +48,7 @@ function MonthTable() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.10.153:8080/TAM/${userId}/reservations/reservationCalendar?fromDate=${firstDate}&toDate=${lastDate}`
+        `http://192.168.10.141:8080/TAM/${userId}/reservations/reservationCalendar?fromDate=${firstDate}&toDate=${lastDate}`
       );
       setApartmentData(response.data);
     } catch (error) {
@@ -359,7 +359,7 @@ function MonthTable() {
                                 fontFamily: "Poppins",
                                 fontWeight: "500",
                                 flex: "1",
-                               
+
                                 borderRadius: "4px",
                                 textAlign: "center",
                               }}

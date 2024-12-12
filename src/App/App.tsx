@@ -47,6 +47,10 @@ import ReservationDetail from "Pages/ReservationDetail/ReservationDetail.compone
 import ApartmentSearch from "Pages/NewTest/newTest";
 import ApartmentSearch1 from "Components/AddOptions/AddOptions.component";
 import ReservationsTable from "Pages/ReservationsNFT/reservationsNFT";
+import Alloggiati from "Components/AlloggiatiWeb/Alloggiati.component";
+import GuestForm from "Components/CheckinFolder/SecondStepCheckin";
+import FirstOnlineCheckinForm from "Components/CheckinFolder/FirstStepOnline";
+import OnlineGuestForm from "Components/CheckinFolder/CheckinFormOnline.component";
 
 // import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
@@ -73,6 +77,7 @@ const App: FC<{}> = () => {
                   <Route path="forgetpassword" element={<ForgetPassword />} />
                   <Route path="apartmentcard/:id" element={<ApartmentCard />} />
                   <Route path="modal" element={<Modal />} />
+                  <Route path="alloggiati" element={<Alloggiati/>}/>
                   <Route path="calendar" element={<MonthTable />} />
                   <Route path="home" element={<HomepageTest />} />
                   <Route path="hometest" element={<HomepageTest />} />
@@ -116,13 +121,17 @@ const App: FC<{}> = () => {
               <Route path="/login" element={<LoginPage />} index />
               <Route path="/loginpage" element={<LoginPage />} />
               <Route path="/checkinpage" element={<CheckinPage />}/>
-              <Route path="/checkinpage/form" element={<CheckinPageOnline />}/>
+              <Route path='/steptwo' element={<GuestForm/>}/>
+              <Route path='/onlinesteptwo' element={<OnlineGuestForm/>}/>
+              <Route path="/onlinecheckinpage" element={<CheckinPageOnline />}/>
               <Route path="/rulesFaq" element={<RulesFAQ />}/>
               <Route path="/register" element={<RegisterPage />} />{" "}
               <Route path="tam/registration/:token" element={<SavePasword />} />
               <Route path="/kyc/:id" element={<GradientPage/>}/>
               <Route path="/kyc/:token/:token/" element={<OnlineCheckin/>}/>
               <Route path="/apartmentAmenities" element={<ClientAmenities/>}/>
+              <Route path="/tttt" element={<FirstOnlineCheckinForm/>}/>
+              
               <Route path="*" element={<Navigate to="/login" replace />} />
             </Route>
           )}

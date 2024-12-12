@@ -29,7 +29,7 @@ const ReservationDetail: FC<{}> = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.10.153:8080/TAM/${userId}/reservations/byId/${id}`
+        `http://192.168.10.141:8080/TAM/${userId}/reservations/byId/${id}`
       );
       setReservationData(response.data);
       console.log(reservationData);

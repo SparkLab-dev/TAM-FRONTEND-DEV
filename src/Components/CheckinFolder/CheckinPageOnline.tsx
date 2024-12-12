@@ -2,6 +2,7 @@ import React from "react";
 
 import styled from "styled-components";
 import CheckinFormOnline from "./CheckinFormOnline.component";
+import FirstOnlineCheckinForm from "./FirstStepOnline";
 
 const BackgroundImage = styled.div`
   position: fixed;
@@ -44,7 +45,7 @@ const CheckinPageOnline: React.FC = () => {
     <>
       <PageContainer>
         <BackgroundImage/>
-        <CheckinFormOnline />
+        <FirstOnlineCheckinForm />
       </PageContainer>
     </>
   );

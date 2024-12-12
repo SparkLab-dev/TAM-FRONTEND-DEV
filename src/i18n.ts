@@ -74,7 +74,7 @@ i18n
           adults:"Adults", 
           children:"Children", 
           price:"Price", 
-          checkindetails:"Checkin Details", 
+          checkindetails:"Main Guest Checkin Details", 
           details:"Details", 
           documentid:"Document ID", 
           birthdate:"Birth Date", 
@@ -102,8 +102,11 @@ i18n
           addavideourl:"Add a video URL",
           add:"Add",
           videotitle:"Video Title",
-          videourl:"Video URL"
-          
+          videourl:"Video URL",
+          citizenship:"Citizenship",
+          documentReleasePlace:"Document Release Place",
+          typeofdocument:"Type of document",
+          numberofdocument:"Number of document"
         },
       },
       it: {
@@ -166,7 +169,7 @@ i18n
           adults:"Adulti", 
           children:"Bambini", 
           price:"Prezzo", 
-          checkindetails:"Dettagli del Check-in", 
+          checkindetails:"Dettagli del Check-in dell'ospite principale", 
           details:"Dettagli", 
           documentid:"ID Documento", 
           birthdate:"Data di Nascita", 
@@ -194,7 +197,11 @@ i18n
           addavideourl:"Aggiungi un URL video",
           add:"Aggiungere",
           videotitle:"Titolo del video",
-          videourl:"URL del video"
+          videourl:"URL del video",
+          citizenship:"Cittadinaza",
+          documentReleasePlace:"Luogo Rilacio Documento",
+          typeofdocument:"Tipo di documento",
+          numberofdocument:"Numero del documento"
         },
       },
     },

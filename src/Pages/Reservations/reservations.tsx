@@ -100,7 +100,7 @@ export default function MediaCard() {
   //   const handleDownloadInvoice = async () => {
   //     try {
   //       const response = await axios.get(
-  //         `http://192.168.10.153:8080/TAM/checkin/getInovice/2/59290534`
+  //         `http://192.168.10.141:8080/TAM/checkin/getInovice/2/59290534`
 
   //       );
   //       console.log(response)
@@ -124,7 +124,7 @@ export default function MediaCard() {
   const handleDownloadInvoice = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.10.153:8080/TAM/checkin/getInovice/2/7`,
+        `http://192.168.10.141:8080/TAM/checkin/getInovice/2/7`,
         {
           responseType: "blob", // Set response type to blob
         }
@@ -153,7 +153,7 @@ export default function MediaCard() {
   const handleDownloadInvoiceXml = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.10.153:8080/TAM/checkin/getInoviceXML/2/7`,
+        `http://192.168.10.141:8080/TAM/checkin/getInoviceXML/2/7`,
         {
           responseType: "blob", // Set response type to blob
         }
@@ -182,7 +182,7 @@ export default function MediaCard() {
   const handleDownloadZIPfile = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.10.153:8080/TAM/checkin/downloadXML/ZIP/${userId}?startDate=${startDate}&endDate=${endDate}`,
+        `http://192.168.10.141:8080/TAM/checkin/downloadXML/ZIP/${userId}?startDate=${startDate}&endDate=${endDate}`,
         {
           responseType: "blob", // Set response type to blob
         }
@@ -306,10 +306,10 @@ export default function MediaCard() {
           </CardContent>
           <CardActions>
             <Button size="small" onClick={() => handleDownloadInvoice()}>
-            {t("download")} {t("invoice")}
+              {t("download")} {t("invoice")}
             </Button>
             <Button size="small" onClick={() => handleDownloadInvoiceXml()}>
-            {t("download")} Xml {t("invoice")}
+              {t("download")} Xml {t("invoice")}
             </Button>
           </CardActions>
         </Card>
@@ -332,10 +332,10 @@ export default function MediaCard() {
           </CardContent>
           <CardActions>
             <Button size="small" onClick={() => handleDownloadInvoice()}>
-            {t("download")} {t("invoice")}
+              {t("download")} {t("invoice")}
             </Button>
             <Button size="small" onClick={() => handleDownloadInvoiceXml()}>
-            {t("download")} Xml {t("invoice")}
+              {t("download")} Xml {t("invoice")}
             </Button>
           </CardActions>
         </Card>

@@ -32,7 +32,7 @@
 //     setLoading(true);
 //     try {
 //       const response = await axios.get<Reservation[]>(
-//         "http://192.168.10.153:8080/TAM/2/reservations/allReservations/all",
+//         "http://192.168.10.141:8080/TAM/2/reservations/allReservations/all",
 //         {
 //           params: { fromDate, toDate },
 //         }
@@ -164,7 +164,6 @@
 
 // export default ReservationsTable;
 
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
@@ -258,7 +257,8 @@ const ReservationsTable: React.FC = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [selectedReservation, setSelectedReservation] = useState<Reservation | null>(null);
+  const [selectedReservation, setSelectedReservation] =
+    useState<Reservation | null>(null);
   const [client_address, setClient_address] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
@@ -267,7 +267,7 @@ const ReservationsTable: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.get<Reservation[]>(
-        "http://192.168.10.153:8080/TAM/2/reservations/allReservations/all",
+        "http://192.168.10.141:8080/TAM/2/reservations/allReservations/all",
         {
           params: { fromDate, toDate },
         }
@@ -296,7 +296,7 @@ const ReservationsTable: React.FC = () => {
     if (!selectedReservation) return;
 
     const data = {
-     client_address,
+      client_address,
       imageUrl,
       exp_checkInDate: selectedReservation.arrival,
       exp_checkOutDate: selectedReservation.departure,
@@ -305,11 +305,14 @@ const ReservationsTable: React.FC = () => {
     };
 
     try {
-        await axios.post("http://192.168.10.153:8080/TAM/Web3/sendweb3Request", data);
-        setSuccessMessage("Data sent successfully!");
-        setTimeout(() => {
-          closeModal();
-        }, 2000);
+      await axios.post(
+        "http://192.168.10.141:8080/TAM/Web3/sendweb3Request",
+        data
+      );
+      setSuccessMessage("Data sent successfully!");
+      setTimeout(() => {
+        closeModal();
+      }, 2000);
     } catch (error) {
       console.error("Error sending data:", error);
     }
@@ -422,12 +425,19 @@ const ReservationsTable: React.FC = () => {
           <tbody>
             {reservations.map((reservation, index) => (
               <tr key={index}>
-                <td style={tdStyles}>{moment(reservation.arrival).format("YYYY-MM-DD")}</td>
-                <td style={tdStyles}>{moment(reservation.departure).format("YYYY-MM-DD")}</td>
+                <td style={tdStyles}>
+                  {moment(reservation.arrival).format("YYYY-MM-DD")}
+                </td>
+                <td style={tdStyles}>
+                  {moment(reservation.departure).format("YYYY-MM-DD")}
+                </td>
                 <td style={tdStyles}>{reservation.apartment.name}</td>
                 <td style={tdStyles}>{reservation.guests}</td>
                 <td style={tdStyles}>
-                  <button style={buttonStyles} onClick={() => openModal(reservation)}>
+                  <button
+                    style={buttonStyles}
+                    onClick={() => openModal(reservation)}
+                  >
                     Create NFT
                   </button>
                 </td>

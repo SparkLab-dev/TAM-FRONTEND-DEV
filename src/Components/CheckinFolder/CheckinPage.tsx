@@ -1,6 +1,7 @@
 import React from "react";
 import CheckinForm from "./CheckinForm.component";
 import styled from "styled-components";
+import FirstCheckinForm from "./FirstStepCheckin";
 
 const BackgroundImage = styled.div`
   position: fixed;
@@ -43,7 +44,7 @@ const CheckinPage: React.FC = () => {
     <>
       <PageContainer>
         <BackgroundImage/>
-        <CheckinForm />
+        <FirstCheckinForm />
       </PageContainer>
     </>
   );

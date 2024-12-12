@@ -125,12 +125,12 @@ const CheckinForm: React.FC = () => {
       formData.append("identifierDocumentId", identifierDocumentId);
       formData.append("identifierDocumentExpiry", identifierDocumentExpiry);
       formData.append("birthDate", birthday);
-      formData.append("apartmentId","2112479 ");
+      formData.append("apartmentId", "2112479 ");
       if (photo) {
         formData.append("documents", photo); // Append the selected photo file to the form data
       }
       await axios.post(
-        "http://192.168.10.153:8080/TAM/checkin/saveTotemCheckin",
+        "http://192.168.10.141:8080/TAM/checkin/saveTotemCheckin",
         formData
       );
       console.log("POST request successful");
@@ -165,7 +165,7 @@ const CheckinForm: React.FC = () => {
         checkInId: 1,
       };
       const response = await axios.post(
-        "http://192.168.10.153:8080/TAM/meeting/generateTotemJitsiMeetLink",
+        "http://192.168.10.141:8080/TAM/meeting/generateTotemJitsiMeetLink",
         requestBody
       );
       console.log("API Success");

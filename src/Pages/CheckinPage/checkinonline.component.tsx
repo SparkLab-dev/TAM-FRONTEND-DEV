@@ -80,7 +80,7 @@ const OnlineCheckin: React.FC = () => {
 
   const goToAmenities = () => navigate("/apartmentAmenities");
   const goToRulesFAQ = () => navigate("/rulesFAQ");
-  const goToCheckin = () => navigate("/checkinpage/form");
+  const goToCheckin = () => navigate("/onlinecheckinpage");
 
   return (
     <PageContainer>

@@ -73,7 +73,7 @@ const AddOptionForm: React.FC = () => {
         },
       };
       await axios.post(
-        "http://192.168.10.153:8080/TAM/apartmentOption/saveOrUpdateApartmentOption",
+        "http://192.168.10.141:8080/TAM/apartmentOption/saveOrUpdateApartmentOption",
         requestBody
       );
       console.log("POST request successful");

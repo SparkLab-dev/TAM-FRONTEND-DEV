@@ -68,7 +68,7 @@ const AddUrl: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState<string>("");
   const [url, setUrl] = useState<string>("");
-  const {t}=useTranslation();
+  const { t } = useTranslation();
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -85,7 +85,7 @@ const AddUrl: React.FC = () => {
         apartmentId: 2028236,
       };
       await axios.post(
-        "http://192.168.10.153:8080/TAM/specificApartmentOption/saveOrUpdateSpecificApartmentOption",
+        "http://192.168.10.141:8080/TAM/specificApartmentOption/saveOrUpdateSpecificApartmentOption",
         requestBody
       );
       console.log("POST request successful");
