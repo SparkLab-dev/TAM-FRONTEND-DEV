@@ -19,7 +19,7 @@ import {
   fetchApartmentIds,
 } from "redux/Auth/ApartmentsPage/ApartmentsPageSlice";
 
-const Button = styled.button`
+export const Button = styled.button`
   width: 100px;
   height: 30px;
   background: #4f734c;
@@ -119,7 +119,6 @@ interface CheckIn {
   checkinPlatform: string;
   failed: boolean | null;
 }
-
 
 const CheckInsTable: React.FC = () => {
   const { t } = useTranslation();
@@ -291,7 +290,6 @@ const CheckInsTable: React.FC = () => {
               >
                 {t("actions")}
               </TableCell>
-              
             </TableRow>
           </TableHead>
           <TableBody>
@@ -303,10 +301,15 @@ const CheckInsTable: React.FC = () => {
                 <TableCell component="th" scope="row">
                   {checkIn.reservation.firstname}
                 </TableCell>
-                <TableCell align="right">{checkIn.reservation.lastname}</TableCell>
+                <TableCell align="right">
+                  {checkIn.reservation.lastname}
+                </TableCell>
                 <TableCell align="right">{checkIn.checkInStatus}</TableCell>
                 <TableCell align="right">{checkIn.smoobuId}</TableCell>
-                <TableCell align="right">{checkIn.reservation.numberOfActualGuests}/{checkIn.reservation.totalNumberOfGuests}</TableCell>
+                <TableCell align="right">
+                  {checkIn.reservation.numberOfActualGuests}/
+                  {checkIn.reservation.totalNumberOfGuests}
+                </TableCell>
                 <TableCell align="right">
                   <Button onClick={() => handleCheckInClick(checkIn.checkInId)}>
                     {t("viewdetails")}

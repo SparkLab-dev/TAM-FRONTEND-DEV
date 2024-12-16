@@ -30,15 +30,14 @@ import { Button } from "@mui/material";
 import ApartmentImage from "../../apartmentimage.png";
 import { useTranslation } from "react-i18next";
 
-
 const ApartmentPage: FC<{}> = () => {
   const navigate = useNavigate();
   const [apartmentName, setApartmentNames] = useState<ApartmentProps[]>([]);
   const [error, setError] = useState<string | null>(null);
-  console.log("apartmentName", apartmentName);
 
   const user = useSelector((state: RootState) => state.auth.user);
-  const userId = user?.id;
+  console.log(user);
+  const userId = user?.ownerId;
   const { t } = useTranslation();
 
   const dispatch: AppDispatch = useDispatch();
@@ -49,7 +48,7 @@ const ApartmentPage: FC<{}> = () => {
         console.log(userId);
         dispatch(fetchApartmentIds(userId))
           .then((result: any) => {
-            console.log(result);
+            console.log("result", result);
             if (fetchApartmentIds.fulfilled.match(result)) {
               setApartmentNames(result.payload);
             } else if (fetchApartmentIds.rejected.match(result)) {
@@ -69,18 +68,15 @@ const ApartmentPage: FC<{}> = () => {
 
     fetchData();
   }, [dispatch, userId]);
-
+  console.log("apartmentName", apartmentName);
   const handleApartmentClick = (apartment: ApartmentProps) => {
-    console.log(apartment.id);
-    navigate(`/apartmentcard/${apartment.id}`);
+    console.log(apartment.ownerId);
+    navigate(`/apartmentcard/${apartment.ownerId}`);
   };
 
   const handleRules = () => {
-    
     navigate(`/minstay`);
   };
-
-
 
   return (
     <>
@@ -101,10 +97,13 @@ const ApartmentPage: FC<{}> = () => {
               </Icon>
               <ApartmentNameContainer>
                 <ApartmentNameParagraph>
-                  {apartment.name}
+                  {apartment.propertyName}
                 </ApartmentNameParagraph>
                 <HeartIcon>
-                  <FontAwesomeIcon icon={faHeart} style={{ fontSize: "25px" }} />
+                  <FontAwesomeIcon
+                    icon={faHeart}
+                    style={{ fontSize: "25px" }}
+                  />
                 </HeartIcon>
               </ApartmentNameContainer>
             </ApartmentContentHolder>

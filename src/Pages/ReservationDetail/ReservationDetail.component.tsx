@@ -17,11 +17,13 @@ import { useParams } from "react-router-dom";
 
 const ReservationDetail: FC<{}> = () => {
   const [reservationData, setReservationData] = useState<any>(null);
-  const user = useSelector((state: RootState) => state.auth.user);
-  const userId = user?.id;
+  // const user = useSelector((state: RootState) => state.auth.user);
+  // const userId = user?.id;
 
   const { id } = useParams();
-  console.log(id);
+  const reservationId = id ? parseInt(id) : 0;
+  const reservationID = reservationId ? String(reservationId) : "";
+  console.log(reservationID, "reservationID");
   useEffect(() => {
     fetchData();
   }, []);
@@ -29,7 +31,7 @@ const ReservationDetail: FC<{}> = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.10.141:8080/TAM/${userId}/reservations/byId/${id}`
+        `http://192.168.10.210:8080/TAM/reservation/getReservation/${reservationID}`
       );
       setReservationData(response.data);
       console.log(reservationData);
@@ -47,68 +49,20 @@ const ReservationDetail: FC<{}> = () => {
             Reservation Details
           </ReservationDetailsParagpraph>
           <Details>
-            <DetailsDescription>Arrival</DetailsDescription>
-            <DetailsValue>{reservationData.arrival}</DetailsValue>
+            <DetailsDescription>Created date</DetailsDescription>
+            <DetailsValue>{reservationData.createdDate}</DetailsValue>
           </Details>
           <Details>
-            <DetailsDescription>Departure</DetailsDescription>
-            <DetailsValue>{reservationData.departure}</DetailsValue>
+            <DetailsDescription>Creator</DetailsDescription>
+            <DetailsValue>{reservationData.creator}</DetailsValue>
           </Details>
           <Details>
-            <DetailsDescription>Apartment Name</DetailsDescription>
-            <DetailsValue>{reservationData.apartmentName}</DetailsValue>
+            <DetailsDescription>Reservation id</DetailsDescription>
+            <DetailsValue>{reservationData.reservationID}</DetailsValue>
           </Details>
           <Details>
             <DetailsDescription>Guest Name</DetailsDescription>
             <DetailsValue>{reservationData.guestName}</DetailsValue>
-          </Details>
-          <Details>
-            <DetailsDescription>Firstname</DetailsDescription>
-            <DetailsValue>{reservationData.firstName}</DetailsValue>
-          </Details>
-          <Details>
-            <DetailsDescription>Lastname</DetailsDescription>
-            <DetailsValue>{reservationData.lastName}</DetailsValue>
-          </Details>
-          <Details>
-            <DetailsDescription>Email</DetailsDescription>
-            <DetailsValue>{reservationData.email}</DetailsValue>
-          </Details>
-          <Details>
-            <DetailsDescription>Phone</DetailsDescription>
-            <DetailsValue>{reservationData.phone}</DetailsValue>
-          </Details>
-          <Details>
-            <DetailsDescription>Adults</DetailsDescription>
-            <DetailsValue>{reservationData.adults}</DetailsValue>
-          </Details>
-          <Details>
-            <DetailsDescription>Children</DetailsDescription>
-            <DetailsValue>{reservationData.children}</DetailsValue>
-          </Details>
-          <Details>
-            <DetailsDescription>CheckIn</DetailsDescription>
-            <DetailsValue>{reservationData.checkIn}</DetailsValue>
-          </Details>
-          <Details>
-            <DetailsDescription>CheckOut</DetailsDescription>
-            <DetailsValue>{reservationData.checkOut}</DetailsValue>
-          </Details>
-          <Details>
-            <DetailsDescription>Price</DetailsDescription>
-            <DetailsValue>{reservationData.price}</DetailsValue>
-          </Details>
-          <Details>
-            <DetailsDescription>Price Paid</DetailsDescription>
-            <DetailsValue>{reservationData.pricePaid}</DetailsValue>
-          </Details>
-          <Details>
-            <DetailsDescription>Channel Name</DetailsDescription>
-            <DetailsValue>{reservationData.channelName}</DetailsValue>
-          </Details>
-          <Details>
-            <DetailsDescription>Check In Status</DetailsDescription>
-            <DetailsValue>{reservationData.checkInStatus}</DetailsValue>
           </Details>
         </>
       )}
