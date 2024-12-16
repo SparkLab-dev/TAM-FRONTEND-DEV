@@ -5,8 +5,17 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export interface ApartmentProps {
-  name: string;
-  id: number;
+  // name: string;
+  // id: number;
+  propertyName: string;
+  ownerId: number;
+  ownerName: string;
+  detailLocationId: number;
+  location: string;
+  lastModified: string;
+  nla: boolean;
+  createdDate: string;
+  active: boolean;
 }
 
 export type AuthApartmentProps = {
@@ -26,10 +35,10 @@ export const fetchApartmentIds = createAsyncThunk<ApartmentProps[], number>(
   async (userId: number) => {
     try {
       const response = await axios.get(
-        `http://192.168.10.141:8080/TAM/${userId}/apartments`
+        `http://192.168.10.210:8080/TAM/property/getOwnersProperties/${userId}`
       );
-      console.log(response);
-      return response.data.apartments;
+      console.log("res", response);
+      return response.data;
     } catch (error) {
       console.error(error);
       throw error;

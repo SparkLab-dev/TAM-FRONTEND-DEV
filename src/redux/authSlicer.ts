@@ -9,6 +9,7 @@ interface User {
   lastName: string | null;
   role: string | null;
   registredInSmoobu: boolean;
+  ownerId: number;
 }
 
 export type AuthState = {
@@ -28,11 +29,11 @@ export const loginUser = createAsyncThunk(
   async (userCredentials: object, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://192.168.10.141:8080/TAM/auth/login",
+        "http://192.168.10.210:8080/TAM/auth/login",
         userCredentials
       );
 
-      const responseData = response.data.body;
+      const responseData = response.data;
 
       console.log(responseData);
 

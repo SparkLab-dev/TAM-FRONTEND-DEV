@@ -1,6 +1,5 @@
 import { FC } from "react";
 
-
 import {} from "./style/App.style";
 import ResetPassword from "Pages/Reset Password/ResetPassword";
 import Login from "Pages/Login/Login.component";
@@ -28,7 +27,6 @@ import GetSuggestedPrice from "Components/GetSuggestedPrice/GetSuggestedPrice.co
 import AddOption from "Components/AddOptions/AddOptions.component";
 import YourComponent from "Components/MinStayLogic/ShowMinStay.component";
 
-
 import RulesFAQ from "Components/RulesFAQ/FAQRules.component";
 import ClientAmenities from "Components/AutoCheckin/AutoCheckin.cpomponent";
 import CheckinPage from "Components/CheckinFolder/CheckinPage";
@@ -54,7 +52,6 @@ import OnlineGuestForm from "Components/CheckinFolder/CheckinFormOnline.componen
 
 // import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
-
 const App: FC<{}> = () => {
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
@@ -67,71 +64,64 @@ const App: FC<{}> = () => {
     <>
       <BrowserRouter>
         <Routes>
-
           {isAuthenticated ? (
             <Route path="/" element={<Authenticated />}>
-              {verify ? (
-                <>
-                  <Route path="/" element={<Home />} /> 
-                  <Route path="apartmentpage" element={<ApartmentPage />} />
-                  <Route path="forgetpassword" element={<ForgetPassword />} />
-                  <Route path="apartmentcard/:id" element={<ApartmentCard />} />
-                  <Route path="modal" element={<Modal />} />
-                  <Route path="alloggiati" element={<Alloggiati/>}/>
-                  <Route path="calendar" element={<MonthTable />} />
-                  <Route path="home" element={<HomepageTest />} />
-                  <Route path="hometest" element={<HomepageTest />} />
-                  <Route path="userprofile" element={<UserProfile />} />
-                  <Route path="resetpassword" element={<ResetPassword/>} />
-                  <Route path="chat" element={<ChatComponent/>} />
-                  <Route path="chart" element={<Example data={[]}/>} />
-                  <Route path="minstay" element={<YourComponent/>} />
-                  <Route path="/add/:apartmentId" element={<AddOption />}  />
-                  <Route path="/websites" element={<MultiActionAreaCard />}  />
-                  <Route path="/website/template1" element={<Template1 />}  />
-                  <Route path="/reservation" element={<MediaCard />}  />
-                  <Route path="/reservationDetail/:id" element={<ReservationDetail />}  />
-                  <Route path="/singlecheckin/:id" element={<Card />}  />
-                  <Route path="/allcheckins" element={<CheckInsTable />}  />    
-                   <Route path="/apartmentsearch" element={<ApartmentSearch/>} />
-                   <Route path="/apartmentsearchh" element={<ApartmentSearch1/>} />
-                   <Route path="/nft" element={<ReservationsTable/>} />
-                   
-                  <Route
-                    path="rentlist"
-                    element={<RentList rentalData={[]} />}
-                  />
-                  <Route path="messagepage" element={<MessagePage />} />
-                  <Route path="form" element={<GetSuggestedPrice/>} />
-                  <Route
-                    path="*"
-                    element={<Navigate to="home" replace />}
-                  />
-                </>
-              ) : (
-                <>
-                  <Route path="verify" element={<Verification />} />
-                  <Route path="*" element={<Navigate to="verify" replace />} />
-                </>
-              )}
+              <>
+                <Route path="/" element={<Home />} />
+                <Route path="apartmentpage" element={<ApartmentPage />} />
+                <Route path="forgetpassword" element={<ForgetPassword />} />
+                <Route path="apartmentcard/:id" element={<ApartmentCard />} />
+                <Route path="modal" element={<Modal />} />
+                <Route path="alloggiati" element={<Alloggiati />} />
+                <Route path="calendar" element={<MonthTable />} />
+                <Route path="home" element={<HomepageTest />} />
+                <Route path="hometest" element={<HomepageTest />} />
+                <Route path="userprofile" element={<UserProfile />} />
+                <Route path="resetpassword" element={<ResetPassword />} />
+                <Route path="chat" element={<ChatComponent />} />
+                <Route path="chart" element={<Example data={[]} />} />
+                <Route path="minstay" element={<YourComponent />} />
+                <Route path="/add/:apartmentId" element={<AddOption />} />
+                <Route path="/websites" element={<MultiActionAreaCard />} />
+                <Route path="/website/template1" element={<Template1 />} />
+                <Route path="/reservation" element={<MediaCard />} />
+                <Route
+                  path="reservationDetail/:id"
+                  element={<ReservationDetail />}
+                />
+                <Route path="/singlecheckin/:id" element={<Card />} />
+                <Route path="/allcheckins" element={<CheckInsTable />} />
+                <Route path="/apartmentsearch" element={<ApartmentSearch />} />
+                <Route
+                  path="/apartmentsearchh"
+                  element={<ApartmentSearch1 />}
+                />
+                <Route path="/nft" element={<ReservationsTable />} />
+                <Route path="rentlist" element={<RentList rentalData={[]} />} />
+                <Route path="messagepage" element={<MessagePage />} />
+                <Route path="form" element={<GetSuggestedPrice />} />
+                <Route path="*" element={<Navigate to="home" replace />} />
+              </>
             </Route>
           ) : (
             <Route path="/" element={<AuthPage />}>
               <Route path="/" element={<LoginPage />} index />
               <Route path="/login" element={<LoginPage />} index />
               <Route path="/loginpage" element={<LoginPage />} />
-              <Route path="/checkinpage" element={<CheckinPage />}/>
-              <Route path='/steptwo' element={<GuestForm/>}/>
-              <Route path='/onlinesteptwo' element={<OnlineGuestForm/>}/>
-              <Route path="/onlinecheckinpage" element={<CheckinPageOnline />}/>
-              <Route path="/rulesFaq" element={<RulesFAQ />}/>
+              <Route path="/checkinpage" element={<CheckinPage />} />
+              <Route path="/steptwo" element={<GuestForm />} />
+              <Route path="/onlinesteptwo" element={<OnlineGuestForm />} />
+              <Route
+                path="/onlinecheckinpage"
+                element={<CheckinPageOnline />}
+              />
+              <Route path="/rulesFaq" element={<RulesFAQ />} />
               <Route path="/register" element={<RegisterPage />} />{" "}
               <Route path="tam/registration/:token" element={<SavePasword />} />
-              <Route path="/kyc/:id" element={<GradientPage/>}/>
-              <Route path="/kyc/:token/:token/" element={<OnlineCheckin/>}/>
-              <Route path="/apartmentAmenities" element={<ClientAmenities/>}/>
-              <Route path="/tttt" element={<FirstOnlineCheckinForm/>}/>
-              
+              <Route path="/kyc/:id" element={<GradientPage />} />
+              <Route path="/kyc/:token/:token/" element={<OnlineCheckin />} />
+              <Route path="/apartmentAmenities" element={<ClientAmenities />} />
+              <Route path="/tttt" element={<FirstOnlineCheckinForm />} />
               <Route path="*" element={<Navigate to="/login" replace />} />
             </Route>
           )}
