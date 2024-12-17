@@ -86,8 +86,7 @@ const CheckinForm: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [surname, setSurname] = useState<string>("");
   const [identifierDocumentId, setIdentifierDocumentId] = useState<string>("");
-  const [identifierDocumentExpiry, setIdentifierDocumentExpiry] =
-    useState<string>("");
+  const [identifierDocumentExpiry, setIdentifierDocumentExpiry] = useState<string>("");
   const [birthday, setBirthday] = useState<string>("");
   const [photo, setPhoto] = useState<File | null>(null);
   const [successMessage, setSuccessMessage] = useState<string>("");
@@ -102,9 +101,7 @@ const CheckinForm: React.FC = () => {
   const handlePassportChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIdentifierDocumentId(event.target.value);
   };
-  const handleExpirydateChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleExpirydateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIdentifierDocumentExpiry(event.target.value);
   };
   const handleBirthdayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,10 +126,7 @@ const CheckinForm: React.FC = () => {
       if (photo) {
         formData.append("documents", photo); // Append the selected photo file to the form data
       }
-      await axios.post(
-        "http://192.168.10.141:8080/TAM/checkin/saveTotemCheckin",
-        formData
-      );
+      await axios.post("http://192.168.10.210:8080/TAM/checkin/saveTotemCheckin", formData);
       console.log("POST request successful");
       setSuccessMessage("Form submitted successfully!");
       setTimeout(() => {
@@ -165,8 +159,8 @@ const CheckinForm: React.FC = () => {
         checkInId: 1,
       };
       const response = await axios.post(
-        "http://192.168.10.141:8080/TAM/meeting/generateTotemJitsiMeetLink",
-        requestBody
+        "http://192.168.10.210:8080/TAM/meeting/generateTotemJitsiMeetLink",
+        requestBody,
       );
       console.log("API Success");
       const checkinurl = response.data;
@@ -183,21 +177,9 @@ const CheckinForm: React.FC = () => {
         <Title>Check-in</Title>
         <InputBox>
           <Label>Name</Label>
-          <StyledTextField
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={handleNameChange}
-            required
-          />
+          <StyledTextField type="text" placeholder="Name" value={name} onChange={handleNameChange} required />
           <Label>Surname</Label>
-          <StyledTextField
-            type="text"
-            placeholder="Surname"
-            value={surname}
-            onChange={handleSurnameChange}
-            required
-          />
+          <StyledTextField type="text" placeholder="Surname" value={surname} onChange={handleSurnameChange} required />
           <Label>Birthday</Label>
           <StyledTextField
             type="date"

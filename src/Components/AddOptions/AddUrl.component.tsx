@@ -85,8 +85,8 @@ const AddUrl: React.FC = () => {
         apartmentId: 2028236,
       };
       await axios.post(
-        "http://192.168.10.141:8080/TAM/specificApartmentOption/saveOrUpdateSpecificApartmentOption",
-        requestBody
+        "http://192.168.10.210:8080/TAM/specificApartmentOption/saveOrUpdateSpecificApartmentOption",
+        requestBody,
       );
       console.log("POST request successful");
       setName("");
@@ -117,13 +117,7 @@ const AddUrl: React.FC = () => {
             />
           </InputBox>
           <InputBox>
-            <StyledTextField
-              type="url"
-              placeholder={t("videourl")}
-              value={url}
-              onChange={handleUrlChange}
-              required
-            />
+            <StyledTextField type="url" placeholder={t("videourl")} value={url} onChange={handleUrlChange} required />
           </InputBox>
           <Button onClick={handleSubmit}>{t("add")}</Button>
         </StyledWrapper>

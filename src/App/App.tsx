@@ -49,16 +49,13 @@ import Alloggiati from "Components/AlloggiatiWeb/Alloggiati.component";
 import GuestForm from "Components/CheckinFolder/SecondStepCheckin";
 import FirstOnlineCheckinForm from "Components/CheckinFolder/FirstStepOnline";
 import OnlineGuestForm from "Components/CheckinFolder/CheckinFormOnline.component";
+import PropertCreate from "Pages/PropertyCreate";
 
 // import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
 const App: FC<{}> = () => {
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  );
-  const verify = useSelector(
-    (state: RootState) => state.auth.user?.registredInSmoobu
-  );
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const verify = useSelector((state: RootState) => state.auth.user?.registredInSmoobu);
   console.log(verify);
   return (
     <>
@@ -70,7 +67,8 @@ const App: FC<{}> = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="apartmentpage" element={<ApartmentPage />} />
                 <Route path="forgetpassword" element={<ForgetPassword />} />
-                <Route path="apartmentcard/:id" element={<ApartmentCard />} />
+                <Route path="propertycreate" element={<PropertCreate />} />
+                <Route path="new/:id" element={<ApartmentCard />} />
                 <Route path="modal" element={<Modal />} />
                 <Route path="alloggiati" element={<Alloggiati />} />
                 <Route path="calendar" element={<MonthTable />} />
@@ -85,17 +83,11 @@ const App: FC<{}> = () => {
                 <Route path="/websites" element={<MultiActionAreaCard />} />
                 <Route path="/website/template1" element={<Template1 />} />
                 <Route path="/reservation" element={<MediaCard />} />
-                <Route
-                  path="reservationDetail/:id"
-                  element={<ReservationDetail />}
-                />
+                <Route path="reservationDetail/:id" element={<ReservationDetail />} />
                 <Route path="/singlecheckin/:id" element={<Card />} />
                 <Route path="/allcheckins" element={<CheckInsTable />} />
                 <Route path="/apartmentsearch" element={<ApartmentSearch />} />
-                <Route
-                  path="/apartmentsearchh"
-                  element={<ApartmentSearch1 />}
-                />
+                <Route path="/apartmentsearchh" element={<ApartmentSearch1 />} />
                 <Route path="/nft" element={<ReservationsTable />} />
                 <Route path="rentlist" element={<RentList rentalData={[]} />} />
                 <Route path="messagepage" element={<MessagePage />} />
@@ -111,10 +103,7 @@ const App: FC<{}> = () => {
               <Route path="/checkinpage" element={<CheckinPage />} />
               <Route path="/steptwo" element={<GuestForm />} />
               <Route path="/onlinesteptwo" element={<OnlineGuestForm />} />
-              <Route
-                path="/onlinecheckinpage"
-                element={<CheckinPageOnline />}
-              />
+              <Route path="/onlinecheckinpage" element={<CheckinPageOnline />} />
               <Route path="/rulesFaq" element={<RulesFAQ />} />
               <Route path="/register" element={<RegisterPage />} />{" "}
               <Route path="tam/registration/:token" element={<SavePasword />} />

@@ -54,7 +54,7 @@ const Register: FC<{}> = () => {
   //user role api call
   useEffect(() => {
     axios
-      .get<DropdownItem[]>("http://192.168.10.141:8080/TAM/role")
+      .get<DropdownItem[]>("http://192.168.10.210:8080/TAM/role")
       .then((res) => {
         setRoles(res.data);
         console.log(res.data);
@@ -62,9 +62,7 @@ const Register: FC<{}> = () => {
       .catch((err) => console.log("error is", err));
   }, []);
 
-  const handleRegisterClick = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleRegisterClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
     if (selectedRole === null || firstName === "" || lastName === "") {
@@ -110,9 +108,7 @@ const Register: FC<{}> = () => {
           margin=" 5px 0 15px 0px"
           required={true}
           value={firstName}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setFirstName(e.target.value)
-          }
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
         />
 
         <Label>
@@ -134,9 +130,7 @@ const Register: FC<{}> = () => {
           margin=" 5px 0 15px 0px"
           required={true}
           value={lastName}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setLastName(e.target.value)
-          }
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
         />
         <Label>
           EMAIL<LabelSpan> * </LabelSpan>
@@ -216,14 +210,7 @@ const Register: FC<{}> = () => {
             fontSize="15px"
             margin="36px 0 20px 0"
             onClick={handleRegisterClick}
-            disabled={
-              !(
-                selectedRole !== null &&
-                firstName !== "" &&
-                lastName !== "" &&
-                email !== ""
-              )
-            }
+            disabled={!(selectedRole !== null && firstName !== "" && lastName !== "" && email !== "")}
           >
             SUBMIT
           </Button>

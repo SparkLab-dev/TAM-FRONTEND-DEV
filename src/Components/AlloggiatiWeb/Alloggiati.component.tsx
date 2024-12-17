@@ -50,8 +50,8 @@ const Alloggiati: FC<{}> = () => {
     console.log(postData);
     try {
       const response = await axios.post(
-        "http://192.168.10.141:8080/TAM/allogatiWeb/saveHostAlloggiatiWebCredentials",
-        postData
+        "http://192.168.10.210:8080/TAM/allogatiWeb/saveHostAlloggiatiWebCredentials",
+        postData,
       );
       console.log("POST request successful:", response.data);
       navigate("/home");
@@ -81,9 +81,7 @@ const Alloggiati: FC<{}> = () => {
             padding="0 10px"
             margin=" 5px 0 15px 0px"
             value={username}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setUsername(e.target.value)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
           ></Input>
           <Label>Password</Label>
           <Input
@@ -101,9 +99,7 @@ const Alloggiati: FC<{}> = () => {
             padding="0 10px"
             margin=" 5px 0 15px 0px"
             value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setPassword(e.target.value)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           ></Input>
           <Label>Web Service key</Label>
           <Input
@@ -121,20 +117,11 @@ const Alloggiati: FC<{}> = () => {
             padding="0 10px"
             margin=" 5px 0 15px 0px"
             value={wsKey}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setWsKey(e.target.value)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWsKey(e.target.value)}
           ></Input>
 
           <LoginButtonHolder>
-            <Button
-              h="40px"
-              w="100%"
-              variant="primary"
-              onClick={handleSubmit}
-              borderradius="20px"
-              fontSize="17px"
-            >
+            <Button h="40px" w="100%" variant="primary" onClick={handleSubmit} borderradius="20px" fontSize="17px">
               Submit
             </Button>
           </LoginButtonHolder>

@@ -29,7 +29,7 @@ const YourComponent: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<MinStay[]>(
-          `http://192.168.10.141:8080/TAM/minStay/getMinStaysByUser/${userId}`
+          `http://192.168.10.210:8080/TAM/minStay/getMinStaysByUser/${userId}`,
         );
         setMinStays(response.data);
       } catch (error) {
@@ -40,22 +40,14 @@ const YourComponent: React.FC = () => {
     fetchData();
   }, [reload, userId]);
 
-  const handleEdit = (
-    day: number,
-    minStay: number,
-    id: number,
-    userId: number
-  ) => {
+  const handleEdit = (day: number, minStay: number, id: number, userId: number) => {
     setEditedMinStay({ day, minStay, id, userId });
   };
 
   const handleSave = async () => {
     if (editedMinStay) {
       try {
-        const response = await axios.post(
-          "http://192.168.10.141:8080/TAM/minStay/saveOrUpdate",
-          [editedMinStay]
-        );
+        const response = await axios.post("http://192.168.10.210:8080/TAM/minStay/saveOrUpdate", [editedMinStay]);
         console.log("POST request successful", response);
         setReload((prev) => !prev);
 
@@ -68,9 +60,7 @@ const YourComponent: React.FC = () => {
 
   const callApi = async () => {
     try {
-      await axios.post(
-        `http://192.168.10.141:8080/TAM/${userId}/reservations/updateMinStayBasedOnRules`
-      );
+      await axios.post(`http://192.168.10.210:8080/TAM/${userId}/reservations/updateMinStayBasedOnRules`);
       console.log("API call successful");
     } catch (error) {
       console.error("Error calling API:", error);
@@ -109,15 +99,10 @@ const YourComponent: React.FC = () => {
               <TableCell align="center">
                 {editedMinStay && editedMinStay.day === minStay.day ? (
                   <TextField
-                    value={
-                      editedMinStay.minStay === null
-                        ? ""
-                        : editedMinStay.minStay
-                    }
+                    value={editedMinStay.minStay === null ? "" : editedMinStay.minStay}
                     onChange={(event) => {
                       const newValue = event.target.value.trim();
-                      const parsedValue =
-                        newValue === "" ? 0 : parseInt(newValue);
+                      const parsedValue = newValue === "" ? 0 : parseInt(newValue);
                       setEditedMinStay({
                         ...editedMinStay,
                         minStay: parsedValue,
@@ -140,14 +125,7 @@ const YourComponent: React.FC = () => {
                       fontFamily: "Poppins",
                       fontWeight: "500",
                     }}
-                    onClick={() =>
-                      handleEdit(
-                        minStay.day,
-                        minStay.minStay,
-                        minStay.id,
-                        minStay.userId
-                      )
-                    }
+                    onClick={() => handleEdit(minStay.day, minStay.minStay, minStay.id, minStay.userId)}
                   >
                     Edit
                   </Button>

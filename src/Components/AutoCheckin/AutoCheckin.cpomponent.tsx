@@ -31,13 +31,12 @@ const PageContainer = styled.div`
   background-position: center;
 `;
 const ClientAmenities: React.FC = () => {
-  const [apartmentOptionsWithCategories, setApartmentOptionsWithCategories] =
-    useState<
-      {
-        category: { id: number; categoryName: string };
-        apartmentOptions: ApartmentOption[];
-      }[]
-    >([]);
+  const [apartmentOptionsWithCategories, setApartmentOptionsWithCategories] = useState<
+    {
+      category: { id: number; categoryName: string };
+      apartmentOptions: ApartmentOption[];
+    }[]
+  >([]);
 
   const userId = 2;
   const [urlData, setUrlData] = useState<AddUrlOption[]>([]);
@@ -46,15 +45,13 @@ const ClientAmenities: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.10.141:8080/TAM/${userId}/apartments/getallApartmentOptions/2031869`
+          `http://192.168.10.210:8080/TAM/${userId}/apartments/getallApartmentOptions/2031869`,
         );
-        setApartmentOptionsWithCategories(
-          response.data.apartmentOptionsWithCategories
-        );
+        setApartmentOptionsWithCategories(response.data.apartmentOptionsWithCategories);
         // setApartmentId(response.data.apartmentId);
         console.log(response.data);
         const response2 = await axios.get<AddUrlOption[]>(
-          `http://192.168.10.141:8080/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/2031869`
+          `http://192.168.10.210:8080/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/2031869`,
         );
         setUrlData(response2.data || []);
         console.log(urlData);
@@ -89,9 +86,7 @@ const ClientAmenities: React.FC = () => {
                 <caption>{categoryGroup.category.categoryName}</caption>
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ fontSize: "25px" }}>
-                      {categoryGroup.category.categoryName}
-                    </TableCell>
+                    <TableCell sx={{ fontSize: "25px" }}>{categoryGroup.category.categoryName}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

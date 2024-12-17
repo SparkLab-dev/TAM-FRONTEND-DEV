@@ -31,10 +31,7 @@ export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (userCredentials: object, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://192.168.10.141:8080/TAM/registration",
-        userCredentials
-      );
+      const response = await axios.post("http://192.168.10.210:8080/TAM/registration", userCredentials);
 
       const responseRegData = response.data.body;
 
@@ -47,7 +44,7 @@ export const registerUser = createAsyncThunk(
       console.log(error.response.data);
       return rejectWithValue("Register failed");
     }
-  }
+  },
 );
 
 const registerSlice = createSlice({

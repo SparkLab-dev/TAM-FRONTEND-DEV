@@ -2,11 +2,7 @@ import { FC, useState } from "react";
 
 import { Button, StyledForm } from "App/style/App.style";
 import { Input } from "App/style/App.style";
-import {
-  LoginButtonHolder,
-  LoginLabel,
-  LoginParagraph,
-} from "Pages/Login/style/Login.style";
+import { LoginButtonHolder, LoginLabel, LoginParagraph } from "Pages/Login/style/Login.style";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
@@ -16,8 +12,7 @@ import { useDispatch } from "react-redux";
 
 const Verification: FC<{}> = () => {
   const userSelector = (state: RootState) => state.auth.user; // Use RootState here
-  const isAuthenticatedSelector = (state: RootState) =>
-    state.auth.isAuthenticated; // Use RootState here
+  const isAuthenticatedSelector = (state: RootState) => state.auth.isAuthenticated; // Use RootState here
   const dispatch = useDispatch();
 
   const [clientId, setClientId] = useState<string>("");
@@ -44,10 +39,7 @@ const Verification: FC<{}> = () => {
     };
     console.log(postData);
     try {
-      const response = await axios.post(
-        "http://192.168.10.141:8080/TAM/smoobuAccount",
-        postData
-      );
+      const response = await axios.post("http://192.168.10.210:8080/TAM/smoobuAccount", postData);
 
       console.log("POST request successful:", response.data);
       const isRegisteredInSmoobu = response.data.registredInSmoobu;
@@ -92,9 +84,7 @@ const Verification: FC<{}> = () => {
             padding="0 10px"
             margin=" 5px 0 15px 0px"
             value={clientId}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setClientId(e.target.value)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setClientId(e.target.value)}
           ></Input>
           <LoginLabel>Security Key</LoginLabel>
           <Input
@@ -112,29 +102,17 @@ const Verification: FC<{}> = () => {
             padding="0 10px"
             margin=" 5px 0 15px 0px"
             value={clientAPIKey}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setClientAPIKey(e.target.value)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setClientAPIKey(e.target.value)}
           ></Input>
 
           <LoginButtonHolder>
-            <Button
-              h="40px"
-              w="100%"
-              variant="primary"
-              onClick={handleSubmit}
-              borderradius="20px"
-              fontSize="17px"
-            >
+            <Button h="40px" w="100%" variant="primary" onClick={handleSubmit} borderradius="20px" fontSize="17px">
               Submit
             </Button>
           </LoginButtonHolder>
 
-          <p
-            style={{ fontSize: "15px", marginTop: "30px", marginBottom: "5px" }}
-          >
-            Missing this information? Download Pdf below and follow the
-            instructions!
+          <p style={{ fontSize: "15px", marginTop: "30px", marginBottom: "5px" }}>
+            Missing this information? Download Pdf below and follow the instructions!
           </p>
           <LoginButtonHolder>
             <Button

@@ -61,10 +61,10 @@ export default function MediaCard() {
   const handleDownloadZIPfile = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.10.141:8080/TAM/checkin/downloadXML/ZIP/${userId}?startDate=${startDate}&endDate=${endDate}`,
+        `http://192.168.10.210:8080/TAM/checkin/downloadXML/ZIP/${userId}?startDate=${startDate}&endDate=${endDate}`,
         {
           responseType: "blob", // Set response type to blob
-        }
+        },
       );
       console.log("Response:", response);
 
@@ -111,7 +111,7 @@ export default function MediaCard() {
   const getAllReservations = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.10.210:8080/TAM/reservation/getAllReservationsPerOwner/${userId}`
+        `http://192.168.10.210:8080/TAM/reservation/getAllReservationsPerOwner/${userId}`,
       );
       console.log(userId, "userId");
       console.log("RESPOnse", response.data);
@@ -130,10 +130,7 @@ export default function MediaCard() {
     <div style={{ display: "flex", gap: "50px", flexDirection: "column" }}>
       <div style={{ flex: "1" }}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer
-            components={["DatePicker"]}
-            sx={{ justifyContent: "center" }}
-          >
+          <DemoContainer components={["DatePicker"]} sx={{ justifyContent: "center" }}>
             <DatePicker
               label={t("startdate")}
               onChange={handleStartDateChange}
@@ -153,9 +150,7 @@ export default function MediaCard() {
               }}
             />
             <div style={{ marginTop: "10px" }}>
-              <ReservationsButton onClick={() => handleDownloadZIPfile()}>
-                {t("download")}
-              </ReservationsButton>
+              <ReservationsButton onClick={() => handleDownloadZIPfile()}>{t("download")}</ReservationsButton>
             </div>
           </DemoContainer>
         </LocalizationProvider>
@@ -258,20 +253,12 @@ export default function MediaCard() {
                   <TableCell align="left">{reservation.propertyName}</TableCell>
                   <TableCell align="left">{reservation.dateFrom}</TableCell>
                   <TableCell align="left">{reservation.dateTo}</TableCell>
-                  <TableCell align="left">
-                    {reservation.numberOfGuests}
-                  </TableCell>
+                  <TableCell align="left">{reservation.numberOfGuests}</TableCell>
                   <TableCell align="left">{reservation.ruPrice}</TableCell>
                   <TableCell align="left">{reservation.clientPrice}</TableCell>
                   <TableCell align="left">{reservation.createdDate}</TableCell>
                   <TableCell align="left">
-                    <button
-                      onClick={() =>
-                        handleReservationClick(reservation.propertyID)
-                      }
-                    >
-                      {t("view details")}
-                    </button>
+                    <button onClick={() => handleReservationClick(reservation.propertyID)}>{t("view details")}</button>
                   </TableCell>
                 </TableRow>
               ))}

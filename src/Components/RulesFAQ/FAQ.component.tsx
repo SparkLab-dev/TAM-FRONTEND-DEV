@@ -25,11 +25,7 @@ function Row(props: { row: FAQItem }) {
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
         <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
+          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
@@ -66,7 +62,7 @@ export default function CollapsibleTable() {
 
   useEffect(() => {
     // Fetch data from API when component mounts
-    fetch("http://192.168.10.141:8080/TAM/apartmentFAQ/getByApartment/2031869")
+    fetch("http://192.168.10.210:8080/TAM/apartmentFAQ/getByApartment/2031869")
       .then((response) => response.json())
       .then((data: FAQItem[]) => {
         // Update the state with the fetched data
@@ -77,10 +73,7 @@ export default function CollapsibleTable() {
 
   return (
     <TableContainer component={Paper}>
-      <Table
-        sx={{ minWidth: 650, marginBottom: "50px" }}
-        aria-label="collapsible table"
-      >
+      <Table sx={{ minWidth: 650, marginBottom: "50px" }} aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell>FAQ</TableCell>

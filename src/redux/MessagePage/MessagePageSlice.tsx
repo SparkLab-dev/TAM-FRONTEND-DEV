@@ -31,15 +31,9 @@ const initialState: MessageState = {
 //post api
 export const sendMessage = createAsyncThunk(
   "message/sendMessage",
-  async (
-    { userId, messageProps }: { userId: number; messageProps: object },
-    { rejectWithValue }
-  ) => {
+  async ({ userId, messageProps }: { userId: number; messageProps: object }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `http://192.168.10.141:8080/TAM/51902732/message/${userId}`,
-        messageProps
-      );
+      const response = await axios.post(`http://192.168.10.210:8080/TAM/51902732/message/${userId}`, messageProps);
 
       const responseData = response.data;
       console.log(responseData);
@@ -54,7 +48,7 @@ export const sendMessage = createAsyncThunk(
 
       return rejectWithValue("Send Message failed");
     }
-  }
+  },
 );
 
 //get api
@@ -74,9 +68,7 @@ export const fetchMessage = createAsyncThunk<
   }
 >("message/fetchMessages", async ({ userId }, { rejectWithValue }) => {
   try {
-    const response = await axios.get(
-      `http://192.168.10.141:8080/TAM/${reservationId}/message/${userId}`
-    );
+    const response = await axios.get(`http://192.168.10.210:8080/TAM/${reservationId}/message/${userId}`);
 
     console.log("res", response);
     return response.data as MesagePageProps;

@@ -73,7 +73,7 @@ const ErrorMessage = styled.div`
 const FirstOnlineCheckinForm: React.FC = () => {
   const [number, setNumber] = useState<string>(""); // For number of guests
   const [apartmentId, setApartmentId] = useState<string>("2335578"); // Apartment ID (hardcoded for now)
-  const [smoobuId, setSmoobuId] = useState<string>(""); 
+  const [smoobuId, setSmoobuId] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [checkinSuccess, setCheckinSuccess] = useState<boolean>(false); // To track if check-in was successful
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -87,14 +87,12 @@ const FirstOnlineCheckinForm: React.FC = () => {
     try {
       // Make API call using Axios to submit number of guests
       const response = await axios.post(
-        `http://192.168.10.141:8080/TAM/checkin/numberOfGuestsCheck/${apartmentId}/${number}`
+        `http://192.168.10.210:8080/TAM/checkin/numberOfGuestsCheck/${apartmentId}/${number}`,
       );
 
       if (response.status === 200) {
         setCheckinSuccess(true); // Set success state
-        setSuccessMessage(
-          `Check-in initiated successfully for ${number} guests.`
-        );
+        setSuccessMessage(`Check-in initiated successfully for ${number} guests.`);
         setErrorMessage(""); // Clear any error messages
         setSmoobuId(response.data[0]);
         localStorage.setItem("numberOfGuests", number);
@@ -107,8 +105,7 @@ const FirstOnlineCheckinForm: React.FC = () => {
     } catch (error) {
       // Check if error is an AxiosError and contains a response
       if (axios.isAxiosError(error) && error.response) {
-        const serverErrorMessage =
-          error.response.data.errorMessage || "An unexpected error occurred.";
+        const serverErrorMessage = error.response.data.errorMessage || "An unexpected error occurred.";
         setErrorMessage(serverErrorMessage);
         setTimeout(() => {
           setErrorMessage("");

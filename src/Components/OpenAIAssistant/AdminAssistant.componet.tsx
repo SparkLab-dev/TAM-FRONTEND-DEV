@@ -71,14 +71,12 @@ const ChatComponent2: React.FC = () => {
     setIsTyping(true);
 
     const bookingApartmentId = localStorage.getItem("bookingApartmentId");
-    const apartmentId = bookingApartmentId
-      ? parseInt(bookingApartmentId, 10)
-      : null;
+    const apartmentId = bookingApartmentId ? parseInt(bookingApartmentId, 10) : null;
 
     if (!messages.find((msg) => msg.sender === "user")) {
       axios
         .post(
-          "http://192.168.10.141:8080/TAM/assistant/thread/client",
+          "http://192.168.10.210:8080/TAM/assistant/thread/client",
           {
             newMessage,
           },
@@ -86,7 +84,7 @@ const ChatComponent2: React.FC = () => {
             params: {
               apartmentId: 2112479,
             },
-          }
+          },
         )
         .then((response) => {
           const id = response.data.id;
@@ -107,13 +105,10 @@ const ChatComponent2: React.FC = () => {
         });
     } else {
       axios
-        .post(
-          `http://192.168.10.141:8080/TAM/assistant/chat/${threadId}/client`,
-          {
-            content: newMessage,
-            role: "user",
-          }
-        )
+        .post(`http://192.168.10.210:8080/TAM/assistant/chat/${threadId}/client`, {
+          content: newMessage,
+          role: "user",
+        })
         .then((response) => {
           const botResponse: Message = {
             id: messages.length + 2,
@@ -184,12 +179,7 @@ const ChatComponent2: React.FC = () => {
               {isTyping && <BotMessageBubble>Typing...</BotMessageBubble>}{" "}
             </MessageContainer>
             <InputContainer>
-              <Input
-                rows={4}
-                value={newMessage}
-                onChange={handleInputChange}
-                onKeyDown={handleInputKeyPress}
-              />
+              <Input rows={4} value={newMessage} onChange={handleInputChange} onKeyDown={handleInputKeyPress} />
               <SendButton onClick={sendMessage}>
                 <SendIcon fontSize="small" />
               </SendButton>

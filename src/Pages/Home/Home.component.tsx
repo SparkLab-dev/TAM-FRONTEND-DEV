@@ -87,15 +87,14 @@ const Home: FC<{}> = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const user = useSelector((state: RootState) => state.auth.user);
-  const [selectedOption, setSelectedOption] =
-    useState<string>("plusthreemonths");
+  const [selectedOption, setSelectedOption] = useState<string>("plusthreemonths");
   const userId = user?.id;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get<ApiResponse>(
-          `http://192.168.10.141:8080/TAM/dashboard/${userId}/${selectedOption}`
+          `http://192.168.10.210:8080/TAM/dashboard/${userId}/${selectedOption}`,
         );
         setData(response.data);
         console.log(data);
@@ -109,9 +108,7 @@ const Home: FC<{}> = () => {
     fetchData();
   }, [userId, selectedOption]);
 
-  const handleDropdownChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(event.target.value);
   };
 
@@ -142,11 +139,7 @@ const Home: FC<{}> = () => {
             </Dropdown>
             <h2>Nights/Portal</h2>
             <PieChartComponent
-              data={
-                Object.entries(data?.nightsPortalReport || {}).map(
-                  ([name, value]) => ({ name, value })
-                ) || []
-              }
+              data={Object.entries(data?.nightsPortalReport || {}).map(([name, value]) => ({ name, value })) || []}
             />
           </Test>
           <Test>

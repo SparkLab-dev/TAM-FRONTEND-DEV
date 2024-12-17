@@ -162,7 +162,7 @@ const HomepageTest: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<ApiResponse>(
-          `http://192.168.10.141:8080/TAM/dashboard/${userId}/${selectedOption}`
+          `http://192.168.10.210:8080/TAM/dashboard/${userId}/${selectedOption}`,
         );
         setData(response.data);
         console.log(data);
@@ -176,9 +176,7 @@ const HomepageTest: React.FC = () => {
     fetchData();
   }, [userId, selectedOption]);
 
-  const handleDropdownChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(event.target.value);
   };
 
@@ -205,11 +203,7 @@ const HomepageTest: React.FC = () => {
         <Box width={277} height={312}>
           <h2 style={{ paddingLeft: "10px" }}>{t("nightsportal")}</h2>
           <PieChartComponent
-            data={
-              Object.entries(data?.nightsPortalReport || {}).map(
-                ([name, value]) => ({ name, value })
-              ) || []
-            }
+            data={Object.entries(data?.nightsPortalReport || {}).map(([name, value]) => ({ name, value })) || []}
           />
         </Box>
         <Box width={277} height={312}>

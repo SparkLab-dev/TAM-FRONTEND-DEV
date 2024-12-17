@@ -24,35 +24,29 @@ const initialState: AuthState = {
   error: null,
 };
 
-export const loginUser = createAsyncThunk(
-  "user/loginUser",
-  async (userCredentials: object, { rejectWithValue }) => {
-    try {
-      const response = await axios.post(
-        "http://192.168.10.210:8080/TAM/auth/login",
-        userCredentials
-      );
+export const loginUser = createAsyncThunk("user/loginUser", async (userCredentials: object, { rejectWithValue }) => {
+  try {
+    const response = await axios.post("http://192.168.10.210:8080/TAM/auth/login", userCredentials);
 
-      const responseData = response.data;
+    const responseData = response.data;
 
-      console.log(responseData);
+    console.log(responseData);
 
-      localStorage.setItem("user", JSON.stringify(responseData));
+    localStorage.setItem("user", JSON.stringify(responseData));
 
-      if (response.status !== 200) {
-        return rejectWithValue(responseData.error.message);
-      }
-
-      localStorage.setItem("user", JSON.stringify(responseData));
-
-      return responseData;
-    } catch (error) {
-      console.log("Error in loginUser:", error);
-
-      return rejectWithValue("Login failed");
+    if (response.status !== 200) {
+      return rejectWithValue(responseData.error.message);
     }
+
+    localStorage.setItem("user", JSON.stringify(responseData));
+
+    return responseData;
+  } catch (error) {
+    console.log("Error in loginUser:", error);
+
+    return rejectWithValue("Login failed");
   }
-);
+});
 
 export const logoutUser = createAsyncThunk<void, number | null>(
   "user/logoutUser",
@@ -69,9 +63,7 @@ export const logoutUser = createAsyncThunk<void, number | null>(
       if (!userIdFromLocalStorage) {
         throw new Error("User ID not found in user data");
       }
-      const response = await axios.post(
-        `http://192.168.10.141:8080/TAM/auth/logout/${userIdFromLocalStorage}`
-      );
+      const response = await axios.post(`http://192.168.10.210:8080/TAM/auth/logout/${userIdFromLocalStorage}`);
 
       console.log("Logout response:", response.data);
       localStorage.removeItem("user");
@@ -80,7 +72,7 @@ export const logoutUser = createAsyncThunk<void, number | null>(
 
       return rejectWithValue("Logout failed");
     }
-  }
+  },
 );
 
 const authSlice = createSlice({
@@ -122,6 +114,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUser, clearUser, updateSmoobuRegistration } =
-  authSlice.actions;
+export const { setUser, clearUser, updateSmoobuRegistration } = authSlice.actions;
 export default authSlice.reducer;

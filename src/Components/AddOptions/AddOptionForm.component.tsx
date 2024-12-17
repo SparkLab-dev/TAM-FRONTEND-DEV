@@ -72,10 +72,7 @@ const AddOptionForm: React.FC = () => {
           id: 14,
         },
       };
-      await axios.post(
-        "http://192.168.10.141:8080/TAM/apartmentOption/saveOrUpdateApartmentOption",
-        requestBody
-      );
+      await axios.post("http://192.168.10.210:8080/TAM/apartmentOption/saveOrUpdateApartmentOption", requestBody);
       console.log("POST request successful");
       setDescription("");
       setOpen(false);
@@ -92,13 +89,7 @@ const AddOptionForm: React.FC = () => {
         <StyledWrapper>
           <Title>Add an option</Title>
           <InputBox>
-            <StyledTextField
-              type="text"
-              placeholder="Type here"
-              value={description}
-              onChange={handleChange}
-              required
-            />
+            <StyledTextField type="text" placeholder="Type here" value={description} onChange={handleChange} required />
           </InputBox>
           <Button onClick={handleSubmit}>Add</Button>
         </StyledWrapper>

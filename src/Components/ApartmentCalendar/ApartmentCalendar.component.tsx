@@ -24,7 +24,7 @@
 //         if (!userId) return;
 
 //         const response = await axios.get(
-//           `http://192.168.10.141:8080/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
+//           `http://192.168.10.210:8080/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
 //             visibleRange.start
 //           ).format("YYYY-MM-DD")}&toDate=${moment(visibleRange.end).format(
 //             "YYYY-MM-DD"
@@ -111,16 +111,8 @@ interface MyCalendarProps {
 const MyCalendar: FC<MyCalendarProps> = ({ userId, apartamentId }) => {
   const [reservations, setReservations] = useState([]);
   const today = new Date();
-  const startOfCurrentMonth = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    1
-  );
-  const endOfCurrentMonth = new Date(
-    today.getFullYear(),
-    today.getMonth() + 1,
-    0
-  );
+  const startOfCurrentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+  const endOfCurrentMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
   const [visibleRange, setVisibleRange] = useState<{ start: Date; end: Date }>({
     start: startOfCurrentMonth,
     end: endOfCurrentMonth,
@@ -132,11 +124,9 @@ const MyCalendar: FC<MyCalendarProps> = ({ userId, apartamentId }) => {
         if (!userId) return;
 
         const response = await axios.get(
-          `http://192.168.10.141:8080/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
-            visibleRange.start
-          ).format("YYYY-MM-DD")}&toDate=${moment(visibleRange.end).format(
-            "YYYY-MM-DD"
-          )}`
+          `http://192.168.10.210:8080/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
+            visibleRange.start,
+          ).format("YYYY-MM-DD")}&toDate=${moment(visibleRange.end).format("YYYY-MM-DD")}`,
         );
         setReservations(response.data.reservations || []);
       } catch (error) {

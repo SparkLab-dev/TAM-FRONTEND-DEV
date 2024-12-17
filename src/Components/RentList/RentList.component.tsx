@@ -42,9 +42,7 @@ const RentList: FC<RentListProps> = () => {
   const { t } = useTranslation();
   //get userId &apartmentId from store
   const userId = useSelector((state: RootState) => state.auth.user?.id);
-  const apartmentIdFromStore = useSelector(
-    (state: RootState) => state.apartmentsCard.apartmentDetails?.id
-  );
+  const apartmentIdFromStore = useSelector((state: RootState) => state.apartmentsCard.apartmentDetails?.id);
   console.log(apartmentIdFromStore);
   //startDate &endDate function
   function handleStartDateChange(event: any) {
@@ -70,12 +68,8 @@ const RentList: FC<RentListProps> = () => {
   const currentMonth = today.getMonth() + 1;
   const currentYear = today.getFullYear();
   const lastDayOfMonth = new Date(currentYear, currentMonth, 0);
-  const startOfMonth = `${currentYear}-${currentMonth
-    .toString()
-    .padStart(2, "0")}-01`;
-  const endOfMonth = `${currentYear}-${currentMonth
-    .toString()
-    .padStart(2, "0")}-${lastDayOfMonth.getDate()}`;
+  const startOfMonth = `${currentYear}-${currentMonth.toString().padStart(2, "0")}-01`;
+  const endOfMonth = `${currentYear}-${currentMonth.toString().padStart(2, "0")}-${lastDayOfMonth.getDate()}`;
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -209,8 +203,8 @@ const RentList: FC<RentListProps> = () => {
 
     try {
       const response = await axios.post(
-        `http://192.168.10.141:8080/TAM/${userId}/apartmentAvailability`,
-        userCredentialsss
+        `http://192.168.10.210:8080/TAM/${userId}/apartmentAvailability`,
+        userCredentialsss,
       );
 
       if (response.status === 200) {
@@ -240,8 +234,8 @@ const RentList: FC<RentListProps> = () => {
 
     try {
       const response = await axios.post(
-        `http://192.168.10.141:8080/TAM/${userId}/apartmentAvailability`,
-        userCredentialss
+        `http://192.168.10.210:8080/TAM/${userId}/apartmentAvailability`,
+        userCredentialss,
       );
 
       if (response.status === 200) {
@@ -258,10 +252,7 @@ const RentList: FC<RentListProps> = () => {
   return (
     <TableAndDatepickerHolder>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DemoContainer
-          components={["DatePicker"]}
-          sx={{ justifyContent: "center" }}
-        >
+        <DemoContainer components={["DatePicker"]} sx={{ justifyContent: "center" }}>
           <DatePicker
             label="Start date"
             onChange={handleStartDateChange}
@@ -300,22 +291,14 @@ const RentList: FC<RentListProps> = () => {
                 <TableCell>{rental.date}</TableCell>
                 <TableCell>${rental.price}</TableCell>
                 <TableCell>
-                  ${rental.suggestedPrice}{" "}
-                  <EditButton onClick={() => handleMatchPrice(rental)}>
-                    Match
-                  </EditButton>
+                  ${rental.suggestedPrice} <EditButton onClick={() => handleMatchPrice(rental)}>Match</EditButton>
                 </TableCell>
                 <TableCell>{rental.min_length_of_stay} nights</TableCell>
                 <TableCell>
-                  {rental.suggestedMinimumStay}{" "}
-                  <EditButton onClick={() => handleMinStay(rental)}>
-                    Match
-                  </EditButton>
+                  {rental.suggestedMinimumStay} <EditButton onClick={() => handleMinStay(rental)}>Match</EditButton>
                 </TableCell>
                 <ActionTableCell>
-                  <EditButton onClick={() => handleEdit(rental)}>
-                    {t("edit")}
-                  </EditButton>
+                  <EditButton onClick={() => handleEdit(rental)}>{t("edit")}</EditButton>
 
                   <IconLink to="">
                     <DeleteIcon sx={{ fontSize: "30px" }} />

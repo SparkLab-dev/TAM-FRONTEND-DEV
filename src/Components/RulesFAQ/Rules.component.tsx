@@ -17,7 +17,7 @@ function Rules() {
 
   useEffect(() => {
     // Fetch rules from API when component mounts
-    fetch("http://192.168.10.141:8080/TAM/apartmentRule/getByApartment/2031869")
+    fetch("http://192.168.10.210:8080/TAM/apartmentRule/getByApartment/2031869")
       .then((response) => response.json())
       .then((data) => {
         // Update the state with the fetched rules
@@ -28,10 +28,7 @@ function Rules() {
 
   return (
     <TableContainer component={Paper}>
-      <Table
-        sx={{ minWidth: 650, marginBottom: "50px" }}
-        aria-label="caption table"
-      >
+      <Table sx={{ minWidth: 650, marginBottom: "50px" }} aria-label="caption table">
         <caption>Rules</caption>
         <TableHead>
           <TableRow>

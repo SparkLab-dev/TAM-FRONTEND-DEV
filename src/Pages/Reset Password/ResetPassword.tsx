@@ -8,11 +8,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { InputGroup } from "App/style/App.style";
 import { ToggleButton } from "App/style/App.style";
-import {
-  ResetPassButtonHolder,
-  ResetPassLabel,
-  Warning,
-} from "./style/ResetPassword.style";
+import { ResetPassButtonHolder, ResetPassLabel, Warning } from "./style/ResetPassword.style";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LoginParagraph } from "Pages/Login/style/Login.style";
@@ -23,8 +19,7 @@ const ResetPassword: FC<{}> = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -50,10 +45,7 @@ const ResetPassword: FC<{}> = () => {
       console.log(requestData);
 
       axios
-        .put(
-          `http://192.168.10.141:8080/TAM/resetPassword/${token}`,
-          requestData
-        )
+        .put(`http://192.168.10.210:8080/TAM/resetPassword/${token}`, requestData)
         .then((response) => {
           console.log("PUT request successful:", response.data);
           navigate("/login");
@@ -81,9 +73,7 @@ const ResetPassword: FC<{}> = () => {
           <Input
             type={showPassword ? "text" : "password"}
             value={newPassword}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setNewPassword(e.target.value)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewPassword(e.target.value)}
             placeholder="Password"
             fontSize="12px"
             borderbottomrightradius="20px"
@@ -106,9 +96,7 @@ const ResetPassword: FC<{}> = () => {
           <Input
             type={showConfirmPassword ? "text" : "password"}
             value={confirmPassword}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setConfirmPassword(e.target.value)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
             placeholder="Password"
             fontSize="12px"
             borderbottomrightradius="20px"
@@ -126,17 +114,9 @@ const ResetPassword: FC<{}> = () => {
             <FontAwesomeIcon icon={showConfirmPassword ? faEye : faEyeSlash} />
           </ToggleButton>
         </InputGroup>
-        {!passwordsMatch && (
-          <Warning>Passwords do not match. Please try again!</Warning>
-        )}
+        {!passwordsMatch && <Warning>Passwords do not match. Please try again!</Warning>}
         <ResetPassButtonHolder>
-          <Button
-            h="40px"
-            w="100%"
-            variant="primary"
-            borderradius="20px"
-            fontSize="18px"
-          >
+          <Button h="40px" w="100%" variant="primary" borderradius="20px" fontSize="18px">
             Submit
           </Button>
         </ResetPassButtonHolder>

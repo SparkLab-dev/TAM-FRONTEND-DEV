@@ -21,7 +21,7 @@ const CardContainer = styled.div`
 `;
 const GuestCardsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2fr); 
+  grid-template-columns: repeat(2fr);
   gap: 20px; /* Gap between cards */
   margin-top: 20px;
 `;
@@ -106,9 +106,7 @@ const Card: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        `http://192.168.10.141:8080/TAM/checkin/checkInPage/${checkinIdd}`
-      );
+      const response = await axios.get(`http://192.168.10.210:8080/TAM/checkin/checkInPage/${checkinIdd}`);
       setData(response.data);
       console.log(data);
       console.log(response);
@@ -130,9 +128,7 @@ const Card: React.FC = () => {
 
   const updateCheckInStatus = async (): Promise<void> => {
     try {
-      await axios.put(
-        `http://192.168.10.141:8080/TAM/checkin/${userId}/checkInStatus/${checkinIdd}/Successfully`
-      );
+      await axios.put(`http://192.168.10.210:8080/TAM/checkin/${userId}/checkInStatus/${checkinIdd}/Successfully`);
       console.log("Check-in status updated successfully");
       window.location.reload();
     } catch (error) {
@@ -151,7 +147,7 @@ const Card: React.FC = () => {
   const denieCheckInStatus = async (): Promise<void> => {
     try {
       await axios.put(
-        `http://192.168.10.141:8080/TAM/checkin/${userId}/checkInStatus/${checkinIdd}/Failed?reasonOfFailed=${reason}`
+        `http://192.168.10.210:8080/TAM/checkin/${userId}/checkInStatus/${checkinIdd}/Failed?reasonOfFailed=${reason}`,
       );
       console.log("Check-in status updated successfully");
       setCheckInStatus("Denied");
@@ -162,167 +158,157 @@ const Card: React.FC = () => {
     }
   };
   return (
-    <div style={{display:"flex",gap:"30px"}}>
-    <CardContainer>
-      <h3>Checkin Details</h3>
-      {data && (
-        <>
-          <Row>
-            <div>{t("arrival")}:</div>
-            <div>{data.cappoCheckIn.reservation.arrival}</div>
-          </Row>
-          <Row>
-            <div>{t("departure")}:</div>
-            <div>{data.cappoCheckIn.reservation.departure}</div>
-          </Row>
-          <Row>
-            <div>{t("spartmentname")}:</div>
-            <div>{data.cappoCheckIn.reservation.apartmentName}</div>
-          </Row>
-          <Row>
-            <div>{t("guestname")}:</div>
-            <div>{data.cappoCheckIn.reservation.guestName}</div>
-          </Row>
-          <Row>
-            <div>{t("phone")}:</div>
-            <div>{data.cappoCheckIn.reservation.phone}</div>
-          </Row>
-          <Row>
-            <div>{t("adults")}:</div>
-            <div>{data.cappoCheckIn.reservation.adults}</div>
-          </Row>
-          <Row>
-            <div>{t("children")}:</div>
-            <div>{data.cappoCheckIn.reservation.children}</div>
-          </Row>
-          <Row>
-            <div>{t("price")}:</div>
-            <div>{data.cappoCheckIn.reservation.price}</div>
-          </Row>
-          <Row>
-            <div>{t("price")}:</div>
-            <div>{data.cappoCheckIn.reservation.totalNumberOfGuests}</div>
-          </Row>
-          <Row>
-            <div>{t("price")}:</div>
-            <div>{data.cappoCheckIn.reservation.numberOfActualGuests}</div>
-          </Row>
-          <h3>{t("checkindetails")}</h3>
-          <Row>
-            <div>{t("name")}:</div>
-            <div>{data.cappoCheckIn.reservation.firstname}</div>
-          </Row>
-          <Row>
-            <div>{t("surname")}:</div>
-            <div>{data.cappoCheckIn.reservation.lastname}</div>
-          </Row>
-          <Row>
-            <div>{t("citizenship")}:</div>
-            <div>{data.cappoCheckIn.cittadinaza.descrizione}</div>
-          </Row>
-          <Row>
-            <div>{t("documentReleasePlace")}:</div>
-            <div>{data.cappoCheckIn.luogoRilacioDocumento.descrizione}</div>
-          </Row>
-          <Row>
-            <div>{t("typeofdocument")}:</div>
-            <div>{data.cappoCheckIn.allogiatiWebDocumenti.descrizione}</div>
-          </Row>
-          <Row>
-            <div>{t("numberofdocument")}:</div>
-            <div>{data.cappoCheckIn.numeroDocumento}</div>
-          </Row>
-          <Row>
-            <div>{t("birthdate")}:</div>
-            <div>{data.cappoCheckIn.dataNascita}</div>
-          </Row>
-
-        </>
-      )}
-      {data?.cappoCheckIn.checkInStatus === "Pending" ? (
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Button onClick={updateCheckInStatus}>{t("approve")}</Button>
-          <Button onClick={openPopup}>{t("deny")}</Button>
-        </div>
-      ) : (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            color:
-              data?.checkInStatus === "Successfully"
-                ? "green"
-                : "rgb(193 93 93)",
-            fontFamily: "poppins",
-            fontWeight: 400,
-            fontSize: "15px",
-          }}
-        >
-          {data?.checkInStatus === "Successfully" ? "Approved" : "Denied"}
-        </div>
-      )}
-
-      {modalOpen && (
-        <ImageModal isOpen={modalOpen} onClick={closeModal}>
-          <ModalContent>
-            {selectedDocument && (
-              <img src={selectedDocument} alt="Document Preview" />
-            )}
-          </ModalContent>
-        </ImageModal>
-      )}
-      <Popup
-        isOpen={isModalOpen}
-        onClose={() => {
-          setIsModalOpen(false);
-        }}
-        headerContent={<PopupName>{t("writethereason")}</PopupName>}
-        bodyContent={
+    <div style={{ display: "flex", gap: "30px" }}>
+      <CardContainer>
+        <h3>Checkin Details</h3>
+        {data && (
           <>
-            <AccountsTypeNAmeHolder>
-              <TextArea
-                placeholder="Enter the reason for denying the check-in"
-                value={reason}
-                onChange={(e: any) => setReason(e.target.value)}
-              />
-            </AccountsTypeNAmeHolder>
+            <Row>
+              <div>{t("arrival")}:</div>
+              <div>{data.cappoCheckIn.reservation.arrival}</div>
+            </Row>
+            <Row>
+              <div>{t("departure")}:</div>
+              <div>{data.cappoCheckIn.reservation.departure}</div>
+            </Row>
+            <Row>
+              <div>{t("spartmentname")}:</div>
+              <div>{data.cappoCheckIn.reservation.apartmentName}</div>
+            </Row>
+            <Row>
+              <div>{t("guestname")}:</div>
+              <div>{data.cappoCheckIn.reservation.guestName}</div>
+            </Row>
+            <Row>
+              <div>{t("phone")}:</div>
+              <div>{data.cappoCheckIn.reservation.phone}</div>
+            </Row>
+            <Row>
+              <div>{t("adults")}:</div>
+              <div>{data.cappoCheckIn.reservation.adults}</div>
+            </Row>
+            <Row>
+              <div>{t("children")}:</div>
+              <div>{data.cappoCheckIn.reservation.children}</div>
+            </Row>
+            <Row>
+              <div>{t("price")}:</div>
+              <div>{data.cappoCheckIn.reservation.price}</div>
+            </Row>
+            <Row>
+              <div>{t("price")}:</div>
+              <div>{data.cappoCheckIn.reservation.totalNumberOfGuests}</div>
+            </Row>
+            <Row>
+              <div>{t("price")}:</div>
+              <div>{data.cappoCheckIn.reservation.numberOfActualGuests}</div>
+            </Row>
+            <h3>{t("checkindetails")}</h3>
+            <Row>
+              <div>{t("name")}:</div>
+              <div>{data.cappoCheckIn.reservation.firstname}</div>
+            </Row>
+            <Row>
+              <div>{t("surname")}:</div>
+              <div>{data.cappoCheckIn.reservation.lastname}</div>
+            </Row>
+            <Row>
+              <div>{t("citizenship")}:</div>
+              <div>{data.cappoCheckIn.cittadinaza.descrizione}</div>
+            </Row>
+            <Row>
+              <div>{t("documentReleasePlace")}:</div>
+              <div>{data.cappoCheckIn.luogoRilacioDocumento.descrizione}</div>
+            </Row>
+            <Row>
+              <div>{t("typeofdocument")}:</div>
+              <div>{data.cappoCheckIn.allogiatiWebDocumenti.descrizione}</div>
+            </Row>
+            <Row>
+              <div>{t("numberofdocument")}:</div>
+              <div>{data.cappoCheckIn.numeroDocumento}</div>
+            </Row>
+            <Row>
+              <div>{t("birthdate")}:</div>
+              <div>{data.cappoCheckIn.dataNascita}</div>
+            </Row>
           </>
-        }
-        footerContent={
-          <PopupButton onClick={denieCheckInStatus}>{t("save")}</PopupButton>
-        }
-      />
-    </CardContainer>
+        )}
+        {data?.cappoCheckIn.checkInStatus === "Pending" ? (
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Button onClick={updateCheckInStatus}>{t("approve")}</Button>
+            <Button onClick={openPopup}>{t("deny")}</Button>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              color: data?.checkInStatus === "Successfully" ? "green" : "rgb(193 93 93)",
+              fontFamily: "poppins",
+              fontWeight: 400,
+              fontSize: "15px",
+            }}
+          >
+            {data?.checkInStatus === "Successfully" ? "Approved" : "Denied"}
+          </div>
+        )}
 
-    {data?.gruppoCheckIn?.length > 0 && (
-  <GuestCardsGrid>
-    {data.gruppoCheckIn.map((guest: any, index: number) => (
-      <GuestCardContainer key={index}>
-        <h3>Guest details</h3>
-        <Row>
-          <div>{t("name")}:</div>
-          <div>{guest.nome}</div>
-        </Row>
-        <Row>
-          <div>{t("surname")}:</div>
-          <div>{guest.cognome}</div>
-        </Row>
-        <Row>
-          <div>{t("birthdate")}:</div>
-          <div>{guest.dataNascita}</div>
-        </Row>
-        <Row>
-          <div>{t("citizenship")}:</div>
-          <div>{guest.cittadinaza.descrizione}</div>
-        </Row>
-        <Row>
-          <div>Type of guest:</div>
-          <div>{guest.tipoAlloggiato.descrizione}</div>
-        </Row>
-      </GuestCardContainer>
-    ))}
-  </GuestCardsGrid>
-)}
+        {modalOpen && (
+          <ImageModal isOpen={modalOpen} onClick={closeModal}>
+            <ModalContent>{selectedDocument && <img src={selectedDocument} alt="Document Preview" />}</ModalContent>
+          </ImageModal>
+        )}
+        <Popup
+          isOpen={isModalOpen}
+          onClose={() => {
+            setIsModalOpen(false);
+          }}
+          headerContent={<PopupName>{t("writethereason")}</PopupName>}
+          bodyContent={
+            <>
+              <AccountsTypeNAmeHolder>
+                <TextArea
+                  placeholder="Enter the reason for denying the check-in"
+                  value={reason}
+                  onChange={(e: any) => setReason(e.target.value)}
+                />
+              </AccountsTypeNAmeHolder>
+            </>
+          }
+          footerContent={<PopupButton onClick={denieCheckInStatus}>{t("save")}</PopupButton>}
+        />
+      </CardContainer>
+
+      {data?.gruppoCheckIn?.length > 0 && (
+        <GuestCardsGrid>
+          {data.gruppoCheckIn.map((guest: any, index: number) => (
+            <GuestCardContainer key={index}>
+              <h3>Guest details</h3>
+              <Row>
+                <div>{t("name")}:</div>
+                <div>{guest.nome}</div>
+              </Row>
+              <Row>
+                <div>{t("surname")}:</div>
+                <div>{guest.cognome}</div>
+              </Row>
+              <Row>
+                <div>{t("birthdate")}:</div>
+                <div>{guest.dataNascita}</div>
+              </Row>
+              <Row>
+                <div>{t("citizenship")}:</div>
+                <div>{guest.cittadinaza.descrizione}</div>
+              </Row>
+              <Row>
+                <div>Type of guest:</div>
+                <div>{guest.tipoAlloggiato.descrizione}</div>
+              </Row>
+            </GuestCardContainer>
+          ))}
+        </GuestCardsGrid>
+      )}
     </div>
   );
 };
