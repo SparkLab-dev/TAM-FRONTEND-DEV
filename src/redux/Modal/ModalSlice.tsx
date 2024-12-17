@@ -30,7 +30,7 @@ export const openModal = createAsyncThunk(
   ) => {
     try {
       const response = await axios.post(
-        `http://192.168.10.141:8080/TAM/${userId}/apartmentAvailability`,
+        `http://192.168.10.210:8080/TAM/${userId}/apartmentAvailability`,
         userCredentials
       );
 
@@ -60,7 +60,7 @@ export const openRentList = createAsyncThunk<
   async ({ userId, rentListProperties }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `http://192.168.10.141:8080/TAM/${userId}/apartmentAvailability`,
+        `http://192.168.10.210:8080/TAM/${userId}/apartmentAvailability`,
         { params: rentListProperties }
       );
 

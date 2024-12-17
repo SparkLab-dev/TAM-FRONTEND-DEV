@@ -37,7 +37,7 @@ export const sendMessage = createAsyncThunk(
   ) => {
     try {
       const response = await axios.post(
-        `http://192.168.10.141:8080/TAM/51902732/message/${userId}`,
+        `http://192.168.10.210:8080/TAM/51902732/message/${userId}`,
         messageProps
       );
 
@@ -75,7 +75,7 @@ export const fetchMessage = createAsyncThunk<
 >("message/fetchMessages", async ({ userId }, { rejectWithValue }) => {
   try {
     const response = await axios.get(
-      `http://192.168.10.141:8080/TAM/${reservationId}/message/${userId}`
+      `http://192.168.10.210:8080/TAM/${reservationId}/message/${userId}`
     );
 
     console.log("res", response);

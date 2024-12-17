@@ -62,7 +62,7 @@ const ExistingChat: FC<{}> = () => {
   };
 
   useEffect(() => {
-    fetch("http://192.168.10.141:8080/TAM/conversation/3")
+    fetch("http://192.168.10.210:8080/TAM/conversation/3")
       .then((response) => response.json())
       .then((data: Conversation[]) => {
         setConversations(data);

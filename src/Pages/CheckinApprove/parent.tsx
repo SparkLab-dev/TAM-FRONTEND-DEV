@@ -163,7 +163,7 @@ const CheckInsTable: React.FC = () => {
     if (selectedApartment !== null) {
       try {
         const response = await axios.get<CheckIn[]>(
-          "http://192.168.10.141:8080/TAM/checkin/getCheckIns/Filtered",
+          "http://192.168.10.210:8080/TAM/checkin/getCheckIns/Filtered",
           {
             params: {
               apartmentId: selectedApartment,

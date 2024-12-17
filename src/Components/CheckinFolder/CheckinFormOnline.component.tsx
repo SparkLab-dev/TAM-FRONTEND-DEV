@@ -133,7 +133,7 @@
 //         formData.append("documents", photo);
 //       }
 //       await axios.post(
-//         "http://192.168.10.141:8080/TAM/checkin/saveTotemCheckin",
+//         "http://192.168.10.210:8080/TAM/checkin/saveTotemCheckin",
 //         formData
 //       );
 //       console.log("POST request successful");
@@ -168,7 +168,7 @@
 //         checkInId: 12,
 //       };
 //       const response = await axios.post(
-//         "http://192.168.10.141:8080/TAM/meeting/generateTotemJitsiMeetLink",
+//         "http://192.168.10.210:8080/TAM/meeting/generateTotemJitsiMeetLink",
 //         requestBody
 //       );
 //       console.log("API Success");
@@ -441,10 +441,10 @@ const OnlineGuestForm: React.FC = () => {
     const fetchData = async () => {
       try {
         const [statiResponse, comuniResponse,tipoAlloggiatoResponse,tipoDocumentiResponse] = await Promise.all([
-          axios.get("http://192.168.10.141:8080/TAM/allogatiWeb/getAllStati"),
-          axios.get("http://192.168.10.141:8080/TAM/allogatiWeb/getAllComuni"),
-          axios.get("http://192.168.10.141:8080/TAM/allogatiWeb/getAllTipoAlloggiati"),
-          axios.get("http://192.168.10.141:8080/TAM/allogatiWeb/getAllTipoDocumenti")
+          axios.get("http://192.168.10.210:8080/TAM/allogatiWeb/getAllStati"),
+          axios.get("http://192.168.10.210:8080/TAM/allogatiWeb/getAllComuni"),
+          axios.get("http://192.168.10.210:8080/TAM/allogatiWeb/getAllTipoAlloggiati"),
+          axios.get("http://192.168.10.210:8080/TAM/allogatiWeb/getAllTipoDocumenti")
         ]);
         setStati(statiResponse.data); // Set the states
         setStatii(statiResponse.data);
@@ -481,7 +481,7 @@ const OnlineGuestForm: React.FC = () => {
   // const handleSubmit = async () => {
   //   setIsSubmitting(true);
   //   try {
-  //     // const response = await axios.post(`http://192.168.10.141:8080/TAM/checkin/saveCheckin`, guestData);
+  //     // const response = await axios.post(`http://192.168.10.210:8080/TAM/checkin/saveCheckin`, guestData);
   //     console.log(guestData); // Handle success response
   //   } catch (error) {
   //     console.error("Error submitting guest data:", error);
@@ -545,7 +545,7 @@ const OnlineGuestForm: React.FC = () => {
       console.log(preparedGuestData);
   
       const response = await axios.post(
-        `http://192.168.10.141:8080/TAM/checkin/saveCheckin`,
+        `http://192.168.10.210:8080/TAM/checkin/saveCheckin`,
         preparedGuestData
       );
       console.log(preparedGuestData);

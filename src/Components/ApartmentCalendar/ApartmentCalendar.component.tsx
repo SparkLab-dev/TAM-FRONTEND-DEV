@@ -24,7 +24,7 @@
 //         if (!userId) return;
 
 //         const response = await axios.get(
-//           `http://192.168.10.141:8080/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
+//           `http://192.168.10.210:8080/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
 //             visibleRange.start
 //           ).format("YYYY-MM-DD")}&toDate=${moment(visibleRange.end).format(
 //             "YYYY-MM-DD"
@@ -132,7 +132,7 @@ const MyCalendar: FC<MyCalendarProps> = ({ userId, apartamentId }) => {
         if (!userId) return;
 
         const response = await axios.get(
-          `http://192.168.10.141:8080/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
+          `http://192.168.10.210:8080/TAM/${userId}/reservations/calendar/${apartamentId}?fromDate=${moment(
             visibleRange.start
           ).format("YYYY-MM-DD")}&toDate=${moment(visibleRange.end).format(
             "YYYY-MM-DD"

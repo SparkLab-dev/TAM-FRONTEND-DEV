@@ -45,7 +45,7 @@ const Verification: FC<{}> = () => {
     console.log(postData);
     try {
       const response = await axios.post(
-        "http://192.168.10.141:8080/TAM/smoobuAccount",
+        "http://192.168.10.210:8080/TAM/smoobuAccount",
         postData
       );
 

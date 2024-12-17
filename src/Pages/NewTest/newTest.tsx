@@ -41,7 +41,7 @@ const ApartmentSearch: React.FC = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get<ApiResponse>(
-        "http://192.168.10.141:8081/Study/apartment",
+        "http://192.168.10.210:8081/Study/apartment",
         {
           params: {
             checkin,

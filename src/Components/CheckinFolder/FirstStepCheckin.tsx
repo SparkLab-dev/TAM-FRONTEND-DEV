@@ -87,7 +87,7 @@ const FirstCheckinForm: React.FC = () => {
     try {
       // Make API call using Axios to submit number of guests
       const response = await axios.post(
-        `http://192.168.10.141:8080/TAM/checkin/numberOfGuestsCheck/2379138/${number}`
+        `http://192.168.10.210:8080/TAM/checkin/numberOfGuestsCheck/2379138/${number}`
       );
 
       if (response.status === 200) {
