@@ -5,15 +5,16 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface RegisterState {
+  email: string;
   firstName: string;
   lastName: string;
-  username: string;
-  email: string;
-  roleId: string;
-  roleName: string | null;
-  token: string | null;
+  phoneNumber: string;
+  role: {
+    id: number;
+    roleName: string;
+    roleDescription: string;
+  };
 }
-
 export type AuthRegState = {
   user: RegisterState | null;
   isAuthenticated: boolean;

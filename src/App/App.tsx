@@ -87,7 +87,7 @@ const App: FC<{}> = () => {
                 <Route path="/website/template1" element={<Template1 />} />
                 <Route path="/reservation" element={<MediaCard />} />
                 <Route path="/newreservation" element={<ReservationForm />} />
-                
+
                 <Route
                   path="reservationDetail/:id"
                   element={<ReservationDetail />}
@@ -120,7 +120,10 @@ const App: FC<{}> = () => {
               />
               <Route path="/rulesFaq" element={<RulesFAQ />} />
               <Route path="/register" element={<RegisterPage />} />{" "}
-              <Route path="tam/registration/:token" element={<SavePasword />} />
+              <Route
+                path="auth/tam/registration/:token"
+                element={<SavePasword />}
+              />
               <Route path="/kyc/:id" element={<GradientPage />} />
               <Route path="/kyc/:token/:token/" element={<OnlineCheckin />} />
               <Route path="/apartmentAmenities" element={<ClientAmenities />} />
