@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import axios from "axios";
-import photo from "../../apartmentimage.png";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { ReservationsButton } from "./style/Reservations.style";
+import {
+  ReservationsButton,
+  ViewReservationsButton,
+} from "./style/Reservations.style";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { useTranslation } from "react-i18next";
@@ -22,8 +18,30 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { EditButton } from "Components/RentList/style/RentList.style";
 import { useNavigate } from "react-router-dom";
+
+const reservations = [
+  {
+    clientPrice: 360.22,
+    createdDate: "2024-12-10 14:11:00",
+    creator: "tam.sandbox@sparklab.al",
+    dateFrom: "2025-03-01",
+    dateTo: "2025-03-04",
+    fullName: "TAM SparkLab",
+    id: 1,
+    lastMod: "2024-12-10 14:11:28",
+    localPropertyId: 1,
+    numberOfGuests: 2,
+    ownerId: 727208,
+    pmsReservationId: "",
+    propertyID: 3909182,
+    propertyName: "Apartment80",
+    reservationID: 142683089,
+    ruPrice: 100,
+    statusID: 4,
+    userId: 6,
+  },
+];
 
 interface Reservations {
   clientPrice: number;
@@ -61,7 +79,7 @@ export default function MediaCard() {
   const handleDownloadZIPfile = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.10.210:8081/TAM/checkin/downloadXML/ZIP/${userId}?startDate=${startDate}&endDate=${endDate}`,
+        `http://192.168.10.141:8080/TAM/checkin/downloadXML/ZIP/${userId}?startDate=${startDate}&endDate=${endDate}`,
         {
           responseType: "blob", // Set response type to blob
         }
@@ -153,9 +171,7 @@ export default function MediaCard() {
               }}
             />
             <div style={{ marginTop: "10px" }}>
-              <ReservationsButton onClick={() => handleDownloadZIPfile()}>
-                {t("download")}
-              </ReservationsButton>
+              <ReservationsButton>{t("download")}</ReservationsButton>
             </div>
           </DemoContainer>
         </LocalizationProvider>
@@ -249,7 +265,7 @@ export default function MediaCard() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {allReservations.map((reservation: any) => (
+              {reservations.map((reservation: any) => (
                 <TableRow
                   key={reservation.id}
                   // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -265,71 +281,19 @@ export default function MediaCard() {
                   <TableCell align="left">{reservation.clientPrice}</TableCell>
                   <TableCell align="left">{reservation.createdDate}</TableCell>
                   <TableCell align="left">
-                    <button
+                    <ViewReservationsButton
                       onClick={() =>
-                        handleReservationClick(reservation.propertyID)
+                        handleReservationClick(reservation?.reservationID)
                       }
                     >
-                      {t("view details")}
-                    </button>
+                      {t("View details")}
+                    </ViewReservationsButton>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-        {/* <Card sx={{ maxWidth: 345 }}>
-          <CardMedia
-            sx={{ height: 240, width: 400 }}
-            image={photo}
-            title="green iguana"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Federico Johnson
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Checkin date: 2024-05-27
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Checkout date: 2024-05-28
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small" onClick={() => handleDownloadInvoice()}>
-              {t("download")} {t("invoice")}
-            </Button>
-            <Button size="small" onClick={() => handleDownloadInvoiceXml()}>
-              {t("download")} Xml {t("invoice")}
-            </Button>
-          </CardActions>
-        </Card>
-        <Card sx={{ maxWidth: 345 }}>
-          <CardMedia
-            sx={{ height: 240, width: 400 }}
-            image={photo}
-            title="green iguana"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Amelia Smith
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Checkin date: 2024-05-29
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Checkout date: 2024-05-31
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small" onClick={() => handleDownloadInvoice()}>
-              {t("download")} {t("invoice")}
-            </Button>
-            <Button size="small" onClick={() => handleDownloadInvoiceXml()}>
-              {t("download")} Xml {t("invoice")}
-            </Button>
-          </CardActions>
-        </Card> */}
       </div>
     </div>
   );
