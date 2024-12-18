@@ -203,7 +203,7 @@ const RentList: FC<RentListProps> = () => {
 
     try {
       const response = await axios.post(
-        `http://192.168.10.210:8080/TAM/${userId}/apartmentAvailability`,
+        `http://192.168.10.210:8081/TAM/${userId}/apartmentAvailability`,
         userCredentialsss,
       );
 
@@ -234,7 +234,7 @@ const RentList: FC<RentListProps> = () => {
 
     try {
       const response = await axios.post(
-        `http://192.168.10.210:8080/TAM/${userId}/apartmentAvailability`,
+        `http://192.168.10.210:8081/TAM/${userId}/apartmentAvailability`,
         userCredentialss,
       );
 

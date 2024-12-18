@@ -178,10 +178,10 @@ const GuestForm: React.FC = () => {
     const fetchData = async () => {
       try {
         const [statiResponse, comuniResponse, tipoAlloggiatoResponse, tipoDocumentiResponse] = await Promise.all([
-          axios.get("http://192.168.10.210:8080/TAM/allogatiWeb/getAllStati"),
-          axios.get("http://192.168.10.210:8080/TAM/allogatiWeb/getAllComuni"),
-          axios.get("http://192.168.10.210:8080/TAM/allogatiWeb/getAllTipoAlloggiati"),
-          axios.get("http://192.168.10.210:8080/TAM/allogatiWeb/getAllTipoDocumenti"),
+          axios.get("http://192.168.10.210:8081/TAM/allogatiWeb/getAllStati"),
+          axios.get("http://192.168.10.210:8081/TAM/allogatiWeb/getAllComuni"),
+          axios.get("http://192.168.10.210:8081/TAM/allogatiWeb/getAllTipoAlloggiati"),
+          axios.get("http://192.168.10.210:8081/TAM/allogatiWeb/getAllTipoDocumenti"),
         ]);
         setStati(statiResponse.data); // Set the states
         setStatii(statiResponse.data);
@@ -218,7 +218,7 @@ const GuestForm: React.FC = () => {
   // const handleSubmit = async () => {
   //   setIsSubmitting(true);
   //   try {
-  //     // const response = await axios.post(`http://192.168.10.210:8080/TAM/checkin/saveCheckin`, guestData);
+  //     // const response = await axios.post(`http://192.168.10.210:8081/TAM/checkin/saveCheckin`, guestData);
   //     console.log(guestData); // Handle success response
   //   } catch (error) {
   //     console.error("Error submitting guest data:", error);
@@ -274,7 +274,7 @@ const GuestForm: React.FC = () => {
 
       console.log(preparedGuestData);
 
-      const response = await axios.post(`http://192.168.10.210:8080/TAM/checkin/saveCheckin`, preparedGuestData);
+      const response = await axios.post(`http://192.168.10.210:8081/TAM/checkin/saveCheckin`, preparedGuestData);
       console.log(preparedGuestData);
 
       if (response.status === 200) {

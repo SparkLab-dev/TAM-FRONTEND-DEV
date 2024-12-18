@@ -94,7 +94,7 @@ const Home: FC<{}> = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<ApiResponse>(
-          `http://192.168.10.210:8080/TAM/dashboard/${userId}/${selectedOption}`,
+          `http://192.168.10.210:8081/TAM/dashboard/${userId}/${selectedOption}`,
         );
         setData(response.data);
         console.log(data);

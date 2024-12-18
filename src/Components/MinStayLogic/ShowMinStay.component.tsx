@@ -29,7 +29,7 @@ const YourComponent: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<MinStay[]>(
-          `http://192.168.10.210:8080/TAM/minStay/getMinStaysByUser/${userId}`,
+          `http://192.168.10.210:8081/TAM/minStay/getMinStaysByUser/${userId}`,
         );
         setMinStays(response.data);
       } catch (error) {
@@ -47,7 +47,7 @@ const YourComponent: React.FC = () => {
   const handleSave = async () => {
     if (editedMinStay) {
       try {
-        const response = await axios.post("http://192.168.10.210:8080/TAM/minStay/saveOrUpdate", [editedMinStay]);
+        const response = await axios.post("http://192.168.10.210:8081/TAM/minStay/saveOrUpdate", [editedMinStay]);
         console.log("POST request successful", response);
         setReload((prev) => !prev);
 
@@ -60,7 +60,7 @@ const YourComponent: React.FC = () => {
 
   const callApi = async () => {
     try {
-      await axios.post(`http://192.168.10.210:8080/TAM/${userId}/reservations/updateMinStayBasedOnRules`);
+      await axios.post(`http://192.168.10.210:8081/TAM/${userId}/reservations/updateMinStayBasedOnRules`);
       console.log("API call successful");
     } catch (error) {
       console.error("Error calling API:", error);

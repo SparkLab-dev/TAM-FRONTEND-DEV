@@ -57,7 +57,7 @@ export const fetchApartmentCardDetails = createAsyncThunk<
   }
 >("apartments/fetchUserApartmentCardDetails", async ({ userId, id }, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`http://192.168.10.210:8080/TAM/${userId}/apartments/${id}`);
+    const response = await axios.get(`http://192.168.10.210:8081/TAM/${userId}/apartments/${id}`);
     console.log("userId", userId);
     console.log("id", id);
     console.log("res", response);

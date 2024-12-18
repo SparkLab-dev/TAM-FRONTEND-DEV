@@ -39,7 +39,7 @@ const Verification: FC<{}> = () => {
     };
     console.log(postData);
     try {
-      const response = await axios.post("http://192.168.10.210:8080/TAM/smoobuAccount", postData);
+      const response = await axios.post("http://192.168.10.210:8081/TAM/smoobuAccount", postData);
 
       console.log("POST request successful:", response.data);
       const isRegisteredInSmoobu = response.data.registredInSmoobu;
