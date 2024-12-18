@@ -70,8 +70,8 @@ const ApartmentPage: FC<{}> = () => {
   }, [dispatch, userId]);
   console.log("apartmentName", apartmentName);
   const handleApartmentClick = (apartment: ApartmentProps) => {
-    console.log(apartment.ownerId);
-    navigate(`/apartmentcard/${apartment.ownerId}`);
+    console.log(apartment.ownerID);
+    navigate(`/apartmentcard/${apartment.id.value}`);
   };
 
   const handleRules = () => {

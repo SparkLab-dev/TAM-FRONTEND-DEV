@@ -8,7 +8,7 @@ export interface ApartmentProps {
   // name: string;
   // id: number;
   propertyName: string;
-  ownerId: number;
+  ownerID: number;
   ownerName: string;
   detailLocationId: number;
   location: string;
@@ -16,6 +16,7 @@ export interface ApartmentProps {
   nla: boolean;
   createdDate: string;
   active: boolean;
+  id:{value:number}
 }
 
 export type AuthApartmentProps = {
@@ -38,7 +39,7 @@ export const fetchApartmentIds = createAsyncThunk<ApartmentProps[], number>(
         `http://192.168.10.210:8081/TAM/property/getOwnersProperties/${userId}`
       );
       console.log("res", response);
-      return response.data;
+      return response.data.properties;
     } catch (error) {
       console.error(error);
       throw error;
