@@ -15,21 +15,7 @@ export default () => {
 
       <RHFTextField name="canSleepMax" label="Max. People" placeholder="0" type="number" />
 
-      <RHFTextField
-        name="space"
-        label="Total size"
-        type="number"
-        variant="outlined"
-        slotProps={{
-          input: {
-            endAdornment: (
-              <InputAdornment position="start">
-                m<sup>2</sup>
-              </InputAdornment>
-            ),
-          },
-        }}
-      />
+      <RHFTextField name="space" label="Total size" type="number" variant="outlined" />
 
       <RHFTextField name="floor" label="Floor number" type="number" placeholder="1" />
       <div></div>
