@@ -49,6 +49,7 @@ import Alloggiati from "Components/AlloggiatiWeb/Alloggiati.component";
 import GuestForm from "Components/CheckinFolder/SecondStepCheckin";
 import FirstOnlineCheckinForm from "Components/CheckinFolder/FirstStepOnline";
 import OnlineGuestForm from "Components/CheckinFolder/CheckinFormOnline.component";
+import ReservationForm from "Pages/NewBooking/NewBooking";
 
 // import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
@@ -85,6 +86,8 @@ const App: FC<{}> = () => {
                 <Route path="/websites" element={<MultiActionAreaCard />} />
                 <Route path="/website/template1" element={<Template1 />} />
                 <Route path="/reservation" element={<MediaCard />} />
+                <Route path="/newreservation" element={<ReservationForm />} />
+                
                 <Route
                   path="reservationDetail/:id"
                   element={<ReservationDetail />}

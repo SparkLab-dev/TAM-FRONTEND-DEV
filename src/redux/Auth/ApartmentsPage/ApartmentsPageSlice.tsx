@@ -35,7 +35,7 @@ export const fetchApartmentIds = createAsyncThunk<ApartmentProps[], number>(
   async (userId: number) => {
     try {
       const response = await axios.get(
-        `http://192.168.10.210:8080/TAM/property/getOwnersProperties/${userId}`
+        `http://192.168.10.210:8081/TAM/property/getOwnersProperties/${userId}`
       );
       console.log("res", response);
       return response.data;

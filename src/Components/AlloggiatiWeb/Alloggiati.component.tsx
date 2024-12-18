@@ -50,7 +50,7 @@ const Alloggiati: FC<{}> = () => {
     console.log(postData);
     try {
       const response = await axios.post(
-        "http://192.168.10.210:8080/TAM/allogatiWeb/saveHostAlloggiatiWebCredentials",
+        "http://192.168.10.210:8081/TAM/allogatiWeb/saveHostAlloggiatiWebCredentials",
         postData
       );
       console.log("POST request successful:", response.data);

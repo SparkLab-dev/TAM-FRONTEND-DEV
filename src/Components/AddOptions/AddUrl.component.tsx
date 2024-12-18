@@ -85,7 +85,7 @@ const AddUrl: React.FC = () => {
         apartmentId: 2028236,
       };
       await axios.post(
-        "http://192.168.10.210:8080/TAM/specificApartmentOption/saveOrUpdateSpecificApartmentOption",
+        "http://192.168.10.210:8081/TAM/specificApartmentOption/saveOrUpdateSpecificApartmentOption",
         requestBody
       );
       console.log("POST request successful");

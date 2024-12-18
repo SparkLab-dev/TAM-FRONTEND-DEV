@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
 
   return (
     <Styled.Header>
-      <Styled.NewButton>
+      <Styled.NewButton onClick={() => navigate("/newreservation")}>
         <AddCardIcon fontSize="small" />
         {t("newbooking")}{" "}
       </Styled.NewButton>

@@ -61,7 +61,7 @@ export default function MediaCard() {
   const handleDownloadZIPfile = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.10.210:8080/TAM/checkin/downloadXML/ZIP/${userId}?startDate=${startDate}&endDate=${endDate}`,
+        `http://192.168.10.210:8081/TAM/checkin/downloadXML/ZIP/${userId}?startDate=${startDate}&endDate=${endDate}`,
         {
           responseType: "blob", // Set response type to blob
         }
@@ -111,7 +111,7 @@ export default function MediaCard() {
   const getAllReservations = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.10.210:8080/TAM/reservation/getAllReservationsPerOwner/${userId}`
+        `http://192.168.10.210:8081/TAM/reservation/getAllReservationsPerOwner/${userId}`
       );
       console.log(userId, "userId");
       console.log("RESPOnse", response.data);
