@@ -3,6 +3,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 //axios
 import axios from "axios";
+import { useId } from "react";
+import { privApi } from "utils/api";
 
 export interface ApartmentProps {
   // name: string;
@@ -34,7 +36,8 @@ export const fetchApartmentIds = createAsyncThunk<ApartmentProps[], number>(
   "apartments/fetchUserApartmentIds",
   async (userId: number) => {
     try {
-      const response = await axios.get(`http://192.168.10.210:8081/TAM/property/getOwnersProperties/${userId}`);
+      // const response = await axios.get(`https://109f-95-107-162-162.ngrok-free.app/TAM/property/getOwnersProperties/${userId}`);
+      const response = await privApi.get(`/TAM/property/getUserProperties/${userId}`);//https://109f-95-107-162-162.ngrok-free.app/TAM/property/getUserProperties/6
       console.log("res", response);
       return response.data?.properties || [];
     } catch (error) {

@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
+import { privApi } from "utils/api";
 
 const FirstStepStyledWrapper = styled(Box)`
   background: white;
@@ -86,8 +87,8 @@ const FirstOnlineCheckinForm: React.FC = () => {
   const handleSubmit = async () => {
     try {
       // Make API call using Axios to submit number of guests
-      const response = await axios.post(
-        `http://192.168.10.210:8081/TAM/checkin/numberOfGuestsCheck/${apartmentId}/${number}`,
+      const response = await privApi.post(
+        `/TAM/checkin/numberOfGuestsCheck/${apartmentId}/${number}`,
       );
 
       if (response.status === 200) {

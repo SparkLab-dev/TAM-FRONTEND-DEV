@@ -55,7 +55,8 @@ import ReservationForm from "Pages/NewBooking/NewBooking";
 // import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
 const App: FC<{}> = () => {
-  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const isAuthenticated: boolean = useSelector((state: RootState) => state.auth.isAuthenticated);
+  // const isAuthenticated : boolean = true;
   const verify = useSelector((state: RootState) => state.auth.user?.registredInSmoobu);
   console.log(verify);
   return (

@@ -54,7 +54,7 @@ const Register: FC<{}> = () => {
   //user role api call
   useEffect(() => {
     axios
-      .get<DropdownItem[]>("http://192.168.10.210:8081/TAM/role")
+      .get<DropdownItem[]>("https://109f-95-107-162-162.ngrok-free.app/TAM/role")
       .then((res) => {
         setRoles(res.data);
         console.log(res.data);

@@ -34,7 +34,7 @@ const ApartmentPage: FC<{}> = () => {
 
   const user = useSelector((state: RootState) => state.auth.user);
   console.log(user);
-  const userId = user?.ownerId;
+  const userId = user?.id;
   const { t } = useTranslation();
 
   const dispatch: AppDispatch = useDispatch();

@@ -27,7 +27,7 @@ export const openModal = createAsyncThunk(
   async ({ userId, userCredentials }: { userId: number; userCredentials: object }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `http://192.168.10.210:8081/TAM/${userId}/apartmentAvailability`,
+        `https://109f-95-107-162-162.ngrok-free.app/TAM/${userId}/apartmentAvailability`,
         userCredentials,
       );
 
@@ -54,7 +54,7 @@ export const openRentList = createAsyncThunk<
   { rejectValue: string }
 >("rentList/openRentList", async ({ userId, rentListProperties }, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`http://192.168.10.210:8081/TAM/${userId}/apartmentAvailability`, {
+    const response = await axios.get(`https://109f-95-107-162-162.ngrok-free.app/TAM/${userId}/apartmentAvailability`, {
       params: rentListProperties,
     });
 

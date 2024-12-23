@@ -173,7 +173,7 @@ const ReservationForm: React.FC = () => {
         e.preventDefault();
         try {
           const response = await axios.post(
-            "http://192.168.10.210:8081/TAM/reservation/sendConfirmedReservation",
+            "https://109f-95-107-162-162.ngrok-free.app/TAM/reservation/sendConfirmedReservation",
             formData, // Send formData as request body in JSON format
             {
               headers: {

@@ -33,7 +33,7 @@ export const sendMessage = createAsyncThunk(
   "message/sendMessage",
   async ({ userId, messageProps }: { userId: number; messageProps: object }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`http://192.168.10.210:8081/TAM/51902732/message/${userId}`, messageProps);
+      const response = await axios.post(`https://109f-95-107-162-162.ngrok-free.app/TAM/51902732/message/${userId}`, messageProps);
 
       const responseData = response.data;
       console.log(responseData);
@@ -68,7 +68,7 @@ export const fetchMessage = createAsyncThunk<
   }
 >("message/fetchMessages", async ({ userId }, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`http://192.168.10.210:8081/TAM/${reservationId}/message/${userId}`);
+    const response = await axios.get(`https://109f-95-107-162-162.ngrok-free.app/TAM/${reservationId}/message/${userId}`);
 
     console.log("res", response);
     return response.data as MesagePageProps;

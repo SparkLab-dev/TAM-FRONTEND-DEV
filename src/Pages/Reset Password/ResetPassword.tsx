@@ -45,7 +45,7 @@ const ResetPassword: FC<{}> = () => {
       console.log(requestData);
 
       axios
-        .put(`http://192.168.10.210:8081/TAM/resetPassword/${token}`, requestData)
+        .put(`https://109f-95-107-162-162.ngrok-free.app/TAM/resetPassword/${token}`, requestData)
         .then((response) => {
           console.log("PUT request successful:", response.data);
           navigate("/login");

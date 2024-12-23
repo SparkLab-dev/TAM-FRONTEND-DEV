@@ -86,10 +86,12 @@ const FirstCheckinForm: React.FC = () => {
   const handleSubmit = async () => {
     try {
       // Make API call using Axios to submit number of guests
-      const response = await axios.post(`http://192.168.10.210:8081/TAM/checkin/numberOfGuestsCheck/2379138/${number}`);
+      const response = await axios.post(
+        `https://109f-95-107-162-162.ngrok-free.app/TAM/checkin/numberOfGuestsCheck/2379138/${number}`,
+      );
 
       if (response.status === 200) {
-        setCheckinSuccess(true); // Set success state
+        setCheckinSuccess(true); // Set success stateyarn
         setSuccessMessage(`Check-in initiated successfully for ${number} guests.`);
         setErrorMessage(""); // Clear any error messages
         setSmoobuId(response.data[0]);

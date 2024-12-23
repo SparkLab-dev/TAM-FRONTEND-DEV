@@ -126,7 +126,7 @@ const CheckinForm: React.FC = () => {
       if (photo) {
         formData.append("documents", photo); // Append the selected photo file to the form data
       }
-      await axios.post("http://192.168.10.210:8081/TAM/checkin/saveTotemCheckin", formData);
+      await axios.post("https://109f-95-107-162-162.ngrok-free.app/TAM/checkin/saveTotemCheckin", formData);
       console.log("POST request successful");
       setSuccessMessage("Form submitted successfully!");
       setTimeout(() => {
@@ -159,7 +159,7 @@ const CheckinForm: React.FC = () => {
         checkInId: 1,
       };
       const response = await axios.post(
-        "http://192.168.10.210:8081/TAM/meeting/generateTotemJitsiMeetLink",
+        "https://109f-95-107-162-162.ngrok-free.app/TAM/meeting/generateTotemJitsiMeetLink",
         requestBody,
       );
       console.log("API Success");

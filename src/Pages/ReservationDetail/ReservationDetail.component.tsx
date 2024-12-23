@@ -305,7 +305,7 @@ const ReservationDetail: FC<{}> = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.10.210:8081/TAM/reservation/getReservation/${reservationID}`
+        `https://109f-95-107-162-162.ngrok-free.app/TAM/reservation/getReservation/${reservationID}`
       );
       setReservationData(response.data);
       console.log(response.data);
@@ -318,7 +318,7 @@ const ReservationDetail: FC<{}> = () => {
   const handleCancelReservation = async () => {
     try {
       await axios.put(
-        "http://192.168.10.210:8081/TAM/reservation/cancelReservation",
+        "https://109f-95-107-162-162.ngrok-free.app/TAM/reservation/cancelReservation",
         {
           reservationID: reservationId,
           cancellationType: 1,

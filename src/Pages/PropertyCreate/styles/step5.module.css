@@ -1,0 +1,22 @@
+.formContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.addBtn {
+  width: 10em;
+}
+
+.selectRoom {
+  width: 25%;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.multiSelect {
+  width: 70%;
+  min-width: 400px;
+  max-width: 800px;
+}

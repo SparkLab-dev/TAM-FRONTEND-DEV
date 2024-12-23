@@ -1,0 +1,24 @@
+.paragraphs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.paragraphs p {
+  font-size: 22px;
+  line-height: 1.5;
+  text-align: justify;
+  color: #2c312b;
+}
+
+.pBtns {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.pBtn {
+  width: 120em;
+}

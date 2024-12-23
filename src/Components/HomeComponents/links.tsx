@@ -9,9 +9,10 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import axios from "axios";
+// import axios from "axios";
 import PieChartComponent from "Components/Dashboard/PieChart/Piechart.component";
 import { useTranslation } from "react-i18next";
+import { privApi } from "utils/api";
 
 const Container = styled.div`
   display: flex;
@@ -161,8 +162,8 @@ const HomepageTest: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<ApiResponse>(
-          `http://192.168.10.210:8081/TAM/dashboard/${userId}/${selectedOption}`,
+        const response = await privApi.get<ApiResponse>(
+          `/TAM/dashboard/${userId}/${selectedOption}`,
         );
         setData(response.data);
         console.log(data);

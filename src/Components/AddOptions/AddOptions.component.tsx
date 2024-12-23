@@ -52,7 +52,7 @@
 //     const fetchData = async () => {
 //       try {
 //         const response = await axios.get(
-//           `http://192.168.10.210:8081/TAM/${userId}/apartments/getallApartmentOptions/2112479 `
+//           `https://109f-95-107-162-162.ngrok-free.app/TAM/${userId}/apartments/getallApartmentOptions/2112479 `
 //         );
 //         setApartmentOptionsWithCategories(
 //           response.data.apartmentOptionsWithCategories
@@ -60,7 +60,7 @@
 //         setApartmentId(response.data.apartmentId);
 //         console.log(response.data);
 //         const response2 = await axios.get<AddUrlOption[]>(
-//           `http://192.168.10.210:8081/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/2112479 `
+//           `https://109f-95-107-162-162.ngrok-free.app/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/2112479 `
 //         );
 //         setUrlData(response2.data || []);
 //         console.log(urlData);
@@ -83,7 +83,7 @@
 
 //         // Send DELETE request with apartmentId and optionId in the body
 //         await axios.delete(
-//           `http://192.168.10.210:8081/TAM/${userId}/apartments/deleteApartmentOption/delete`,
+//           `https://109f-95-107-162-162.ngrok-free.app/TAM/${userId}/apartments/deleteApartmentOption/delete`,
 //           { data: requestBody }
 //         );
 //         console.log("DELETE request successful");
@@ -105,7 +105,7 @@
 //         };
 
 //         await axios.post(
-//           `http://192.168.10.210:8081/TAM/${userId}/apartments/apartmentOption/saveOrUpdate`,
+//           `https://109f-95-107-162-162.ngrok-free.app/TAM/${userId}/apartments/apartmentOption/saveOrUpdate`,
 //           requestBody
 //         );
 //         console.log("POST request successful");
@@ -238,6 +238,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { privApi } from "utils/api";
 
 interface Room {
   picture: string | null;
@@ -278,7 +279,7 @@ const ApartmentSearch1: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get<ApiResponse>("http://192.168.10.210:8081/Study/apartment", {
+      const response = await privApi.get<ApiResponse>("/Study/apartment", {
         params: {
           checkin,
           checkout,

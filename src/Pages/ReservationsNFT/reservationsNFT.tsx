@@ -32,7 +32,7 @@
 //     setLoading(true);
 //     try {
 //       const response = await axios.get<Reservation[]>(
-//         "http://192.168.10.210:8081/TAM/2/reservations/allReservations/all",
+//         "https://109f-95-107-162-162.ngrok-free.app/TAM/2/reservations/allReservations/all",
 //         {
 //           params: { fromDate, toDate },
 //         }
@@ -266,7 +266,7 @@ const ReservationsTable: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.get<Reservation[]>(
-        "http://192.168.10.210:8081/TAM/2/reservations/allReservations/all",
+        "https://109f-95-107-162-162.ngrok-free.app/TAM/2/reservations/allReservations/all",
         {
           params: { fromDate, toDate },
         },
@@ -304,7 +304,7 @@ const ReservationsTable: React.FC = () => {
     };
 
     try {
-      await axios.post("http://192.168.10.210:8081/TAM/Web3/sendweb3Request", data);
+      await axios.post("https://109f-95-107-162-162.ngrok-free.app/TAM/Web3/sendweb3Request", data);
       setSuccessMessage("Data sent successfully!");
       setTimeout(() => {
         closeModal();

@@ -3,6 +3,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 
 //axios
 import axios from "axios";
+import { privApi } from "utils/api";
 
 interface RegisterState {
   firstName: string;
@@ -31,7 +32,7 @@ export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (userCredentials: object, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://192.168.10.210:8081/TAM/registration", userCredentials);
+      const response = await privApi.post("/TAM/registration", userCredentials);
 
       const responseRegData = response.data.body;
 

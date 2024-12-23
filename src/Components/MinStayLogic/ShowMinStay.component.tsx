@@ -11,6 +11,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { privApi } from "utils/api";
 
 interface MinStay {
   day: number;
@@ -29,7 +30,7 @@ const YourComponent: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<MinStay[]>(
-          `http://192.168.10.210:8081/TAM/minStay/getMinStaysByUser/${userId}`,
+          `https://109f-95-107-162-162.ngrok-free.app/TAM/minStay/getMinStaysByUser/${userId}`,
         );
         setMinStays(response.data);
       } catch (error) {
@@ -47,7 +48,7 @@ const YourComponent: React.FC = () => {
   const handleSave = async () => {
     if (editedMinStay) {
       try {
-        const response = await axios.post("http://192.168.10.210:8081/TAM/minStay/saveOrUpdate", [editedMinStay]);
+        const response = await privApi.post("/TAM/minStay/saveOrUpdate", [editedMinStay]);
         console.log("POST request successful", response);
         setReload((prev) => !prev);
 
@@ -60,7 +61,7 @@ const YourComponent: React.FC = () => {
 
   const callApi = async () => {
     try {
-      await axios.post(`http://192.168.10.210:8081/TAM/${userId}/reservations/updateMinStayBasedOnRules`);
+      await axios.post(`https://109f-95-107-162-162.ngrok-free.app/TAM/${userId}/reservations/updateMinStayBasedOnRules`);
       console.log("API call successful");
     } catch (error) {
       console.error("Error calling API:", error);

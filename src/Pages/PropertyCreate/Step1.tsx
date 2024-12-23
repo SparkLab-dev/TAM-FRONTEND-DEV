@@ -3,7 +3,7 @@ import { StepWrapper } from "./styles";
 import RHFTextField from "Components/Form/RHFTextField";
 import RHFSelect from "Components/Form/RHFSelect";
 
-export default () => {
+ const stepOne = () => {
   return (
     <StepWrapper>
       <RHFTextField variant="outlined" name="name" label="Property Name" />
@@ -35,3 +35,5 @@ export default () => {
     </StepWrapper>
   );
 };
+
+export default stepOne

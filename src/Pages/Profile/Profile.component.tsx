@@ -28,7 +28,7 @@ const UserProfile: React.FC = () => {
 
   const fetchData = () => {
     axios
-      .get(`http://192.168.10.210:8081/TAM/user/${userId}`)
+      .get(`https://109f-95-107-162-162.ngrok-free.app/TAM/user/${userId}`)
       .then((response) => {
         setUserData(response.data);
         setEditedData(response.data);
@@ -45,7 +45,7 @@ const UserProfile: React.FC = () => {
   const handleSaveClick = () => {
     if (editedData) {
       axios
-        .post("http://192.168.10.210:8081/TAM/user/update", editedData)
+        .post("https://109f-95-107-162-162.ngrok-free.app/TAM/user/update", editedData)
         .then((response) => {
           setUserData({ ...editedData });
           setEditable(false);

@@ -45,14 +45,14 @@ const ClientAmenities: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.10.210:8081/TAM/${userId}/apartments/getallApartmentOptions/2031869`,
+          `https://109f-95-107-162-162.ngrok-free.app/TAM/${userId}/apartments/getallApartmentOptions/2031869`,
         );
 
         setApartmentOptionsWithCategories(response.data.apartmentOptionsWithCategories);
         // setApartmentId(response.data.apartmentId);
         console.log(response.data);
         const response2 = await axios.get<AddUrlOption[]>(
-          `http://192.168.10.210:8081/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/2031869`,
+          `https://109f-95-107-162-162.ngrok-free.app/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/2031869`,
         );
         setUrlData(response2.data || []);
         console.log(urlData);

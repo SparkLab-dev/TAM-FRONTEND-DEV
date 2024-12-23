@@ -133,7 +133,7 @@
 //         formData.append("documents", photo);
 //       }
 //       await axios.post(
-//         "http://192.168.10.210:8081/TAM/checkin/saveTotemCheckin",
+//         "https://109f-95-107-162-162.ngrok-free.app/TAM/checkin/saveTotemCheckin",
 //         formData
 //       );
 //       console.log("POST request successful");
@@ -168,7 +168,7 @@
 //         checkInId: 12,
 //       };
 //       const response = await axios.post(
-//         "http://192.168.10.210:8081/TAM/meeting/generateTotemJitsiMeetLink",
+//         "https://109f-95-107-162-162.ngrok-free.app/TAM/meeting/generateTotemJitsiMeetLink",
 //         requestBody
 //       );
 //       console.log("API Success");
@@ -432,10 +432,10 @@ const OnlineGuestForm: React.FC = () => {
     const fetchData = async () => {
       try {
         const [statiResponse, comuniResponse, tipoAlloggiatoResponse, tipoDocumentiResponse] = await Promise.all([
-          axios.get("http://192.168.10.210:8081/TAM/allogatiWeb/getAllStati"),
-          axios.get("http://192.168.10.210:8081/TAM/allogatiWeb/getAllComuni"),
-          axios.get("http://192.168.10.210:8081/TAM/allogatiWeb/getAllTipoAlloggiati"),
-          axios.get("http://192.168.10.210:8081/TAM/allogatiWeb/getAllTipoDocumenti"),
+          axios.get("https://109f-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllStati"),
+          axios.get("https://109f-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllComuni"),
+          axios.get("https://109f-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllTipoAlloggiati"),
+          axios.get("https://109f-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllTipoDocumenti"),
         ]);
         setStati(statiResponse.data); // Set the states
         setStatii(statiResponse.data);
@@ -472,7 +472,7 @@ const OnlineGuestForm: React.FC = () => {
   // const handleSubmit = async () => {
   //   setIsSubmitting(true);
   //   try {
-  //     // const response = await axios.post(`http://192.168.10.210:8081/TAM/checkin/saveCheckin`, guestData);
+  //     // const response = await axios.post(`https://109f-95-107-162-162.ngrok-free.app/TAM/checkin/saveCheckin`, guestData);
   //     console.log(guestData); // Handle success response
   //   } catch (error) {
   //     console.error("Error submitting guest data:", error);
@@ -534,7 +534,7 @@ const OnlineGuestForm: React.FC = () => {
 
       console.log(preparedGuestData);
 
-      const response = await axios.post(`http://192.168.10.210:8081/TAM/checkin/saveCheckin`, preparedGuestData);
+      const response = await axios.post(`https://109f-95-107-162-162.ngrok-free.app/TAM/checkin/saveCheckin`, preparedGuestData);
       console.log(preparedGuestData);
 
       if (response.status === 200) {

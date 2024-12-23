@@ -13,7 +13,10 @@ export const PageContainer = styled.div`
     flex-flow: column;
     align-items: center;
     justify-content: center;
-    height: calc(100% - 40px);
+    height: calc(100% - 90px);
+    overflow-y: scroll;
+    padding-bottom: 60px;
+    box-sizing: border-box;
   }
 `;
 

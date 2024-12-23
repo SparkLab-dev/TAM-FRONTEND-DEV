@@ -1,14 +1,17 @@
 import { Box, Button } from "@mui/material";
 import { useState } from "react";
-import Step1 from "./Step1";
 import { PageContainer } from "./styles";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import Step1 from "./Step1";
 import Step2 from "./Step2";
-import Step3 from "./Step3";
+import CompositionStep from "./Step4.Composition";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { RoomAmenitiesStep } from "./Step5.RoomAmenities";
+import { DescriptionStep } from "./Step6.Description";
+import { PhotosStep } from "./Step7.Photos";
 
-const MAX_STEPS = 3;
+const MAX_STEPS = 18;
 
 const PropertCreate = () => {
   const navigate = useNavigate();
@@ -55,18 +58,20 @@ const PropertCreate = () => {
           {currentStep === 2 && (
             <Step2 handleDeleteAttraction={handleDeleteAttraction} handleAddAttraction={handleAddAttraction} />
           )}
-          {currentStep === 3 && <Step3 />}
-
-          <div>
-            <Button disabled={currentStep === 1} onClick={handlePreviousStep}>
-              <ChevronLeft /> Previous
-            </Button>
-            <Button disabled={currentStep === MAX_STEPS} onClick={handleNextStep}>
-              Next <ChevronRight />
-            </Button>
-          </div>
+          {currentStep === 3 && <CompositionStep />}
+          {currentStep === 4 && <RoomAmenitiesStep />}
+          {currentStep === 5 && <DescriptionStep />}
+          {currentStep === 6 && <PhotosStep />}
         </form>
       </FormProvider>
+      <div>
+        <Button disabled={currentStep === 1} onClick={handlePreviousStep}>
+          <ChevronLeft /> Previous
+        </Button>
+        <Button disabled={currentStep === MAX_STEPS} onClick={handleNextStep}>
+          Next <ChevronRight />
+        </Button>
+      </div>
     </PageContainer>
   );
 };

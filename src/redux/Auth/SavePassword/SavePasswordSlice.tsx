@@ -29,7 +29,7 @@ export const resetPassword = createAsyncThunk(
       const token = pathnameParts[pathnameParts.length - 1];
 
       const response = await axios.post(
-        `http://192.168.10.210:8081/TAM/savepassword/${token}`,
+        `https://109f-95-107-162-162.ngrok-free.app/TAM/savepassword/${token}`,
 
         newPassword,
       );

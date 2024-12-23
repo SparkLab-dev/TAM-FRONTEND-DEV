@@ -1,0 +1,39 @@
+.roomsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: space-between;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100% !important;
+  align-self: stretch;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  border-radius: 15px;
+  border: 2px solid orange;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.formContent {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.formRow {
+  display: flex;
+  flex: 1 0 calc(33.333% - 10px);
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 8px;
+}

@@ -157,7 +157,7 @@ const CheckInsTable: React.FC = () => {
   const fetchCheckIns = async () => {
     if (selectedApartment !== null) {
       try {
-        const response = await axios.get<CheckIn[]>("http://192.168.10.210:8081/TAM/checkin/getCheckIns/Filtered", {
+        const response = await axios.get<CheckIn[]>("https://109f-95-107-162-162.ngrok-free.app/TAM/checkin/getCheckIns/Filtered", {
           params: {
             apartmentId: selectedApartment,
             checkInStatus: selectedOption,

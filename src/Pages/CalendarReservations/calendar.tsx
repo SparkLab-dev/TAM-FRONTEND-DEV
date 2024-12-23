@@ -21,6 +21,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 //components
 import Popup from "Components/Popup/Popup.component";
+import { privApi } from "utils/api";
 
 interface MonthOption {
   value: number;
@@ -47,8 +48,8 @@ function MonthTable() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        `http://192.168.10.210:8081/TAM/${userId}/reservations/reservationCalendar?fromDate=${firstDate}&toDate=${lastDate}`,
+      const response = await privApi.get(
+        `/TAM/${userId}/reservations/reservationCalendar?fromDate=${firstDate}&toDate=${lastDate}`,
       );
       setApartmentData(response.data);
     } catch (error) {
