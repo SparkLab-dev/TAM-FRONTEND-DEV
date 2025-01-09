@@ -178,10 +178,10 @@ const GuestForm: React.FC = () => {
     const fetchData = async () => {
       try {
         const [statiResponse, comuniResponse, tipoAlloggiatoResponse, tipoDocumentiResponse] = await Promise.all([
-          axios.get("https://109f-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllStati"),
-          axios.get("https://109f-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllComuni"),
-          axios.get("https://109f-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllTipoAlloggiati"),
-          axios.get("https://109f-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllTipoDocumenti"),
+          axios.get("https://393e-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllStati"),
+          axios.get("https://393e-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllComuni"),
+          axios.get("https://393e-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllTipoAlloggiati"),
+          axios.get("https://393e-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllTipoDocumenti"),
         ]);
         setStati(statiResponse.data); // Set the states
         setStatii(statiResponse.data);
@@ -218,7 +218,7 @@ const GuestForm: React.FC = () => {
   // const handleSubmit = async () => {
   //   setIsSubmitting(true);
   //   try {
-  //     // const response = await axios.post(`https://109f-95-107-162-162.ngrok-free.app/TAM/checkin/saveCheckin`, guestData);
+  //     // const response = await axios.post(`https://393e-95-107-162-162.ngrok-free.app/TAM/checkin/saveCheckin`, guestData);
   //     console.log(guestData); // Handle success response
   //   } catch (error) {
   //     console.error("Error submitting guest data:", error);
@@ -274,7 +274,10 @@ const GuestForm: React.FC = () => {
 
       console.log(preparedGuestData);
 
-      const response = await axios.post(`https://109f-95-107-162-162.ngrok-free.app/TAM/checkin/saveCheckin`, preparedGuestData);
+      const response = await axios.post(
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/checkin/saveCheckin`,
+        preparedGuestData,
+      );
       console.log(preparedGuestData);
 
       if (response.status === 200) {

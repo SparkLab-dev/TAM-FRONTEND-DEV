@@ -52,7 +52,7 @@
 //     const fetchData = async () => {
 //       try {
 //         const response = await axios.get(
-//           `https://109f-95-107-162-162.ngrok-free.app/TAM/${userId}/apartments/getallApartmentOptions/2112479 `
+//           `https://393e-95-107-162-162.ngrok-free.app/TAM/${userId}/apartments/getallApartmentOptions/2112479 `
 //         );
 //         setApartmentOptionsWithCategories(
 //           response.data.apartmentOptionsWithCategories
@@ -60,7 +60,7 @@
 //         setApartmentId(response.data.apartmentId);
 //         console.log(response.data);
 //         const response2 = await axios.get<AddUrlOption[]>(
-//           `https://109f-95-107-162-162.ngrok-free.app/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/2112479 `
+//           `https://393e-95-107-162-162.ngrok-free.app/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/2112479 `
 //         );
 //         setUrlData(response2.data || []);
 //         console.log(urlData);
@@ -83,7 +83,7 @@
 
 //         // Send DELETE request with apartmentId and optionId in the body
 //         await axios.delete(
-//           `https://109f-95-107-162-162.ngrok-free.app/TAM/${userId}/apartments/deleteApartmentOption/delete`,
+//           `https://393e-95-107-162-162.ngrok-free.app/TAM/${userId}/apartments/deleteApartmentOption/delete`,
 //           { data: requestBody }
 //         );
 //         console.log("DELETE request successful");
@@ -105,7 +105,7 @@
 //         };
 
 //         await axios.post(
-//           `https://109f-95-107-162-162.ngrok-free.app/TAM/${userId}/apartments/apartmentOption/saveOrUpdate`,
+//           `https://393e-95-107-162-162.ngrok-free.app/TAM/${userId}/apartments/apartmentOption/saveOrUpdate`,
 //           requestBody
 //         );
 //         console.log("POST request successful");

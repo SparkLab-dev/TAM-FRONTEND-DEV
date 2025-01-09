@@ -157,12 +157,15 @@ const CheckInsTable: React.FC = () => {
   const fetchCheckIns = async () => {
     if (selectedApartment !== null) {
       try {
-        const response = await axios.get<CheckIn[]>("https://109f-95-107-162-162.ngrok-free.app/TAM/checkin/getCheckIns/Filtered", {
-          params: {
-            apartmentId: selectedApartment,
-            checkInStatus: selectedOption,
+        const response = await axios.get<CheckIn[]>(
+          "https://393e-95-107-162-162.ngrok-free.app/TAM/checkin/getCheckIns/Filtered",
+          {
+            params: {
+              apartmentId: selectedApartment,
+              checkInStatus: selectedOption,
+            },
           },
-        });
+        );
         setCheckIns(response.data);
         console.log(response.data);
       } catch (error) {

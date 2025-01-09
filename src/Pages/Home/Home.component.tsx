@@ -94,7 +94,7 @@ const Home: FC<{}> = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<ApiResponse>(
-          `https://109f-95-107-162-162.ngrok-free.app/TAM/dashboard/${userId}/${selectedOption}`,
+          `https://393e-95-107-162-162.ngrok-free.app/TAM/dashboard/${userId}/${selectedOption}`,
         );
         setData(response.data);
         console.log(data);

@@ -1,12 +1,19 @@
 // form
 import { Controller, useFormContext } from "react-hook-form";
 // @mui
-import { FormControl, FormHelperText, InputLabel, Select, SelectProps } from "@mui/material";
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  Select,
+  SelectProps,
+} from "@mui/material";
+import { ValidSchemaKeys } from "Types/PropertyTypes";
 
 // ----------------------------------------------------------------------
 
 type IProps = {
-  name: string;
+  name: ValidSchemaKeys | any;
   children: React.ReactNode;
   onChangeText?: any;
   onKeyDown?: any;
@@ -36,7 +43,12 @@ export default function RHFSelect({
         if (shouldClearValue) field.value = "";
 
         return (
-          <FormControl sx={other.sx} fullWidth onChange={onChangeText} error={!!error}>
+          <FormControl
+            sx={other.sx}
+            fullWidth
+            onChange={onChangeText}
+            error={!!error}
+          >
             <InputLabel id="select-label">{label}</InputLabel>
             <Select
               labelId="select-label"
@@ -47,12 +59,18 @@ export default function RHFSelect({
                 onKeyDown: onKeyDown,
               }}
               {...field}
-              value={field.value === null || field.value === undefined ? "" : field.value}
+              value={
+                field.value === null || field.value === undefined
+                  ? ""
+                  : field.value
+              }
               {...other}
             >
               {children}
             </Select>
-            {error?.message && <FormHelperText>{error?.message}</FormHelperText>}
+            {error?.message && (
+              <FormHelperText>{error?.message}</FormHelperText>
+            )}
           </FormControl>
         );
       }}

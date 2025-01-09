@@ -6,6 +6,8 @@ interface Props {
   placeholder?: string;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  name: string;
+  errorMessage: string;
 }
 
 export default function OutlineTextarea({
@@ -13,21 +15,29 @@ export default function OutlineTextarea({
   placeholder,
   value,
   onChange,
+  name,
+  errorMessage,
 }: Props) {
   return (
-    <Textarea
-      placeholder={placeholder}
-      minRows={rows}
-      onChange={onChange}
-      sx={{
-        "&::before": {
-          display: "none",
-        },
-        "&:focus-within": {
-          outline: "2px solid var(--Textarea-focusedHighlight)",
-          outlineOffset: "2px",
-        },
-      }}
-    />
+    <div>
+      <Textarea
+        name={name}
+        placeholder={placeholder}
+        minRows={rows}
+        onChange={onChange}
+        value={value}
+        error={!!errorMessage}
+        sx={{
+          "&::before": {
+            display: "none",
+          },
+          "&:focus-within": {
+            outline: "2px solid var(--Textarea-focusedHighlight)",
+            outlineOffset: "2px",
+          },
+        }}
+      />
+      {errorMessage && <p className="text-red-400">{errorMessage}</p>}
+    </div>
   );
 }

@@ -70,7 +70,7 @@
 //         guestName: guestName,
 //       };
 //       const response = await axios.post(
-//         "https://109f-95-107-162-162.ngrok-free.app/TAM/meeting/generateJitsiMeetLink",
+//         "https://393e-95-107-162-162.ngrok-free.app/TAM/meeting/generateJitsiMeetLink",
 //         requestBody
 //       );
 //       console.log("API call successful");

@@ -17,7 +17,7 @@ function Rules() {
 
   useEffect(() => {
     // Fetch rules from API when component mounts
-    fetch("https://109f-95-107-162-162.ngrok-free.app/TAM/apartmentRule/getByApartment/2031869")
+    fetch("https://393e-95-107-162-162.ngrok-free.app/TAM/apartmentRule/getByApartment/2031869")
       .then((response) => response.json())
       .then((data) => {
         // Update the state with the fetched rules

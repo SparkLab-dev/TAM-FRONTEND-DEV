@@ -31,6 +31,7 @@
   background-color: rgb(240 240 240 / 59%);
   border-radius: 8px;
   padding: 16px 8px;
+  gap: 24px;
 }
 
 .mapOption .top {

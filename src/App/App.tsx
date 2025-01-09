@@ -55,9 +55,13 @@ import ReservationForm from "Pages/NewBooking/NewBooking";
 // import MyCalendar from "Components/ApartmentCalendar/ApartmentCalendar.component";
 
 const App: FC<{}> = () => {
-  const isAuthenticated: boolean = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const isAuthenticated: boolean = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
   // const isAuthenticated : boolean = true;
-  const verify = useSelector((state: RootState) => state.auth.user?.registredInSmoobu);
+  const verify = useSelector(
+    (state: RootState) => state.auth.user?.registredInSmoobu
+  );
   console.log(verify);
   return (
     <>
@@ -85,14 +89,23 @@ const App: FC<{}> = () => {
                 <Route path="/websites" element={<MultiActionAreaCard />} />
                 <Route path="/website/template1" element={<Template1 />} />
                 <Route path="/reservation" element={<MediaCard />} />
-                <Route path="reservationDetail/:id" element={<ReservationDetail />} />
+                <Route
+                  path="reservationDetail/:id"
+                  element={<ReservationDetail />}
+                />
                 <Route path="/newreservation" element={<ReservationForm />} />
 
-                <Route path="reservationDetail/:id" element={<ReservationDetail />} />
+                <Route
+                  path="reservationDetail/:id"
+                  element={<ReservationDetail />}
+                />
                 <Route path="/singlecheckin/:id" element={<Card />} />
                 <Route path="/allcheckins" element={<CheckInsTable />} />
                 <Route path="/apartmentsearch" element={<ApartmentSearch />} />
-                <Route path="/apartmentsearchh" element={<ApartmentSearch1 />} />
+                <Route
+                  path="/apartmentsearchh"
+                  element={<ApartmentSearch1 />}
+                />
                 <Route path="/nft" element={<ReservationsTable />} />
                 <Route path="rentlist" element={<RentList rentalData={[]} />} />
                 <Route path="messagepage" element={<MessagePage />} />
@@ -102,13 +115,17 @@ const App: FC<{}> = () => {
             </Route>
           ) : (
             <Route path="/" element={<AuthPage />}>
+              <Route path="propertycreate" element={<PropertCreate />} />
               <Route path="/" element={<LoginPage />} index />
               <Route path="/login" element={<LoginPage />} index />
               <Route path="/loginpage" element={<LoginPage />} />
               <Route path="/checkinpage" element={<CheckinPage />} />
               <Route path="/steptwo" element={<GuestForm />} />
               <Route path="/onlinesteptwo" element={<OnlineGuestForm />} />
-              <Route path="/onlinecheckinpage" element={<CheckinPageOnline />} />
+              <Route
+                path="/onlinecheckinpage"
+                element={<CheckinPageOnline />}
+              />
               <Route path="/rulesFaq" element={<RulesFAQ />} />
               <Route path="/register" element={<RegisterPage />} />{" "}
               <Route path="tam/registration/:token" element={<SavePasword />} />

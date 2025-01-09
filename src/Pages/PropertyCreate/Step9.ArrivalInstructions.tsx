@@ -32,13 +32,17 @@ const languages: string[] = [
   "Swedish",
   "Norwegian",
 ];
-export const DescriptionStep: React.FC = () => {
+export const ArrivalInstructionsStep: React.FC = () => {
   const addLanguage = () => {};
   return (
     <div className={stepStyles.StepWrapper}>
       <h1 className={stepStyles.stepHeading}>Description</h1>
       <div className={classes.btnContainer}>
-        <Button onClick={() => addLanguage()} variant="outlined" className={classes.addBtn}>
+        <Button
+          onClick={() => addLanguage()}
+          variant="outlined"
+          className={classes.addBtn}
+        >
           <Add /> Add Language
         </Button>
       </div>
@@ -49,18 +53,23 @@ export const DescriptionStep: React.FC = () => {
             <MdDelete color="red" style={{ cursor: "pointer" }} />
           </div>
           <div className={classes.langForm}>
-            <RHFSelect name={"Language"} label="Choose a Language" className={classes.selectLanguage}>
+            <RHFSelect
+              name={"Language"}
+              label="Choose a Language"
+              className={classes.selectLanguage}
+            >
               {languages.map((lang) => (
                 <MenuItem key={lang} value={lang}>
                   {lang}
                 </MenuItem>
               ))}
             </RHFSelect>
-            <Button onClick={() => addLanguage()} variant="contained" className={classes.langBtn}>
-              Add Room
-            </Button>
-            <Button onClick={() => addLanguage()} variant="contained" className={classes.langBtn}>
-              Make Google Translation
+            <Button
+              onClick={() => addLanguage()}
+              variant="contained"
+              className={classes.langBtn}
+            >
+              Add Language
             </Button>
           </div>
         </div>
@@ -68,8 +77,25 @@ export const DescriptionStep: React.FC = () => {
         <div className={classes.langHeading}>
           <span>English</span>
         </div>
-        <h3>700 characters minimum without HTML</h3>
-        <OutlineTextarea rows={10} placeholder="Enter Description here . . ." />
+        <div>
+          <h3>How to arrive at the property</h3>
+          <OutlineTextarea
+            name="hi"
+            errorMessage=""
+            rows={10}
+            placeholder="Enter Instructions here . . ."
+          />
+        </div>
+
+        <div>
+          <h3>Details of your Pickup service</h3>
+          <OutlineTextarea
+            name="hi"
+            errorMessage=""
+            rows={10}
+            placeholder="Enter Description here . . ."
+          />
+        </div>
       </div>
     </div>
   );

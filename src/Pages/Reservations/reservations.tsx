@@ -76,7 +76,7 @@ export default function MediaCard() {
   const handleDownloadZIPfile = async () => {
     try {
       const response = await axios.get(
-        `https://109f-95-107-162-162.ngrok-free.app/TAM/checkin/downloadXML/ZIP/${userId}?startDate=${startDate}&endDate=${endDate}`,
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/checkin/downloadXML/ZIP/${userId}?startDate=${startDate}&endDate=${endDate}`,
         {
           responseType: "blob", // Set response type to blob
         },
@@ -126,7 +126,7 @@ export default function MediaCard() {
   const getAllReservations = async () => {
     try {
       const response = await axios.get(
-        `https://109f-95-107-162-162.ngrok-free.app/TAM/reservation/getAllReservationsPerOwner/${userId}`,
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/reservation/getAllReservationsPerOwner/${userId}`,
       );
       console.log(userId, "userId");
       console.log("RESPOnse", response.data);

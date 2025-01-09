@@ -1,48 +1,209 @@
-import { Button, TextField } from "@mui/material";
+/* eslint-disable import/no-anonymous-default-export */
+import { Button, MenuItem, TextField } from "@mui/material";
 import { AttractionsTable, AttractionsWrapper, StepWrapper } from "./styles";
-import { Add, Delete, Edit, HdrPlus } from "@mui/icons-material";
-import { useFormContext } from "react-hook-form";
+import { Add, Delete } from "@mui/icons-material";
+import { useFormContext, useFieldArray } from "react-hook-form";
 import { PropertyCreateInputs } from ".";
+import RHFSelect from "Components/Form/RHFSelect";
+import RHFTextField from "Components/Form/RHFTextField";
+import { useState } from "react";
+import { CreatePropertyInput } from "Types/PropertyTypes";
+import { FiEdit } from "react-icons/fi";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { schemas } from "Schemas/Property";
+import * as yup from "yup";
 
-type Props = {
-  handleAddAttraction: () => void;
-  handleDeleteAttraction: (itemIndex: number) => void;
-};
-export default ({ handleAddAttraction, handleDeleteAttraction }: Props) => {
-  const { watch } = useFormContext<PropertyCreateInputs>();
-  const attractionsDistances = watch("distances") || [];
+type DistancesToAttractionType = CreatePropertyInput["distances"];
+
+const Step2 = () => {
+  const { control, watch, setValue, trigger, formState } =
+    useFormContext<yup.InferType<typeof schemas>>();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "step2.distances",
+  });
+
+  const attractionsDistances = watch("step2.distances") || [];
+
+  const [newAttraction, setNewAttraction] = useState({
+    destinationID: 0,
+    distanceUnitID: 0,
+    distanceValue: 0,
+  });
+  const [isAdding, setIsAdding] = useState(false);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+
+  const handleAddAttraction = () => {
+    setIsAdding(true);
+    setNewAttraction({ destinationID: 0, distanceUnitID: 0, distanceValue: 0 }); // Reset the new attraction state
+    setEditingIndex(null); // Reset editing inde
+  };
+
+  const handleSaveAttraction = async () => {
+    await trigger(`step2.distances`); // Trigger validation for distances
+
+    if (
+      newAttraction.destinationID &&
+      newAttraction.distanceValue &&
+      newAttraction.distanceUnitID
+    ) {
+      if (editingIndex !== null) {
+        // If editing an existing attraction
+        setValue(`step2.distances[${editingIndex}]` as any, newAttraction); // Update the existing attraction
+      } else {
+        // If adding a new attraction
+        append(newAttraction); // Add the new attraction to the form
+      }
+      setNewAttraction({
+        destinationID: 0,
+        distanceUnitID: 0,
+        distanceValue: 0,
+      });
+      setIsAdding(false);
+      setEditingIndex(null);
+    } else {
+      alert("Please fill in all fields before saving.");
+    }
+  };
+
+  const handleEditAttraction = (index: number) => {
+    setNewAttraction({
+      destinationID: attractionsDistances[0].destinationID ?? 0,
+      distanceUnitID: attractionsDistances[0].distanceUnitID ?? 0,
+      distanceValue: attractionsDistances[0].distanceValue ?? 0,
+    });
+    setIsAdding(true);
+    setEditingIndex(index);
+  };
+
+  const handleCancel = () => {
+    setIsAdding(false); // Hide the input fields
+    setNewAttraction({ destinationID: 0, distanceUnitID: 0, distanceValue: 0 }); // Reset the new attraction state
+    setEditingIndex(null); // Reset editing index
+  };
+
   return (
     <StepWrapper>
-      <TextField
-        sx={{ width: "100% !important" }}
-        variant="outlined"
-        name="licenceInfo.licenceNumber"
-        label="Licence Number"
-        placeholder="Tourist Licence Number"
-      />
+      <div className="licenceNumberBox">
+        <h3>Tourist License number</h3>
+        <p>
+          Tourist License number is mandatory in some cities, you need to add it
+          here in order for your properties to be accepted
+        </p>
+        <RHFTextField
+          variant="outlined"
+          name="step2.licenceInfo.licenceNumber"
+          label="Licence Number"
+          placeholder="Tourist Licence Number"
+          className="textfield"
+          errorMessage={
+            formState?.errors?.step2?.licenceInfo?.licenceNumber?.message
+          }
+        />
+      </div>
+
       <AttractionsWrapper>
         <h3>Add distances to attractions</h3>
-        <Button onClick={handleAddAttraction} variant="outlined">
+        <Button
+          variant="outlined"
+          className="addButton"
+          onClick={handleAddAttraction}
+        >
           <Add /> Add attraction
         </Button>
+
+        {isAdding && (
+          <div className="mt-5">
+            <div className="flex justify-evenly">
+              <div className="w-[30%]">
+                <RHFSelect
+                  label="Select Attraction Name"
+                  value={newAttraction.destinationID}
+                  name={`step2.distances${attractionsDistances.length}.destinationID`}
+                  onChange={(e) =>
+                    setNewAttraction({
+                      ...newAttraction,
+                      destinationID: Number(e.target.value),
+                    })
+                  }
+                >
+                  <MenuItem value="1">Destination 1</MenuItem>
+                  <MenuItem value="2">Destination 2</MenuItem>
+                  <MenuItem value="3">Destination 3</MenuItem>
+                </RHFSelect>
+              </div>
+              <div className="w-[30%]">
+                <RHFTextField
+                  name={`step2.distances${attractionsDistances.length}.distanceValue`}
+                  label="Distance"
+                  type="number"
+                  value={newAttraction.distanceValue as any}
+                  onChange={(e) =>
+                    setNewAttraction({
+                      ...newAttraction,
+                      distanceValue: Number(e.target.value),
+                    })
+                  }
+                  errorMessage={
+                    formState?.errors?.step2?.distances?.[
+                      attractionsDistances.length
+                    ]?.distanceValue?.message ?? ""
+                  }
+                />
+              </div>
+              <div className="w-[30%]">
+                <RHFSelect
+                  label="Measurement"
+                  value={newAttraction.distanceUnitID}
+                  name={`step2.distances${attractionsDistances.length}.distanceUnitID`}
+                  onChange={(e) =>
+                    setNewAttraction({
+                      ...newAttraction,
+                      distanceUnitID: Number(e.target.value),
+                    })
+                  }
+                >
+                  <MenuItem value="1">Unit 1</MenuItem>
+                  <MenuItem value="2">Unit 2</MenuItem>
+                  <MenuItem value="3">Unit 3</MenuItem>
+                </RHFSelect>
+              </div>
+            </div>
+
+            <div className="space-x-8 ml-5 py-2">
+              <Button className="saveButton" onClick={handleSaveAttraction}>
+                Save
+              </Button>
+              <Button className="cancelButton" onClick={handleCancel}>
+                <span className="text-red-500">Cancel</span>
+              </Button>
+            </div>
+          </div>
+        )}
+
         <AttractionsTable>
-          <div className="headers">
+          <div className="grid grid-cols-4 gap-48 border-b-2">
             <div>Attraction Name</div>
             <div>Distance</div>
-            <div>Measurment</div>
-            <div></div>
+            <div>Measurement</div>
+            <div>Action</div>
           </div>
-          <div className="body">
-            {attractionsDistances?.length ? (
+          <div className="body h-[200px] overflow-y-scroll">
+            {attractionsDistances.length ? (
               attractionsDistances.map((attraction, index) => (
-                <div key={attraction.destinationID} className="row">
+                <div
+                  key={attraction.destinationID}
+                  className="grid grid-cols-4 gap-48 py-4"
+                >
                   <div>{attraction.destinationID}</div>
                   <div>{attraction.distanceValue}</div>
                   <div>{attraction.distanceUnitID}</div>
-                  <div>
-                    <Edit />
-                    <Button onClick={() => handleDeleteAttraction(index)}>
-                      <Delete />
+                  <div className="flex items-center space-x-6">
+                    <Button onClick={() => handleEditAttraction(index)}>
+                      <FiEdit size={20} />
+                    </Button>
+                    <Button onClick={() => remove(index)}>
+                      <FaRegTrashAlt className="text-red-400" size={20} />
                     </Button>
                   </div>
                 </div>
@@ -51,156 +212,15 @@ export default ({ handleAddAttraction, handleDeleteAttraction }: Props) => {
               <div className="infoRow">No attractions added</div>
             )}
           </div>
+          {formState?.errors?.step2?.distances && (
+            <p className="text-red-400">
+              {formState?.errors?.step2?.distances?.message}
+            </p>
+          )}
         </AttractionsTable>
       </AttractionsWrapper>
     </StepWrapper>
   );
 };
 
-const body = {
-  ruPropertyId: 0,
-  name: "string",
-  ownerID: 0,
-  typedetailedLocationId: 0,
-  detailedLocationID: 0,
-  space: 0,
-  standardGuests: 0,
-  canSleepMax: 0,
-  propertyTypeID: 0,
-  noOfUnits: 0,
-  floor: 0,
-  numberOfFloors: 0,
-  street: "string",
-  zipCode: "string",
-  coordinates: {
-    longitude: 0,
-    latitude: 0,
-  },
-  distances: [
-    {
-      destinationID: 0,
-      distanceUnitID: 0,
-      distanceValue: 0,
-    },
-  ],
-  amenities: [
-    {
-      count: 0,
-      amenityID: 0,
-    },
-  ],
-  images: [
-    {
-      imageTypeID: 0,
-      imageReferenceID: 0,
-      imageUrl: "string",
-    },
-  ],
-  imageCaptions: [
-    {
-      languageID: 0,
-      imageReferenceID: 0,
-      caption: "string",
-    },
-  ],
-  imageSecondaryTypes: [
-    {
-      imageReferenceID: 0,
-      imageSecondaryTypeID: 0,
-    },
-  ],
-  arrivalInstructions: {
-    landlord: "string",
-    email: "string",
-    phone: "string",
-    daysBeforeArrival: 0,
-    howToArrive: [
-      {
-        languageID: 0,
-        text: "string",
-      },
-    ],
-    pickupService: {
-      languageID: 0,
-      text: "string",
-    },
-  },
-  checkInOut: {
-    checkInFrom: "string",
-    checkInTo: "string",
-    checkOutUntil: "string",
-    place: "string",
-    lateArrivalFees: [
-      {
-        from: "string",
-        to: "string",
-        fee: 0,
-      },
-    ],
-    earlyDepartureFees: [
-      {
-        from: "string",
-        to: "string",
-        fee: 0,
-      },
-    ],
-  },
-  paymentMethods: [
-    {
-      id: 0,
-      methodName: "string",
-      idPaymentMethod: 0,
-    },
-  ],
-  termsAndConditionsLinks: [
-    {
-      languageID: 0,
-      link: "string",
-    },
-  ],
-  deposit: {
-    depositTypeID: 0,
-    amount: 0,
-  },
-  cancellationPolicies: [
-    {
-      validFrom: 0,
-      validTo: 0,
-      percentage: 0,
-    },
-  ],
-  descriptions: [
-    {
-      languageID: 0,
-      text: "string",
-    },
-  ],
-  compositionRoomAmenitiesList: [
-    {
-      compositionRoomID: 0,
-      amenities: [
-        {
-          count: 0,
-          amenityID: 0,
-        },
-      ],
-    },
-  ],
-  securityDeposit: {
-    depositTypeID: 0,
-    amount: 0,
-  },
-  additionalFees: [
-    {
-      feeTaxType: 0,
-      discriminatorID: 0,
-      order: 0,
-      value: 0,
-    },
-  ],
-  licenceInfo: {
-    licenceNumber: "string",
-  },
-  active: true,
-  archived: true,
-};
+export default Step2;

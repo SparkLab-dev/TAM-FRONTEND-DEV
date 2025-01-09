@@ -40,7 +40,7 @@ const ApartmentSearch: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get<ApiResponse>("https://109f-95-107-162-162.ngrok-free.app/Study/apartment", {
+      const response = await axios.get<ApiResponse>("https://393e-95-107-162-162.ngrok-free.app/Study/apartment", {
         params: {
           checkin,
           checkout,

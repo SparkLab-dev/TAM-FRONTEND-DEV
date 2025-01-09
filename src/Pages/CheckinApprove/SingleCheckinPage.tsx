@@ -106,7 +106,9 @@ const Card: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`https://109f-95-107-162-162.ngrok-free.app/TAM/checkin/checkInPage/${checkinIdd}`);
+      const response = await axios.get(
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/checkin/checkInPage/${checkinIdd}`,
+      );
       setData(response.data);
       console.log(data);
       console.log(response);
@@ -128,7 +130,9 @@ const Card: React.FC = () => {
 
   const updateCheckInStatus = async (): Promise<void> => {
     try {
-      await axios.put(`https://109f-95-107-162-162.ngrok-free.app/TAM/checkin/${userId}/checkInStatus/${checkinIdd}/Successfully`);
+      await axios.put(
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/checkin/${userId}/checkInStatus/${checkinIdd}/Successfully`,
+      );
       console.log("Check-in status updated successfully");
       window.location.reload();
     } catch (error) {
@@ -147,7 +151,7 @@ const Card: React.FC = () => {
   const denieCheckInStatus = async (): Promise<void> => {
     try {
       await axios.put(
-        `https://109f-95-107-162-162.ngrok-free.app/TAM/checkin/${userId}/checkInStatus/${checkinIdd}/Failed?reasonOfFailed=${reason}`,
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/checkin/${userId}/checkInStatus/${checkinIdd}/Failed?reasonOfFailed=${reason}`,
       );
       console.log("Check-in status updated successfully");
       setCheckInStatus("Denied");

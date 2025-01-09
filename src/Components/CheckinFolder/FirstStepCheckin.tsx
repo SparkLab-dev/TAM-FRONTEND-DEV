@@ -87,7 +87,7 @@ const FirstCheckinForm: React.FC = () => {
     try {
       // Make API call using Axios to submit number of guests
       const response = await axios.post(
-        `https://109f-95-107-162-162.ngrok-free.app/TAM/checkin/numberOfGuestsCheck/2379138/${number}`,
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/checkin/numberOfGuestsCheck/2379138/${number}`,
       );
 
       if (response.status === 200) {

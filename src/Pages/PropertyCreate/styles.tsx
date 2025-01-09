@@ -13,9 +13,6 @@ export const PageContainer = styled.div`
     flex-flow: column;
     align-items: center;
     justify-content: center;
-    height: calc(100% - 90px);
-    overflow-y: scroll;
-    padding-bottom: 60px;
     box-sizing: border-box;
   }
 `;
@@ -32,6 +29,18 @@ export const StepWrapper = styled.div`
   > div {
     width: calc(50% - 40px);
   }
+  .textfield > div {
+    width: 24%;
+  }
+  .deleteButton {
+    color: #4f734c;
+  }
+  .licenceNumberBox {
+    width: 100%;
+  }
+  p {
+    color: #808080;
+  }
 `;
 export const AttractionsWrapper = styled.div`
   display: flex;
@@ -40,15 +49,27 @@ export const AttractionsWrapper = styled.div`
   flex-shrink: 0;
   > button {
     width: 220px;
+    color: #fff;
+    background-color: #4f734c;
+    &:hover {
+      color: #fff;
+      background-color: #4f734c;
+      border: 1px solid #4f734c;
+    }
   }
 `;
 export const AttractionsTable = styled.div`
   display: flex;
   flex-flow: column;
   margin-top: 20px;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  padding: 20px;
   .infoRow {
-    padding: 20px;
+    padding-top: 20px;
     background-color: #fcfcfc;
+    color: #4f734c;
+    font-weight: bold;
   }
   .headers,
   .row {
@@ -57,7 +78,10 @@ export const AttractionsTable = styled.div`
     > div {
       display: flex;
       width: calc(100% / 4);
-      padding: 5px;
+      padding: 10px;
+    }
+    > div:last-child {
+      justify-content: flex-end;
     }
   }
 `;

@@ -26,7 +26,7 @@ const initialState: AuthState = {
 
 export const loginUser = createAsyncThunk("user/loginUser", async (userCredentials: object, { rejectWithValue }) => {
   try {
-    const response = await axios.post("https://109f-95-107-162-162.ngrok-free.app/TAM/auth/login", userCredentials);
+    const response = await axios.post("https://393e-95-107-162-162.ngrok-free.app/TAM/auth/login", userCredentials);
 
     const responseData = response.data;
 
@@ -63,7 +63,9 @@ export const logoutUser = createAsyncThunk<void, number | null>(
       if (!userIdFromLocalStorage) {
         throw new Error("User ID not found in user data");
       }
-      const response = await axios.post(`https://109f-95-107-162-162.ngrok-free.app/TAM/auth/logout/${userIdFromLocalStorage}`);
+      const response = await axios.post(
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/auth/logout/${userIdFromLocalStorage}`,
+      );
 
       console.log("Logout response:", response.data);
       localStorage.removeItem("user");

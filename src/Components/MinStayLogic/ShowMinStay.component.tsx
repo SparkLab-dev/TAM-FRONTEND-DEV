@@ -30,7 +30,7 @@ const YourComponent: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<MinStay[]>(
-          `https://109f-95-107-162-162.ngrok-free.app/TAM/minStay/getMinStaysByUser/${userId}`,
+          `https://393e-95-107-162-162.ngrok-free.app/TAM/minStay/getMinStaysByUser/${userId}`,
         );
         setMinStays(response.data);
       } catch (error) {
@@ -61,7 +61,9 @@ const YourComponent: React.FC = () => {
 
   const callApi = async () => {
     try {
-      await axios.post(`https://109f-95-107-162-162.ngrok-free.app/TAM/${userId}/reservations/updateMinStayBasedOnRules`);
+      await axios.post(
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/${userId}/reservations/updateMinStayBasedOnRules`,
+      );
       console.log("API call successful");
     } catch (error) {
       console.error("Error calling API:", error);

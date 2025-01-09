@@ -203,7 +203,7 @@ const RentList: FC<RentListProps> = () => {
 
     try {
       const response = await axios.post(
-        `https://109f-95-107-162-162.ngrok-free.app/TAM/${userId}/apartmentAvailability`,
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/${userId}/apartmentAvailability`,
         userCredentialsss,
       );
 
@@ -234,7 +234,7 @@ const RentList: FC<RentListProps> = () => {
 
     try {
       const response = await axios.post(
-        `https://109f-95-107-162-162.ngrok-free.app/TAM/${userId}/apartmentAvailability`,
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/${userId}/apartmentAvailability`,
         userCredentialss,
       );
 

@@ -74,7 +74,7 @@ const ChatComponent: React.FC = () => {
 
     if (!messages.find((msg) => msg.sender === "user")) {
       axios
-        .post("https://109f-95-107-162-162.ngrok-free.app/TAM/assistant/thread/host", {
+        .post("https://393e-95-107-162-162.ngrok-free.app/TAM/assistant/thread/host", {
           newMessage,
           userId: userId,
         })
@@ -95,7 +95,7 @@ const ChatComponent: React.FC = () => {
         });
     } else {
       axios
-        .post(`https://109f-95-107-162-162.ngrok-free.app/TAM/assistant/chat/${threadId}/host`, {
+        .post(`https://393e-95-107-162-162.ngrok-free.app/TAM/assistant/chat/${threadId}/host`, {
           content: newMessage,
           role: "user",
         })

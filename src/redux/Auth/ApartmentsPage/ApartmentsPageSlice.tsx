@@ -36,8 +36,8 @@ export const fetchApartmentIds = createAsyncThunk<ApartmentProps[], number>(
   "apartments/fetchUserApartmentIds",
   async (userId: number) => {
     try {
-      // const response = await axios.get(`https://109f-95-107-162-162.ngrok-free.app/TAM/property/getOwnersProperties/${userId}`);
-      const response = await privApi.get(`/TAM/property/getUserProperties/${userId}`);//https://109f-95-107-162-162.ngrok-free.app/TAM/property/getUserProperties/6
+      // const response = await axios.get(`https://393e-95-107-162-162.ngrok-free.app/TAM/property/getOwnersProperties/${userId}`);
+      const response = await privApi.get(`/TAM/property/getUserProperties/${userId}`); //https://393e-95-107-162-162.ngrok-free.app/TAM/property/getUserProperties/6
       console.log("res", response);
       return response.data?.properties || [];
     } catch (error) {
