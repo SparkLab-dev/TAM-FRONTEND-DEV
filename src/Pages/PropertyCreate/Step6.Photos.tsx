@@ -38,6 +38,7 @@ interface CaptionData {
 }
 export const PhotosStep: React.FC = () => {
   const [images, setImages] = useState<ImageData[]>([]);
+  const [showAddImage, setShowAddImage] = useState(false);
 
   const { control, setValue, getValues, formState } =
     useFormContext<yup.InferType<typeof schemas>>();
@@ -107,18 +108,6 @@ export const PhotosStep: React.FC = () => {
           HomeAway will not accept pictures under 1920 x 1080 pixels so upload
           your largest photos.
         </p>
-        <div className={classes.pBtns}>
-          <Button variant="outlined" className={classes.addBtn}>
-            <Add /> Add Photo
-          </Button>
-          <Button
-            onClick={() => console.log("yam")}
-            variant="outlined"
-            className={classes.addBtn}
-          >
-            <Add /> Add Floorplan
-          </Button>
-        </div>
       </div>
       <div>
         <div className="max-w-2xl mx-auto p-6 border border-gray-300 rounded-lg shadow">

@@ -12,6 +12,9 @@ import Paper from "@mui/material/Paper";
 import { useState } from "react";
 import RHFTextField from "Components/Form/RHFTextField";
 import RHFSelect from "Components/Form/RHFSelect";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { schemas } from "Schemas/Property";
+import * as yup from "yup";
 
 interface CancelationPolicyType {
   validFrom: number;
@@ -19,67 +22,143 @@ interface CancelationPolicyType {
   percentage: number;
 }
 
+const defaultCancellationPolicyData: CancelationPolicyType = {
+  validFrom: 0,
+  validTo: 0,
+  percentage: 0,
+};
+
 export const CancellationPoliciesStep: React.FC = () => {
-  const [cancellationPolicies, setCancellationPolicies] = useState<
-    CancelationPolicyType[]
-  >([]);
+  const [cancellationPolicies, setCancellationPolicies] = useState(
+    defaultCancellationPolicyData
+  );
+  const [editIndex, setEditIndex] = useState<number | null>(null);
+  const [showAddPolicyForm, setShowAddPolicyForm] = useState(false);
+  const { control, watch, setValue, trigger, formState } =
+    useFormContext<yup.InferType<typeof schemas>>();
 
-  const [editing, setEditing] = useState<boolean>(false);
+  const { append, update, remove } = useFieldArray({
+    control,
+    name: "step12.cancellationPolicies",
+  });
 
-  const [validFrom, setValidFrom] = useState<number>(0);
-  const [validTo, setValidTo] = useState<number>(0);
-  const [percentage, setPercentage] = useState<number>(0);
+  const cancellationPoliciesFormData =
+    watch("step12.cancellationPolicies") || [];
 
-  const addPolicy = () => {
-    let temp = cancellationPolicies;
-    temp.push({ validFrom, validTo, percentage });
-    setCancellationPolicies(temp);
-    setEditing(false);
-    setValidFrom(0);
-    setValidTo(0);
-    setPercentage(0);
+  const handleChange = (
+    e: React.ChangeEvent<{ name?: string; value: unknown }>,
+    name: keyof CancelationPolicyType
+  ) => {
+    const { value } = e.target;
+    setCancellationPolicies((prev) => ({
+      ...prev,
+      [name]: Number(value),
+    }));
   };
+
+  const handleDelete = (index: number) => {
+    remove(index);
+  };
+
+  const handleAddTerms = () => {
+    const { percentage, validFrom, validTo } = cancellationPolicies;
+
+    if (percentage <= 0 || validFrom <= 0 || validTo <= 0) {
+      alert("Please fill in all fields correctly");
+      return;
+    }
+
+    if (editIndex !== null) {
+      update(editIndex, cancellationPolicies);
+    } else {
+      append(cancellationPolicies);
+    }
+
+    setEditIndex(null);
+    resetForm();
+  };
+
+  const handleEdit = (index: number, policies: CancelationPolicyType) => {
+    setCancellationPolicies(policies);
+    setEditIndex(index);
+    setShowAddPolicyForm(true);
+  };
+
+  const resetForm = () => {
+    setCancellationPolicies(defaultCancellationPolicyData);
+    setShowAddPolicyForm(false);
+  };
+
   return (
     <Box sx={{ width: "100%" }} className={stepStyles.StepWrapper}>
       <h2 className={stepStyles.stepHeading}>Cancelation Policy</h2>
       <Button
-        onClick={() => setEditing(true)}
+        onClick={() => setShowAddPolicyForm(true)}
         variant="outlined"
         sx={{ cursor: "pointer", width: "10rem" }}
       >
         <Add /> Add
       </Button>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>From</TableCell>
-              <TableCell align="right">To</TableCell>
-              <TableCell align="right">Charge</TableCell>
-              <TableCell align="right">Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {cancellationPolicies.map((row) => (
-              <TableRow
-                key={row.validFrom}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.validFrom}
-                </TableCell>
-                <TableCell align="right">{row.validTo}</TableCell>
-                <TableCell align="right">{row.percentage}</TableCell>
-                <TableCell align="right">
-                  <EditIcon sx={{ color: "blue", cursor: "pointer" }} />
-                  <DeleteOutline sx={{ color: "red", cursor: "pointer" }} />
-                </TableCell>
-              </TableRow>
+      <div className="overflow-x-auto mt-6">
+        <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-600">
+                From
+              </th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-600"></th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-600">
+                To
+              </th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-600"></th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-600">
+                Charge
+              </th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-600"></th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-600">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {cancellationPoliciesFormData.map((policy, index) => (
+              <tr key={index} className="border-b hover:bg-gray-50">
+                <td className="px-4 py-2 text-sm text-gray-700 font-bold">
+                  {policy.validFrom}
+                </td>
+                <td className="px-4 py-2 text-sm text-gray-700">To</td>
+                <td className="px-4 py-2 text-sm text-gray-700 first-letter:font-bold">
+                  {policy.validTo}
+                </td>
+                <td className="px-4 py-2 text-sm text-gray-700">
+                  days before arrival charge
+                </td>
+                <td className="px-4 py-2 text-sm text-gray-700 font-bold">
+                  {policy.percentage}%
+                </td>
+                <td className="px-4 py-2 text-sm text-gray-700">
+                  of total booking amount
+                </td>
+                <td className="px-4 py-2 flex space-x-4">
+                  <button
+                    className="text-blue-600 hover:underline"
+                    onClick={() => handleEdit(index, policy)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="text-red-600 hover:underline"
+                    onClick={() => handleDelete(index)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
             ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      {editing === true && (
+          </tbody>
+        </table>
+      </div>
+      {showAddPolicyForm && (
         <Box className={stepStyles.mapOption}>
           <div className={stepStyles.top}>
             <span>Add/Edit Terms and condition</span>
@@ -97,36 +176,45 @@ export const CancellationPoliciesStep: React.FC = () => {
               gap: "20px",
             }}
           >
-            {/* <RHFTextField
+            <RHFTextField
+              errorMessage=""
               label="From"
-              name="from"
               type="number"
-              value={validFrom}
-              onChange={(e) => setValidFrom(Number(e.target.value))}
+              value={cancellationPolicies.validFrom.toString()}
+              onChange={(e) => handleChange(e, "validFrom")}
+              sx={{ width: "250px" }}
+            />
+            <p>Days</p>
+
+            <RHFTextField
+              errorMessage=""
+              label="To"
+              type="number"
+              value={cancellationPolicies.validTo.toString()}
+              onChange={(e) => handleChange(e, "validTo")}
+              sx={{ width: "250px" }}
+            />
+            <p>days before arrival change</p>
+            <RHFTextField
+              errorMessage=""
+              label="Percentage"
+              type="number"
+              value={cancellationPolicies.percentage.toString()}
+              onChange={(e) => handleChange(e, "percentage")}
               sx={{ width: "250px" }}
             />
 
-            <RHFTextField
-              label="To"
-              name="to"
-              type="number"
-              value={validTo}
-              onChange={(e) => setValidTo(Number(e.target.value))}
-              sx={{ width: "250px" }}
-            /> */}
-            {/* <RHFTextField
-              label="Percentage"
-              name="Percentage"
-              type="number"
-              value={percentage}
-              onChange={(e) => setPercentage(Number(e.target.value))}
-              sx={{ width: "250px" }}
-            /> */}
+            <p>of total booking amount</p>
 
-            <Button onClick={() => addPolicy()} variant="contained">
+            <Button onClick={handleAddTerms} variant="contained">
               save
             </Button>
           </Grid>
+          {formState?.errors?.step12?.cancellationPolicies && (
+            <p className="text-red-400">
+              {formState?.errors?.step12.cancellationPolicies.message}
+            </p>
+          )}
         </Box>
       )}
     </Box>

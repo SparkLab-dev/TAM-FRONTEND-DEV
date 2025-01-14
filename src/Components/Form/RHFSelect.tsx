@@ -13,7 +13,7 @@ import { ValidSchemaKeys } from "Types/PropertyTypes";
 // ----------------------------------------------------------------------
 
 type IProps = {
-  name: ValidSchemaKeys | any;
+  name?: ValidSchemaKeys | any;
   children: React.ReactNode;
   onChangeText?: any;
   onKeyDown?: any;
@@ -36,7 +36,7 @@ export default function RHFSelect({
 
   return (
     <Controller
-      name={name}
+      name={name ?? ""}
       control={control}
       render={({ field, fieldState: { error } }) => {
         if (value) field.value = value;

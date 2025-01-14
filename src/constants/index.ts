@@ -66,3 +66,32 @@ export const amenities: AmenitiesType[] = [
     count: 0,
   },
 ];
+
+export const languages: string[] = [
+  "English",
+  "Spanish",
+  "French",
+  "Mandarin",
+  "Arabic",
+  "Hindi",
+  "Swahili",
+  "Portuguese",
+  "Russian",
+  "Bengali",
+  "Japanese",
+  "German",
+  "Korean",
+  "Italian",
+  "Turkish",
+  "Vietnamese",
+  "Thai",
+  "Persian",
+  "Dutch",
+  "Swedish",
+  "Norwegian",
+];
+
+export const languageOptions = languages.map((language, index) => ({
+  value: index + 1,
+  label: language,
+}));

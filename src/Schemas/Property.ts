@@ -254,7 +254,6 @@ export const schemas = yup.object({
           order: yup
             .number()
             .integer("Order must be an integer")
-            .min(1, "Order must be greater than 0")
             .required("Order is required"),
           value: yup
             .number()
@@ -262,7 +261,7 @@ export const schemas = yup.object({
             .required("Value is required"),
         })
       )
-      .required("Additional fees are required"),
+      .min(1, "Additional fees are required"),
 
     securityDeposit: yup
       .object({
@@ -277,7 +276,21 @@ export const schemas = yup.object({
           .required("Security deposit amount is required"),
       })
       .required("Security deposit is required"),
-
+    deposite: yup
+      .object({
+        depositTypeID: yup
+          .number()
+          .integer("Deposit type ID must be an integer")
+          .min(1, "Deposit type ID must be greater than 0")
+          .required("Deposit type ID is required"),
+        amount: yup
+          .number()
+          .positive("Amount must be a positive number")
+          .required("Security deposit amount is required"),
+      })
+      .required("Security deposit is required"),
+  }),
+  step8: yup.object().shape({
     arrivalInstructions: yup
       .object({
         landlord: yup
@@ -335,7 +348,8 @@ export const schemas = yup.object({
           .required("Pickup service information is required"),
       })
       .required("Arrival instructions are required"),
-
+  }),
+  step9: yup.object().shape({
     checkInOut: yup
       .object({
         checkInFrom: yup
@@ -394,7 +408,8 @@ export const schemas = yup.object({
           .required("Early departure fees are required"),
       })
       .required("Check-in/out details are required"),
-
+  }),
+  step10: yup.object().shape({
     paymentMethods: yup
       .array()
       .of(
@@ -402,7 +417,6 @@ export const schemas = yup.object({
           id: yup
             .number()
             .integer("Payment method ID must be an integer")
-            .min(1, "Payment method ID must be greater than 0")
             .required("Payment method ID is required"),
           methodName: yup
             .string()
@@ -412,12 +426,31 @@ export const schemas = yup.object({
           idPaymentMethod: yup
             .number()
             .integer("Payment method internal ID must be an integer")
-            .min(1, "Payment method internal ID must be greater than 0")
             .required("Payment method internal ID is required"),
         })
       )
-      .required("Payment methods are required"),
+      .min(1, "Atleast 1 Payment method is required"),
+  }),
+  step11: yup.object().shape({
+    termsAndConditionsLinks: yup
+      .array()
+      .of(
+        yup.object({
+          languageID: yup
+            .number()
+            .required("Language ID is required")
+            .integer("Language ID must be an integer")
+            .positive("Language ID must be a positive number"),
+          link: yup
+            .string()
+            .required("Link is required")
+            .url("Link must be a valid URL"),
+        })
+      )
+      .min(1, "Terms and conditions are required"),
+  }),
 
+  step12: yup.object().shape({
     cancellationPolicies: yup
       .array()
       .of(
@@ -437,6 +470,6 @@ export const schemas = yup.object({
             .required("Percentage is required"),
         })
       )
-      .required("Cancellation policies are required"),
+      .min(1, "Cancellation policies are required"),
   }),
 });

@@ -119,7 +119,6 @@ const Step2 = () => {
                 <RHFSelect
                   label="Select Attraction Name"
                   value={newAttraction.destinationID}
-                  name={`step2.distances${attractionsDistances.length}.destinationID`}
                   onChange={(e) =>
                     setNewAttraction({
                       ...newAttraction,
@@ -134,7 +133,6 @@ const Step2 = () => {
               </div>
               <div className="w-[30%]">
                 <RHFTextField
-                  name={`step2.distances${attractionsDistances.length}.distanceValue`}
                   label="Distance"
                   type="number"
                   value={newAttraction.distanceValue as any}
@@ -155,7 +153,6 @@ const Step2 = () => {
                 <RHFSelect
                   label="Measurement"
                   value={newAttraction.distanceUnitID}
-                  name={`step2.distances${attractionsDistances.length}.distanceUnitID`}
                   onChange={(e) =>
                     setNewAttraction({
                       ...newAttraction,

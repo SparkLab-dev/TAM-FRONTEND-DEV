@@ -1,12 +1,13 @@
 import * as React from "react";
 import Textarea from "@mui/joy/Textarea";
+import { ValidSchemaKeys } from "Types/PropertyTypes";
 
 interface Props {
   rows?: number;
   placeholder?: string;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  name: string;
+  name: ValidSchemaKeys | any;
   errorMessage: string;
 }
 

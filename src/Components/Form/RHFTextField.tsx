@@ -10,7 +10,7 @@ import * as yup from "yup";
 
 type IProps = {
   value?: string;
-  name: ValidSchemaKeys | any;
+  name?: ValidSchemaKeys | any;
   errorMessage: string | undefined;
 };
 
@@ -28,7 +28,7 @@ export default function RHFTextField({
   return (
     <div>
       <Controller
-        name={name}
+        name={name ?? ""}
         control={control}
         render={({ field, fieldState: { error } }) => {
           if (value) field.value = value;

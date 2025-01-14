@@ -6,6 +6,9 @@ import { PricingTab } from "./tabs/PricingTab";
 import stepStyles from "./styles/stepgen.module.css";
 import RHFTextField from "Components/Form/RHFTextField";
 import { FeesTab } from "./tabs/FeesTab";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { schemas } from "Schemas/Property";
+import * as yup from "yup";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -37,36 +40,37 @@ function a11yProps(index: number) {
 }
 
 export default function TabsStep() {
-  const [value, setValue] = React.useState(0);
+  const [activeTab, setActiveTab] = React.useState(0);
+
+  const { control, setValue, getValues, formState } =
+    useFormContext<yup.InferType<typeof schemas>>();
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "step7.additionalFees",
+  });
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    setActiveTab(newValue);
   };
 
   return (
     <Box sx={{ width: "100%" }} className={stepStyles.StepWrapper}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
-          value={value}
+          value={activeTab}
           onChange={handleChange}
           aria-label="Pricing and tax"
         >
-          <Tab label="License Info" {...a11yProps(0)} />
-          <Tab label="Pricing" {...a11yProps(1)} />
-          <Tab label="Tax & Fees" {...a11yProps(2)} />
+          <Tab label="Pricing" {...a11yProps(0)} />
+          <Tab label="Tax & Fees" {...a11yProps(1)} />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        <RHFTextField
-          label="License Number"
-          name="licenceInfo.licenceNumber"
-          errorMessage=""
-        />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
+
+      <CustomTabPanel value={activeTab} index={0}>
         <PricingTab />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
+      <CustomTabPanel value={activeTab} index={1}>
         <FeesTab />
       </CustomTabPanel>
     </Box>

@@ -64,6 +64,10 @@ export interface CreatePropertyInput {
     depositTypeID: number;
     amount: number;
   };
+  deposit: {
+    depositTypeID: number;
+    amount: number;
+  };
   arrivalInstructions: {
     //arrival informaion and instructions
     landlord: string;
@@ -101,6 +105,10 @@ export interface CreatePropertyInput {
     id: number;
     methodName: string;
     idPaymentMethod: number;
+  }[];
+  termsAndConditionsLinks: {
+    languageID: number;
+    link: string;
   }[];
   cancellationPolicies: {
     validFrom: number;

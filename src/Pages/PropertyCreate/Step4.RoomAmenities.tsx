@@ -50,14 +50,10 @@ const amenities = [
 
 type RoomAmenitiesStepProps = {
   roomDropdownOptions: { label: string; value: number }[];
-  roomsComposition: CreatePropertyInput["compositionRoomAmenitiesList"];
-  setRoomsComposition: Dispatch<any>;
 };
 
 export default function RoomAmenitiesSte({
   roomDropdownOptions,
-  roomsComposition,
-  setRoomsComposition,
 }: RoomAmenitiesStepProps) {
   const { control, watch, setValue, trigger, formState } =
     useFormContext<yup.InferType<typeof schemas>>();

@@ -19,6 +19,11 @@ import { AmenityComposition, CreatePropertyInput } from "Types/PropertyTypes";
 import DescriptionStep from "./Step5.Description";
 import { PhotosStep } from "./Step6.Photos";
 import TabsStep from "./Step7.Tabs";
+import ArrivalInstructionsStep from "./Step8.ArrivalInstructions";
+import { CheckInOutStep } from "./Step10.CheckInOut";
+import { PaymentMethodStep } from "./Step11.PaymentMethods";
+import { TermsAndConditionsStep } from "./Step12.TermsAndConditions";
+import { CancellationPoliciesStep } from "./Step13.CancelationPolicies";
 const MAX_STEPS = 18;
 
 const amenitycomposition: AmenityComposition[] = [
@@ -111,16 +116,15 @@ const PropertCreate = () => {
         setGeneralAmenities={setCurrentGeneralAmenities}
       />
     ),
-    step4: (
-      <RoomAmenitiesStep
-        roomDropdownOptions={roomsDropdownOptions}
-        roomsComposition={roomsCompositions}
-        setRoomsComposition={setRoomsCompositions}
-      />
-    ),
+    step4: <RoomAmenitiesStep roomDropdownOptions={roomsDropdownOptions} />,
     step5: <DescriptionStep />,
     step6: <PhotosStep />,
     step7: <TabsStep />,
+    step8: <ArrivalInstructionsStep />,
+    step9: <CheckInOutStep />,
+    step10: <PaymentMethodStep />,
+    step11: <TermsAndConditionsStep />,
+    step12: <CancellationPoliciesStep />,
   };
 
   const STEPS_TO_STEP_NAMES: { [key: number]: StepNameTypes } = {
@@ -131,6 +135,11 @@ const PropertCreate = () => {
     5: "step5",
     6: "step6",
     7: "step7",
+    8: "step8",
+    9: "step9",
+    10: "step10",
+    11: "step11",
+    12: "step12",
   };
 
   // Get the current step name
