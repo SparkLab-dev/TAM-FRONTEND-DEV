@@ -40,24 +40,21 @@ const ApartmentSearch: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get<ApiResponse>(
-        "http://192.168.10.210:8081/Study/apartment",
-        {
-          params: {
-            checkin,
-            checkout,
-            adults,
-            children,
-            infants,
-            lat1,
-            lat2,
-            long1,
-            long2,
-            // cursor:
-            //   "yJzZWN0aW9uX29mZnNldCI6MCwiaXRlbXNfb2Zmc2V0IjowLCJ2ZXJzaW9uIjoxfQ%3D%3D",
-          },
-        }
-      );
+      const response = await axios.get<ApiResponse>("https://393e-95-107-162-162.ngrok-free.app/Study/apartment", {
+        params: {
+          checkin,
+          checkout,
+          adults,
+          children,
+          infants,
+          lat1,
+          lat2,
+          long1,
+          long2,
+          // cursor:
+          //   "yJzZWN0aW9uX29mZnNldCI6MCwiaXRlbXNfb2Zmc2V0IjowLCJ2ZXJzaW9uIjoxfQ%3D%3D",
+        },
+      });
       setData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -133,30 +130,15 @@ const ApartmentSearch: React.FC = () => {
       >
         <label>
           Checkin:
-          <input
-            type="date"
-            value={checkin}
-            style={inputStyles}
-            onChange={(e) => setCheckin(e.target.value)}
-          />
+          <input type="date" value={checkin} style={inputStyles} onChange={(e) => setCheckin(e.target.value)} />
         </label>
         <label>
           Checkout:
-          <input
-            type="date"
-            value={checkout}
-            style={inputStyles}
-            onChange={(e) => setCheckout(e.target.value)}
-          />
+          <input type="date" value={checkout} style={inputStyles} onChange={(e) => setCheckout(e.target.value)} />
         </label>
         <label>
           Adults:
-          <input
-            type="number"
-            value={adults}
-            style={inputStyles}
-            onChange={(e) => setAdults(Number(e.target.value))}
-          />
+          <input type="number" value={adults} style={inputStyles} onChange={(e) => setAdults(Number(e.target.value))} />
         </label>
         <label>
           Children:
@@ -178,39 +160,19 @@ const ApartmentSearch: React.FC = () => {
         </label>
         <label>
           Latitude 1:
-          <input
-            type="number"
-            value={lat1}
-            style={inputStyles}
-            onChange={(e) => setLat1(Number(e.target.value))}
-          />
+          <input type="number" value={lat1} style={inputStyles} onChange={(e) => setLat1(Number(e.target.value))} />
         </label>
         <label>
           Latitude 2:
-          <input
-            type="number"
-            value={lat2}
-            style={inputStyles}
-            onChange={(e) => setLat2(Number(e.target.value))}
-          />
+          <input type="number" value={lat2} style={inputStyles} onChange={(e) => setLat2(Number(e.target.value))} />
         </label>
         <label>
           Longitude 1:
-          <input
-            type="number"
-            value={long1}
-            style={inputStyles}
-            onChange={(e) => setLong1(Number(e.target.value))}
-          />
+          <input type="number" value={long1} style={inputStyles} onChange={(e) => setLong1(Number(e.target.value))} />
         </label>
         <label>
           Longitude 2:
-          <input
-            type="number"
-            value={long2}
-            style={inputStyles}
-            onChange={(e) => setLong2(Number(e.target.value))}
-          />
+          <input type="number" value={long2} style={inputStyles} onChange={(e) => setLong2(Number(e.target.value))} />
         </label>
         <div style={buttonContainerStyles}>
           <button style={buttonStyles} type="submit">
@@ -235,12 +197,8 @@ const ApartmentSearch: React.FC = () => {
             {data.apartments.map((apartment, index) => (
               <tr key={index}>
                 <td style={tdStyles}>{apartment.apartmentName}</td>
-                <td style={tdStyles}>
-                  {apartment.avgRatingLocalized ?? "No rating"}
-                </td>
-                <td
-                  style={tdStyles}
-                >{`Lat: ${apartment.latitude}, Long: ${apartment.longitude}`}</td>
+                <td style={tdStyles}>{apartment.avgRatingLocalized ?? "No rating"}</td>
+                <td style={tdStyles}>{`Lat: ${apartment.latitude}, Long: ${apartment.longitude}`}</td>
                 <td style={tdStyles}>{apartment.pricePerNight}</td>
                 <td style={tdStyles}>{apartment.price}</td>
                 {/* <td>

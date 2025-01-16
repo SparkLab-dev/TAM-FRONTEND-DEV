@@ -52,7 +52,7 @@
 //     const fetchData = async () => {
 //       try {
 //         const response = await axios.get(
-//           `http://192.168.10.210:8081/TAM/${userId}/apartments/getallApartmentOptions/2112479 `
+//           `https://393e-95-107-162-162.ngrok-free.app/TAM/${userId}/apartments/getallApartmentOptions/2112479 `
 //         );
 //         setApartmentOptionsWithCategories(
 //           response.data.apartmentOptionsWithCategories
@@ -60,7 +60,7 @@
 //         setApartmentId(response.data.apartmentId);
 //         console.log(response.data);
 //         const response2 = await axios.get<AddUrlOption[]>(
-//           `http://192.168.10.210:8081/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/2112479 `
+//           `https://393e-95-107-162-162.ngrok-free.app/TAM/specificApartmentOption/getAllSpecificApartmentOptionsByApartment/2112479 `
 //         );
 //         setUrlData(response2.data || []);
 //         console.log(urlData);
@@ -83,7 +83,7 @@
 
 //         // Send DELETE request with apartmentId and optionId in the body
 //         await axios.delete(
-//           `http://192.168.10.210:8081/TAM/${userId}/apartments/deleteApartmentOption/delete`,
+//           `https://393e-95-107-162-162.ngrok-free.app/TAM/${userId}/apartments/deleteApartmentOption/delete`,
 //           { data: requestBody }
 //         );
 //         console.log("DELETE request successful");
@@ -105,7 +105,7 @@
 //         };
 
 //         await axios.post(
-//           `http://192.168.10.210:8081/TAM/${userId}/apartments/apartmentOption/saveOrUpdate`,
+//           `https://393e-95-107-162-162.ngrok-free.app/TAM/${userId}/apartments/apartmentOption/saveOrUpdate`,
 //           requestBody
 //         );
 //         console.log("POST request successful");
@@ -238,6 +238,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { privApi } from "utils/api";
 
 interface Room {
   picture: string | null;
@@ -278,23 +279,20 @@ const ApartmentSearch1: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get<ApiResponse>(
-        "http://192.168.10.210:8081/Study/apartment",
-        {
-          params: {
-            checkin,
-            checkout,
-            adults,
-            children,
-            infants,
-            lat1,
-            lat2,
-            long1,
-            long2,
-            cursor: "qwreqwq4122regu7686",
-          },
-        }
-      );
+      const response = await privApi.get<ApiResponse>("/Study/apartment", {
+        params: {
+          checkin,
+          checkout,
+          adults,
+          children,
+          infants,
+          lat1,
+          lat2,
+          long1,
+          long2,
+          cursor: "qwreqwq4122regu7686",
+        },
+      });
       setData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -311,75 +309,39 @@ const ApartmentSearch1: React.FC = () => {
       >
         <label>
           Checkin:
-          <input
-            type="date"
-            value={checkin}
-            onChange={(e) => setCheckin(e.target.value)}
-          />
+          <input type="date" value={checkin} onChange={(e) => setCheckin(e.target.value)} />
         </label>
         <label>
           Checkout:
-          <input
-            type="date"
-            value={checkout}
-            onChange={(e) => setCheckout(e.target.value)}
-          />
+          <input type="date" value={checkout} onChange={(e) => setCheckout(e.target.value)} />
         </label>
         <label>
           Adults:
-          <input
-            type="number"
-            value={adults}
-            onChange={(e) => setAdults(Number(e.target.value))}
-          />
+          <input type="number" value={adults} onChange={(e) => setAdults(Number(e.target.value))} />
         </label>
         <label>
           Children:
-          <input
-            type="number"
-            value={children}
-            onChange={(e) => setChildren(Number(e.target.value))}
-          />
+          <input type="number" value={children} onChange={(e) => setChildren(Number(e.target.value))} />
         </label>
         <label>
           Infants:
-          <input
-            type="number"
-            value={infants}
-            onChange={(e) => setInfants(Number(e.target.value))}
-          />
+          <input type="number" value={infants} onChange={(e) => setInfants(Number(e.target.value))} />
         </label>
         <label>
           Lat1:
-          <input
-            type="number"
-            value={lat1}
-            onChange={(e) => setLat1(Number(e.target.value))}
-          />
+          <input type="number" value={lat1} onChange={(e) => setLat1(Number(e.target.value))} />
         </label>
         <label>
           Lat2:
-          <input
-            type="number"
-            value={lat2}
-            onChange={(e) => setLat2(Number(e.target.value))}
-          />
+          <input type="number" value={lat2} onChange={(e) => setLat2(Number(e.target.value))} />
         </label>
         <label>
           Long1:
-          <input
-            type="number"
-            value={long1}
-            onChange={(e) => setLong1(Number(e.target.value))}
-          />
+          <input type="number" value={long1} onChange={(e) => setLong1(Number(e.target.value))} />
         </label>
         <label>
           Long2:
-          <input
-            type="number"
-            value={long2}
-            onChange={(e) => setLong2(Number(e.target.value))}
-          />
+          <input type="number" value={long2} onChange={(e) => setLong2(Number(e.target.value))} />
         </label>
         <button type="submit">Search</button>
       </form>
@@ -403,9 +365,7 @@ const ApartmentSearch1: React.FC = () => {
                   <TableCell component="th" scope="row">
                     {apartment.apartmentName}
                   </TableCell>
-                  <TableCell align="right">
-                    {apartment.avgRatingLocalized ?? "No rating"}
-                  </TableCell>
+                  <TableCell align="right">{apartment.avgRatingLocalized ?? "No rating"}</TableCell>
                   <TableCell align="right">
                     {`Lat: ${apartment.latitude}`}
                     <br />

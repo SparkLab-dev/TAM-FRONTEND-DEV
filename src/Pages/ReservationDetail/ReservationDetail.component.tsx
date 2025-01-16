@@ -312,7 +312,7 @@ const ReservationDetail: FC<{}> = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.10.210:8081/TAM/reservation/getReservation/${reservationID}`
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/reservation/getReservation/${reservationID}`,
       );
       setReservationData(response.data);
       console.log(response.data);
@@ -323,9 +323,7 @@ const ReservationDetail: FC<{}> = () => {
   };
   const getCancellationType = async () => {
     try {
-      const response = await axios.get(
-        "http://192.168.10.210:8081/TAM/dictionary/allCancellationTypes"
-      );
+      const response = await axios.get("http://192.168.10.210:8081/TAM/dictionary/allCancellationTypes");
       setCancellationType(response.data);
       console.log(response.data);
       console.log(cancellationType);
@@ -338,9 +336,7 @@ const ReservationDetail: FC<{}> = () => {
   }, []);
 
   const handleCancelReservation = async () => {
-    const selectedCancellationType = cancellationTypes.find(
-      (type) => type.idCancellationType === cancellationType
-    );
+    const selectedCancellationType = cancellationTypes.find((type) => type.idCancellationType === cancellationType);
     console.log("selectedCancellationType", selectedCancellationType);
     if (!selectedCancellationType) {
       alert("Invalid cancellation type selected.");
@@ -348,18 +344,12 @@ const ReservationDetail: FC<{}> = () => {
     }
     console.log(cancellationType);
     try {
-      await axios.put(
-        "http://192.168.10.210:8081/TAM/reservation/cancelReservation",
-        {
-          reservationID: reservationId,
-          cancellationType: selectedCancellationType.idCancellationType,
-        }
-      );
+      await axios.put("http://192.168.10.210:8081/TAM/reservation/cancelReservation", {
+        reservationID: reservationId,
+        cancellationType: selectedCancellationType.idCancellationType,
+      });
       alert("Reservation canceled successfully!");
-      console.log(
-        "selectedCancellationType",
-        selectedCancellationType.idCancellationType
-      );
+      console.log("selectedCancellationType", selectedCancellationType.idCancellationType);
       navigate("/reservation");
     } catch (error) {
       console.error("Failed to cancel reservation:", error);
@@ -372,10 +362,7 @@ const ReservationDetail: FC<{}> = () => {
         <>
           <CancelReservationButtonHolder>
             {/* <label>Select Cancellation Type:</label> */}
-            <select
-              onChange={(e) => setCancellationType(Number(e.target.value))}
-              value={cancellationType || ""}
-            >
+            <select onChange={(e) => setCancellationType(Number(e.target.value))} value={cancellationType || ""}>
               <option value="" disabled>
                 -- Select Type --
               </option>
@@ -383,10 +370,7 @@ const ReservationDetail: FC<{}> = () => {
               <option value={2}>Host</option>
             </select>
 
-            <CancelReservationButton
-              onClick={handleCancelReservation}
-              disabled={isCanceling}
-            >
+            <CancelReservationButton onClick={handleCancelReservation} disabled={isCanceling}>
               {isCanceling ? "Canceling..." : "Cancel"}
             </CancelReservationButton>
             {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
@@ -397,9 +381,7 @@ const ReservationDetail: FC<{}> = () => {
             <List>
               <ListItem>
                 <Label>Creator: </Label>
-                {dayjs(reservationsData.reservation.createdDate).format(
-                  "YYYY-MM-DD"
-                )}
+                {dayjs(reservationsData.reservation.createdDate).format("YYYY-MM-DD")}
               </ListItem>
               <ListItem>
                 <Label>Created Date: </Label>
@@ -407,9 +389,7 @@ const ReservationDetail: FC<{}> = () => {
               </ListItem>
               <ListItem>
                 <Label>Last Modified: </Label>
-                {dayjs(reservationsData.reservation.lastMod).format(
-                  "YYYY-MM-DD"
-                )}
+                {dayjs(reservationsData.reservation.lastMod).format("YYYY-MM-DD")}
               </ListItem>
             </List>
           </Section>
@@ -453,240 +433,209 @@ const ReservationDetail: FC<{}> = () => {
                 <List>
                   <ListItem>
                     <Label>Number of adults: </Label>
-                    {
-                      reservationsData.reservation.guestDetailsInfo
-                        ?.numberOfAdults
-                    }
+                    {reservationsData.reservation.guestDetailsInfo?.numberOfAdults}
                   </ListItem>
                   <ListItem>
                     <Label>Number of children: </Label>
-                    {
-                      reservationsData.reservation.guestDetailsInfo
-                        ?.numberOfChildren
-                    }
+                    {reservationsData.reservation.guestDetailsInfo?.numberOfChildren}
                   </ListItem>
                   <ListItem>
                     <Label>Number of infants: </Label>
-                    {
-                      reservationsData.reservation.guestDetailsInfo
-                        ?.numberOfInfants
-                    }
+                    {reservationsData.reservation.guestDetailsInfo?.numberOfInfants}
                   </ListItem>
                   <ListItem>
                     <Label>Children ages: </Label>
-                    {reservationsData.reservation.guestDetailsInfo?.childrenAges.join(
-                      ", "
-                    )}
+                    {reservationsData.reservation.guestDetailsInfo?.childrenAges.join(", ")}
                   </ListItem>
                   <ListItem>
                     <Label>Number of pets: </Label>
-                    {
-                      reservationsData.reservation.guestDetailsInfo
-                        ?.numberOfPets
-                    }
+                    {reservationsData.reservation.guestDetailsInfo?.numberOfPets}
                   </ListItem>
                 </List>
               </>
             )}
           </Section>
           <Section>
-            {reservationsData.reservation.stayInfos.map(
-              (stay: any, index: any) => (
-                <div key={index}>
-                  <Title>Stay Information</Title>
-                  <List>
-                    <ListItem>
-                      <Label>Date From: </Label>
-                      {stay.dateFrom}
-                    </ListItem>
-                    <ListItem>
-                      <Label>Date To: </Label>
-                      {stay.dateTo}
-                    </ListItem>
-                    <ListItem>
-                      <Label>Arrival Time: </Label> {stay.arrivalTime}
-                    </ListItem>
-                    <ListItem>
-                      <Label>Number of guests: </Label> {stay.numberOfGuests}
-                    </ListItem>
-                  </List>
-                  <Title>Costs</Title>
-                  <List>
-                    <ListItem>
-                      <Label>RU Price: </Label>
-                      {stay.costs.ruPrice}$
-                    </ListItem>
-                    <ListItem>
-                      <Label>Client Price: </Label>
-                      {stay.costs.clientPrice}$
-                    </ListItem>
-                    <ListItem>
-                      <Label>Already Paid: </Label>
-                      {stay.costs.alreadyPaid}$
-                    </ListItem>
-                    <ListItem>
-                      <Label>Rent: </Label>
-                      {stay.reservationBreakdown.ruBreakdown.rent}$
-                    </ListItem>
-                    <ListItem>
-                      <Label>Total price: </Label>
-                      {stay.reservationBreakdown.ruBreakdown.total}$
-                    </ListItem>
-                  </List>
-                  <Title>Day Prices</Title>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableHeaderCell>Date</TableHeaderCell>
-                        <TableHeaderCell>Rents</TableHeaderCell>
-                        <TableHeaderCell>Price</TableHeaderCell>
-                        <TableHeaderCell>Taxes</TableHeaderCell>
-                        <TableHeaderCell>Fees</TableHeaderCell>
+            {reservationsData.reservation.stayInfos.map((stay: any, index: any) => (
+              <div key={index}>
+                <Title>Stay Information</Title>
+                <List>
+                  <ListItem>
+                    <Label>Date From: </Label>
+                    {stay.dateFrom}
+                  </ListItem>
+                  <ListItem>
+                    <Label>Date To: </Label>
+                    {stay.dateTo}
+                  </ListItem>
+                  <ListItem>
+                    <Label>Arrival Time: </Label> {stay.arrivalTime}
+                  </ListItem>
+                  <ListItem>
+                    <Label>Number of guests: </Label> {stay.numberOfGuests}
+                  </ListItem>
+                </List>
+                <Title>Costs</Title>
+                <List>
+                  <ListItem>
+                    <Label>RU Price: </Label>
+                    {stay.costs.ruPrice}$
+                  </ListItem>
+                  <ListItem>
+                    <Label>Client Price: </Label>
+                    {stay.costs.clientPrice}$
+                  </ListItem>
+                  <ListItem>
+                    <Label>Already Paid: </Label>
+                    {stay.costs.alreadyPaid}$
+                  </ListItem>
+                  <ListItem>
+                    <Label>Rent: </Label>
+                    {stay.reservationBreakdown.ruBreakdown.rent}$
+                  </ListItem>
+                  <ListItem>
+                    <Label>Total price: </Label>
+                    {stay.reservationBreakdown.ruBreakdown.total}$
+                  </ListItem>
+                </List>
+                <Title>Day Prices</Title>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableHeaderCell>Date</TableHeaderCell>
+                      <TableHeaderCell>Rents</TableHeaderCell>
+                      <TableHeaderCell>Price</TableHeaderCell>
+                      <TableHeaderCell>Taxes</TableHeaderCell>
+                      <TableHeaderCell>Fees</TableHeaderCell>
+                    </TableRow>
+                  </TableHead>
+                  <tbody>
+                    {stay.reservationBreakdown.ruBreakdown.dayPrices.map((day: any, index: number) => (
+                      <TableRow key={index}>
+                        <TableCell>{day.date}</TableCell>
+                        <TableCell>${day.rent.toFixed(2)}</TableCell>
+                        <TableCell>${day.price.toFixed(2)}</TableCell>
+                        <TableCell>
+                          {day.taxes.map((tax: any, taxIndex: number) => (
+                            <div key={taxIndex}>
+                              {tax.name}: ${tax.amount.toFixed(2)}
+                            </div>
+                          ))}
+                        </TableCell>
+                        <TableCell>
+                          {day.fees.map((fee: any, feeIndex: number) => (
+                            <div key={feeIndex}>
+                              {fee.name}: ${fee.amount.toFixed(2)}
+                            </div>
+                          ))}
+                        </TableCell>
                       </TableRow>
-                    </TableHead>
-                    <tbody>
-                      {stay.reservationBreakdown.ruBreakdown.dayPrices.map(
-                        (day: any, index: number) => (
-                          <TableRow key={index}>
-                            <TableCell>{day.date}</TableCell>
-                            <TableCell>${day.rent.toFixed(2)}</TableCell>
-                            <TableCell>${day.price.toFixed(2)}</TableCell>
-                            <TableCell>
-                              {day.taxes.map((tax: any, taxIndex: number) => (
-                                <div key={taxIndex}>
-                                  {tax.name}: ${tax.amount.toFixed(2)}
-                                </div>
-                              ))}
-                            </TableCell>
-                            <TableCell>
-                              {day.fees.map((fee: any, feeIndex: number) => (
-                                <div key={feeIndex}>
-                                  {fee.name}: ${fee.amount.toFixed(2)}
-                                </div>
-                              ))}
-                            </TableCell>
-                          </TableRow>
-                        )
-                      )}
-                    </tbody>
-                  </Table>
-                  <Title>Total Fee Taxes</Title>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableHeaderCell>Name</TableHeaderCell>
-                        <TableHeaderCell>Amount</TableHeaderCell>
-                        <TableHeaderCell>Type</TableHeaderCell>
+                    ))}
+                  </tbody>
+                </Table>
+                <Title>Total Fee Taxes</Title>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableHeaderCell>Name</TableHeaderCell>
+                      <TableHeaderCell>Amount</TableHeaderCell>
+                      <TableHeaderCell>Type</TableHeaderCell>
+                    </TableRow>
+                  </TableHead>
+                  <tbody>
+                    {stay.reservationBreakdown.ruBreakdown.totalFeeTaxes.map((feeTaxes: any, index: number) => (
+                      <TableRow key={index}>
+                        <TableCell>{feeTaxes.name}</TableCell>
+                        <TableCell>{feeTaxes.amount}$</TableCell>
+                        <TableCell>{feeTaxes.feeTaxType}</TableCell>
                       </TableRow>
-                    </TableHead>
-                    <tbody>
-                      {stay.reservationBreakdown.ruBreakdown.totalFeeTaxes.map(
-                        (feeTaxes: any, index: number) => (
-                          <TableRow key={index}>
-                            <TableCell>{feeTaxes.name}</TableCell>
-                            <TableCell>{feeTaxes.amount}$</TableCell>
-                            <TableCell>{feeTaxes.feeTaxType}</TableCell>
-                          </TableRow>
-                        )
-                      )}
-                    </tbody>
-                  </Table>
-                  <Title>Channel Day Prices</Title>
-                  <List>
-                    <ListItem>
-                      <Label>Total amount of channel: </Label>
-                      {stay.reservationBreakdown.channelBreakdown.channelTotal}
-                    </ListItem>
-                    <ListItem>
-                      <Label>Total rent of channel: </Label>
-                      {stay.reservationBreakdown.channelBreakdown.channelRent}
-                    </ListItem>
-                    <ListItem>
-                      <Label>Channel commission: </Label>
-                      {stay.reservationBreakdown.channelCommission}
-                    </ListItem>
-                  </List>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableHeaderCell>Date</TableHeaderCell>
-                        <TableHeaderCell>Rents</TableHeaderCell>
-                        <TableHeaderCell>Taxes</TableHeaderCell>
-                        <TableHeaderCell>Fees</TableHeaderCell>
-                        <TableHeaderCell>Price</TableHeaderCell>
+                    ))}
+                  </tbody>
+                </Table>
+                <Title>Channel Day Prices</Title>
+                <List>
+                  <ListItem>
+                    <Label>Total amount of channel: </Label>
+                    {stay.reservationBreakdown.channelBreakdown.channelTotal}
+                  </ListItem>
+                  <ListItem>
+                    <Label>Total rent of channel: </Label>
+                    {stay.reservationBreakdown.channelBreakdown.channelRent}
+                  </ListItem>
+                  <ListItem>
+                    <Label>Channel commission: </Label>
+                    {stay.reservationBreakdown.channelCommission}
+                  </ListItem>
+                </List>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableHeaderCell>Date</TableHeaderCell>
+                      <TableHeaderCell>Rents</TableHeaderCell>
+                      <TableHeaderCell>Taxes</TableHeaderCell>
+                      <TableHeaderCell>Fees</TableHeaderCell>
+                      <TableHeaderCell>Price</TableHeaderCell>
+                    </TableRow>
+                  </TableHead>
+                  <tbody>
+                    {stay.reservationBreakdown.channelBreakdown.dayPrices.map((channelDay: any, index: number) => (
+                      <TableRow key={index}>
+                        <TableCell>{channelDay.date}</TableCell>
+                        <TableCell>
+                          {channelDay.rents.map((rents: any, rentIndex: number) => (
+                            <div key={rentIndex}>
+                              {rents.name}: {rents.amount} {rents.currency}
+                            </div>
+                          ))}
+                        </TableCell>
+                        <TableCell>
+                          {channelDay.taxes.map((tax: any, taxIndex: number) => (
+                            <div key={taxIndex}>
+                              <div>
+                                {tax.name}: {tax.amount} {tax.currency}
+                              </div>
+                            </div>
+                          ))}
+                        </TableCell>
+                        <TableCell>
+                          {channelDay.fees.map((fees: any, feesIndex: number) => (
+                            <div key={feesIndex}>
+                              <div>
+                                {fees.name}: {fees.amount} {fees.currency}
+                              </div>
+                            </div>
+                          ))}
+                        </TableCell>
+                        <TableCell>${channelDay.price.toFixed(2)}</TableCell>
                       </TableRow>
-                    </TableHead>
-                    <tbody>
-                      {stay.reservationBreakdown.channelBreakdown.dayPrices.map(
-                        (channelDay: any, index: number) => (
-                          <TableRow key={index}>
-                            <TableCell>{channelDay.date}</TableCell>
-                            <TableCell>
-                              {channelDay.rents.map(
-                                (rents: any, rentIndex: number) => (
-                                  <div key={rentIndex}>
-                                    {rents.name}: {rents.amount}{" "}
-                                    {rents.currency}
-                                  </div>
-                                )
-                              )}
-                            </TableCell>
-                            <TableCell>
-                              {channelDay.taxes.map(
-                                (tax: any, taxIndex: number) => (
-                                  <div key={taxIndex}>
-                                    <div>
-                                      {tax.name}: {tax.amount} {tax.currency}
-                                    </div>
-                                  </div>
-                                )
-                              )}
-                            </TableCell>
-                            <TableCell>
-                              {channelDay.fees.map(
-                                (fees: any, feesIndex: number) => (
-                                  <div key={feesIndex}>
-                                    <div>
-                                      {fees.name}: {fees.amount} {fees.currency}
-                                    </div>
-                                  </div>
-                                )
-                              )}
-                            </TableCell>
-                            <TableCell>
-                              ${channelDay.price.toFixed(2)}
-                            </TableCell>
-                          </TableRow>
-                        )
-                      )}
-                    </tbody>{" "}
-                  </Table>
-                  <Title>Chanel Total Fee Taxes</Title>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableHeaderCell>Name</TableHeaderCell>
-                        <TableHeaderCell>Amount</TableHeaderCell>
-                        <TableHeaderCell>Currency</TableHeaderCell>
-                        <TableHeaderCell>Type</TableHeaderCell>
-                      </TableRow>
-                    </TableHead>
-                    <tbody>
-                      {stay.reservationBreakdown.channelBreakdown.channelTotalFeeTax.map(
-                        (chanelFeeTaxes: any, index: number) => (
-                          <TableRow key={index}>
-                            <TableCell>{chanelFeeTaxes.name}</TableCell>
-                            <TableCell>{chanelFeeTaxes.amount}$</TableCell>
-                            <TableCell>{chanelFeeTaxes.currency}</TableCell>
-                            <TableCell>{chanelFeeTaxes.itemType}</TableCell>
-                          </TableRow>
-                        )
-                      )}
-                    </tbody>
-                  </Table>
-                </div>
-              )
-            )}
+                    ))}
+                  </tbody>{" "}
+                </Table>
+                <Title>Chanel Total Fee Taxes</Title>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableHeaderCell>Name</TableHeaderCell>
+                      <TableHeaderCell>Amount</TableHeaderCell>
+                      <TableHeaderCell>Currency</TableHeaderCell>
+                      <TableHeaderCell>Type</TableHeaderCell>
+                    </TableRow>
+                  </TableHead>
+                  <tbody>
+                    {stay.reservationBreakdown.channelBreakdown.channelTotalFeeTax.map(
+                      (chanelFeeTaxes: any, index: number) => (
+                        <TableRow key={index}>
+                          <TableCell>{chanelFeeTaxes.name}</TableCell>
+                          <TableCell>{chanelFeeTaxes.amount}$</TableCell>
+                          <TableCell>{chanelFeeTaxes.currency}</TableCell>
+                          <TableCell>{chanelFeeTaxes.itemType}</TableCell>
+                        </TableRow>
+                      ),
+                    )}
+                  </tbody>
+                </Table>
+              </div>
+            ))}
           </Section>
           <Section>
             {reservationsData && (
@@ -695,10 +644,7 @@ const ReservationDetail: FC<{}> = () => {
                 <List>
                   <ListItem>
                     <Label>Text: </Label>
-                    {
-                      reservationsData.reservation.cancellationPolicyInfo
-                        ?.policyText
-                    }
+                    {reservationsData.reservation.cancellationPolicyInfo?.policyText}
                   </ListItem>
                 </List>
                 <Table>
@@ -717,7 +663,7 @@ const ReservationDetail: FC<{}> = () => {
                           <TableCell>{policy.validTo}</TableCell>
                           <TableCell>{policy.percentage}%</TableCell>
                         </TableRow>
-                      )
+                      ),
                     )}
                   </tbody>
                 </Table>

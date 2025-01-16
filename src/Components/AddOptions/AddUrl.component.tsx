@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+// import axios from "axios"
 import styled from "styled-components";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 import { useTranslation } from "react-i18next";
+import { privApi } from "utils/api";
 
 const StyledModal = styled(Modal)`
   display: flex;
@@ -84,9 +85,9 @@ const AddUrl: React.FC = () => {
         link: url,
         apartmentId: 2028236,
       };
-      await axios.post(
-        "http://192.168.10.210:8081/TAM/specificApartmentOption/saveOrUpdateSpecificApartmentOption",
-        requestBody
+      await privApi.post(
+        "/TAM/specificApartmentOption/saveOrUpdateSpecificApartmentOption",
+        requestBody,
       );
       console.log("POST request successful");
       setName("");
@@ -117,13 +118,7 @@ const AddUrl: React.FC = () => {
             />
           </InputBox>
           <InputBox>
-            <StyledTextField
-              type="url"
-              placeholder={t("videourl")}
-              value={url}
-              onChange={handleUrlChange}
-              required
-            />
+            <StyledTextField type="url" placeholder={t("videourl")} value={url} onChange={handleUrlChange} required />
           </InputBox>
           <Button onClick={handleSubmit}>{t("add")}</Button>
         </StyledWrapper>

@@ -9,9 +9,10 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import axios from "axios";
+// import axios from "axios";
 import PieChartComponent from "Components/Dashboard/PieChart/Piechart.component";
 import { useTranslation } from "react-i18next";
+import { privApi } from "utils/api";
 
 const Container = styled.div`
   display: flex;
@@ -161,8 +162,8 @@ const HomepageTest: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<ApiResponse>(
-          `http://192.168.10.210:8081/TAM/dashboard/${userId}/${selectedOption}`
+        const response = await privApi.get<ApiResponse>(
+          `/TAM/dashboard/${userId}/${selectedOption}`,
         );
         setData(response.data);
         console.log(data);
@@ -176,9 +177,7 @@ const HomepageTest: React.FC = () => {
     fetchData();
   }, [userId, selectedOption]);
 
-  const handleDropdownChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(event.target.value);
   };
 
@@ -205,11 +204,7 @@ const HomepageTest: React.FC = () => {
         <Box width={277} height={312}>
           <h2 style={{ paddingLeft: "10px" }}>{t("nightsportal")}</h2>
           <PieChartComponent
-            data={
-              Object.entries(data?.nightsPortalReport || {}).map(
-                ([name, value]) => ({ name, value })
-              ) || []
-            }
+            data={Object.entries(data?.nightsPortalReport || {}).map(([name, value]) => ({ name, value })) || []}
           />
         </Box>
         <Box width={277} height={312}>

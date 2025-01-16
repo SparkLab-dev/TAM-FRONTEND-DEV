@@ -44,9 +44,7 @@ const GuestName = styled.div`
 
 const ExistingChat: FC<{}> = () => {
   const email = useSelector((state: RootState) => state.auth.user?.email);
-  const messages = useSelector(
-    (state: RootState) => state.messages.messages?.total_items
-  );
+  const messages = useSelector((state: RootState) => state.messages.messages?.total_items);
   console.log(messages);
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selectedGuest, setSelectedGuest] = useState<string | null>(null);
@@ -62,10 +60,10 @@ const ExistingChat: FC<{}> = () => {
   };
 
   useEffect(() => {
-    fetch("http://192.168.10.210:8081/TAM/conversation/3")
+    fetch("https://393e-95-107-162-162.ngrok-free.app/TAM/conversation/3")
       .then((response) => response.json())
       .then((data: Conversation[]) => {
-        setConversations(data);
+        if (conversations.length) setConversations(data);
         console.log(data);
       })
       .catch((error) => {
@@ -81,15 +79,11 @@ const ExistingChat: FC<{}> = () => {
       <InboxMessages>
         <div style={{ display: "flex" }}>
           <div>
-            <h3 style={{ display: "flex", alignItems: "baseline" }}>
-              Conversation List
-            </h3>
+            <h3 style={{ display: "flex", alignItems: "baseline" }}>Conversation List</h3>
             <ul>
-              {conversations.map((conversation) => (
+              {(conversations || []).map((conversation) => (
                 <li key={conversation.id}>
-                  <ConversationItem
-                    onClick={() => handleGuestClick(conversation)}
-                  >
+                  <ConversationItem onClick={() => handleGuestClick(conversation)}>
                     <GuestName>{conversation.guestName}</GuestName>
                   </ConversationItem>
                 </li>

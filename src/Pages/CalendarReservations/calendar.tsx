@@ -21,6 +21,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 //components
 import Popup from "Components/Popup/Popup.component";
+import { privApi } from "utils/api";
 
 interface MonthOption {
   value: number;
@@ -47,8 +48,8 @@ function MonthTable() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        `http://192.168.10.210:8081/TAM/${userId}/reservations/reservationCalendar?fromDate=${firstDate}&toDate=${lastDate}`
+      const response = await privApi.get(
+        `/TAM/${userId}/reservations/reservationCalendar?fromDate=${firstDate}&toDate=${lastDate}`,
       );
       setApartmentData(response.data);
     } catch (error) {
@@ -89,7 +90,7 @@ function MonthTable() {
 
       return dayNames;
     },
-    [daysOfMonth]
+    [daysOfMonth],
   );
 
   useEffect(() => {
@@ -135,11 +136,7 @@ function MonthTable() {
   const handleGoToReservationDetailClick = (reservationId: string) => {
     navigate(`/reservationDetail/${reservationId}`);
   };
-  const handleGoToEditDetailClick = (
-    event: React.MouseEvent,
-    apartment: any,
-    dateClicked: string
-  ) => {
+  const handleGoToEditDetailClick = (event: React.MouseEvent, apartment: any, dateClicked: string) => {
     // Prevent event propagation
     event.stopPropagation();
     setStartDatePopup(dateClicked);
@@ -243,8 +240,7 @@ function MonthTable() {
                 <th
                   key={index}
                   style={{
-                    color:
-                      dayName === "Sa" || dayName === "Su" ? "red" : "inherit",
+                    color: dayName === "Sa" || dayName === "Su" ? "red" : "inherit",
                   }}
                 >
                   {dayName}
@@ -258,21 +254,13 @@ function MonthTable() {
                 <td>{apartment.apartmentName}</td>
                 {Array.from({ length: daysOfMonth }, (_, i) => {
                   const day = new Date(selectedYear, selectedMonth - 1, i + 1); // Month is zero-based
-                  const reservation =
-                    apartment.specificApartmentReservationCalendarDTOList.find(
-                      (reservation: any) =>
-                        reservation.allDates.some((date: any) => {
-                          const [year, month, dayOfMonth] = date
-                            .split("-")
-                            .map(Number);
-                          const reservationDate = new Date(
-                            year,
-                            month - 1,
-                            dayOfMonth
-                          );
-                          return reservationDate.getTime() === day.getTime();
-                        })
-                    );
+                  const reservation = apartment.specificApartmentReservationCalendarDTOList.find((reservation: any) =>
+                    reservation.allDates.some((date: any) => {
+                      const [year, month, dayOfMonth] = date.split("-").map(Number);
+                      const reservationDate = new Date(year, month - 1, dayOfMonth);
+                      return reservationDate.getTime() === day.getTime();
+                    }),
+                  );
                   let cellStyle: any = {
                     borderRight: "1px solid",
                     borderColor: "#C5C5C8",
@@ -284,15 +272,9 @@ function MonthTable() {
                   if (reservation) {
                     if (reservation.type === "Available") {
                       cellStyle.background = "#4f734c"; // Green for available days
-                    } else if (
-                      reservation.type === "Reservation" &&
-                      !reservation.blocked_booking
-                    ) {
+                    } else if (reservation.type === "Reservation" && !reservation.blocked_booking) {
                       cellStyle.background = "red"; // Red for available reservations
-                    } else if (
-                      reservation.type === "Reservation" &&
-                      reservation.blocked_booking
-                    ) {
+                    } else if (reservation.type === "Reservation" && reservation.blocked_booking) {
                       cellStyle.background = "#5D5D5D"; // Grey for blocked reservations
                     }
                   }
@@ -302,43 +284,25 @@ function MonthTable() {
                       style={{
                         ...cellStyle,
                         cursor:
-                          reservation &&
-                          reservation.type === "Reservation" &&
-                          !reservation.blocked_booking
+                          reservation && reservation.type === "Reservation" && !reservation.blocked_booking
                             ? "pointer"
                             : "default",
                       }}
                       key={i}
                       onClick={() => {
-                        if (
-                          reservation &&
-                          reservation.type === "Reservation" &&
-                          !reservation.blocked_booking
-                        ) {
-                          handleGoToReservationDetailClick(
-                            reservation.smoobuId
-                          );
+                        if (reservation && reservation.type === "Reservation" && !reservation.blocked_booking) {
+                          handleGoToReservationDetailClick(reservation.smoobuId);
                         }
                       }}
                     >
                       {reservation && !reservation.blocked_booking && (
-                        <div
-                          style={{ display: "flex", flexDirection: "column" }}
-                        >
-                          <div
-                            style={{ display: "flex", flexDirection: "row" }}
-                          >
-                            {reservation.type === "Available" && (
-                              <div>{reservation.minStay}</div>
-                            )}
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                          <div style={{ display: "flex", flexDirection: "row" }}>
+                            {reservation.type === "Available" && <div>{reservation.minStay}</div>}
                             {reservation.type === "Available" && (
                               <div
                                 onClick={(e) => {
-                                  handleGoToEditDetailClick(
-                                    e,
-                                    apartment,
-                                    reservation.allDates[0]
-                                  );
+                                  handleGoToEditDetailClick(e, apartment, reservation.allDates[0]);
                                 }}
                                 style={{
                                   marginLeft: "20px",
@@ -437,9 +401,7 @@ function MonthTable() {
                 id="outlined-basic"
                 label="Price"
                 value={price || ""}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPrice(e.target.value)
-                }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrice(e.target.value)}
                 type="number"
                 variant="outlined"
                 sx={{
@@ -452,9 +414,7 @@ function MonthTable() {
                 id="outlined-basic"
                 label="Minimum length of stay"
                 value={minLength || ""}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setMinLength(e.target.value)
-                }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMinLength(e.target.value)}
                 type="number"
                 variant="outlined"
                 sx={{

@@ -62,15 +62,15 @@ const PageContainer = styled.div`
   overflow: hidden; /* Ensure the shadow doesn't overflow */
   gap: 150px;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
-    z-index: 0; 
-    pointer-events: none; 
+    z-index: 0;
+    pointer-events: none;
   }
 `;
 const BackgroundImage = styled.div`
@@ -79,7 +79,7 @@ const BackgroundImage = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(${require('../../background.png')});
+  background-image: url(${require("../../background.png")});
   background-size: cover;
   background-position: center;
   z-index: -1; /* Ensure the background image is behind other content */
@@ -98,9 +98,7 @@ const FirstStepStyledWrapper = styled(Box)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 `;
-
 
 const Title = styled.text`
   font-size: 30px;
@@ -110,8 +108,8 @@ const Title = styled.text`
 const InputBox = styled.div`
   position: relative;
   width: 100%;
- 
-//   margin: 5px 15px;
+
+  //   margin: 5px 15px;
   row-gap: 5px;
   display: flex;
   flex-direction: column;
@@ -119,9 +117,8 @@ const InputBox = styled.div`
 
 const StyledTextField = styled(TextField)`
   width: 100%;
- 
+
   margin: 15px;
-  
 `;
 
 const Button = styled.button`
@@ -155,10 +152,9 @@ const Dropdown = styled.select`
   padding: 5px;
   height: 40px;
   margin-right: 10px;
-  width:100%;
-  border-radius:4px;
-  border:1px solid rgb(215,215,215);
-  
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid rgb(215, 215, 215);
 `;
 const GuestForm: React.FC = () => {
   const numberOfGuests = Number(localStorage.getItem("numberOfGuests")) || 1;
@@ -174,24 +170,24 @@ const GuestForm: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string>("");
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   // Fetch the data for stati and comuni
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [statiResponse, comuniResponse,tipoAlloggiatoResponse,tipoDocumentiResponse] = await Promise.all([
-          axios.get("http://192.168.10.210:8081/TAM/allogatiWeb/getAllStati"),
-          axios.get("http://192.168.10.210:8081/TAM/allogatiWeb/getAllComuni"),
-          axios.get("http://192.168.10.210:8081/TAM/allogatiWeb/getAllTipoAlloggiati"),
-          axios.get("http://192.168.10.210:8081/TAM/allogatiWeb/getAllTipoDocumenti")
+        const [statiResponse, comuniResponse, tipoAlloggiatoResponse, tipoDocumentiResponse] = await Promise.all([
+          axios.get("https://393e-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllStati"),
+          axios.get("https://393e-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllComuni"),
+          axios.get("https://393e-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllTipoAlloggiati"),
+          axios.get("https://393e-95-107-162-162.ngrok-free.app/TAM/allogatiWeb/getAllTipoDocumenti"),
         ]);
         setStati(statiResponse.data); // Set the states
         setStatii(statiResponse.data);
         setComuni(comuniResponse.data); // Set the cities
         setTipoAlloggiati(tipoAlloggiatoResponse.data);
-        setAllogiatiWebDocumenti(tipoDocumentiResponse.data)
+        setAllogiatiWebDocumenti(tipoDocumentiResponse.data);
       } catch (error) {
         console.error("Error fetching stati and comuni:", error);
       }
@@ -222,7 +218,7 @@ const GuestForm: React.FC = () => {
   // const handleSubmit = async () => {
   //   setIsSubmitting(true);
   //   try {
-  //     // const response = await axios.post(`http://192.168.10.210:8081/TAM/checkin/saveCheckin`, guestData);
+  //     // const response = await axios.post(`https://393e-95-107-162-162.ngrok-free.app/TAM/checkin/saveCheckin`, guestData);
   //     console.log(guestData); // Handle success response
   //   } catch (error) {
   //     console.error("Error submitting guest data:", error);
@@ -232,7 +228,7 @@ const GuestForm: React.FC = () => {
   // };
   const handleSubmit = async () => {
     setIsSubmitting(true);
-  
+
     try {
       const preparedGuestData = guestData.map((guest, index) => {
         if (index === 0) {
@@ -254,11 +250,10 @@ const GuestForm: React.FC = () => {
             },
             allogiatiWebDocumenti: {
               codice: guest.allogiatiWebDocumenti,
-           
             },
             numeroDocumento: guest.numeroDocumento,
             luogoRilacioDocumento: {
-               codice: guest.luogoRilacioDocumento
+              codice: guest.luogoRilacioDocumento,
             },
           };
         } else {
@@ -276,15 +271,15 @@ const GuestForm: React.FC = () => {
           };
         }
       });
-  
+
       console.log(preparedGuestData);
-  
+
       const response = await axios.post(
-        `http://192.168.10.210:8081/TAM/checkin/saveCheckin`,
-        preparedGuestData
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/checkin/saveCheckin`,
+        preparedGuestData,
       );
       console.log(preparedGuestData);
-  
+
       if (response.status === 200) {
         console.log("Guest data submitted successfully:", response.data);
         setSuccessMessage("Form submitted successfully!");
@@ -295,7 +290,6 @@ const GuestForm: React.FC = () => {
         console.error("Failed to submit guest data:", response.data);
         setErrorMessage("Wrong informations");
       }
-  
     } catch (error) {
       console.error("Error submitting guest data:", error);
       setErrorMessage("Wrong informations");
@@ -303,130 +297,128 @@ const GuestForm: React.FC = () => {
       setIsSubmitting(false);
     }
   };
-console.log(guestData[0].statoNascita);
+  console.log(guestData[0].statoNascita);
   const isMainGuest = currentStep === 0;
 
   return (
     <PageContainer>
-      <BackgroundImage/>
-        <FirstStepStyledWrapper>
-      <Title>Guest {currentStep + 1} Form</Title>
-      <form>
-      <InputBox>
-          <Label>Guest Type:</Label>
-          <Dropdown
-            value={guestData[currentStep]?.tipoAlloggiato || ""}
-            onChange={(e:any) => handleInputChange(currentStep, "tipoAlloggiato", Number(e.target.value))}
-            required
-          >
-            <option value="">Select a Guest Type</option>
-            {tipoAlloggiati.map((tipo) => (
-              <option key={tipo.id} value={tipo.codice}>
-                {tipo.descrizione}
-              </option>
-            ))}
-          </Dropdown>
-        </InputBox>
-
-        <InputBox>
-          <Label>First Name:</Label>
-          <StyledTextField
-            type="text"
-            placeholder="Name"
-            value={guestData[currentStep]?.nome || ""}
-            onChange={(e:any) => handleInputChange(currentStep, "nome", e.target.value)}
-            required
-            size="small"
-          />
-        </InputBox>
-        <InputBox>
-          <Label>Last Name:</Label>
-          <TextField
-            type="text"
-            placeholder="Last Name"
-            value={guestData[currentStep]?.cognome || ""}
-            onChange={(e) => handleInputChange(currentStep, "cognome", e.target.value)}
-            required
-            size="small"
-          />
-        </InputBox>
-        <InputBox>
-          <Label>Gender:</Label>
-          <Dropdown
-            value={guestData[currentStep]?.sesso || ""}
-            onChange={(e:any) => handleInputChange(currentStep, "sesso", Number(e.target.value))}
-            required
-            
-          >
-            <option value={1}>Male</option>
-            <option value={2}>Female</option>
-          </Dropdown>
-        </InputBox>
-        <InputBox>
-          <Label>Date of Birth:</Label>
-          <TextField
-            type="date"
-            value={guestData[currentStep]?.dataNascita || ""}
-            onChange={(e) => handleInputChange(currentStep, "dataNascita", e.target.value)}
-            required
-            size="small"
-          />
-        </InputBox>
-        <InputBox>
-          <Label>State of Birth Code:</Label>
-          <Dropdown
-            value={guestData[currentStep]?.statoNascita || ""}
-            onChange={(e:any) => handleInputChange(currentStep, "statoNascita", e.target.value)}
-            required
-            
-          >
-            <option value="">Select a State</option>
-            {stati.map((stato) => (
-              <option key={stato.id} value={stato.codice}>
-                {stato.descrizione}
-              </option>
-            ))}
-          </Dropdown>
-        </InputBox>
-
-        {/* Conditionally show comune if Italy is selected */}
-        {guestData[currentStep]?.statoNascita === "100000100" && (
+      <BackgroundImage />
+      <FirstStepStyledWrapper>
+        <Title>Guest {currentStep + 1} Form</Title>
+        <form>
           <InputBox>
-            <Label>City Code:</Label>
+            <Label>Guest Type:</Label>
             <Dropdown
-              value={guestData[currentStep]?.comuneCodice || ""}
-              onChange={(e:any) => handleInputChange(currentStep, "comuneCodice", e.target.value)}
+              value={guestData[currentStep]?.tipoAlloggiato || ""}
+              onChange={(e: any) => handleInputChange(currentStep, "tipoAlloggiato", Number(e.target.value))}
               required
             >
-              <option value="">Select a City</option>
-              {comuni.map((comune) => (
-                <option key={comune.id} value={comune.comuneCodice}>
-                  {comune.descrizione}
+              <option value="">Select a Guest Type</option>
+              {tipoAlloggiati.map((tipo) => (
+                <option key={tipo.id} value={tipo.codice}>
+                  {tipo.descrizione}
                 </option>
               ))}
             </Dropdown>
           </InputBox>
-        )}
 
-        <InputBox>
-          <Label>Citizenship Code:</Label>
-          <Dropdown
-            value={guestData[currentStep]?.cittadinaza || ""}
-            onChange={(e:any) => handleInputChange(currentStep, "cittadinaza", e.target.value)}
-            required
-          >
-            <option value="">Select a State</option>
-            {stati.map((stato) => (
-              <option key={stato.id} value={stato.codice}>
-                {stato.descrizione}
-              </option>
-            ))}
-          </Dropdown>
-        </InputBox>
+          <InputBox>
+            <Label>First Name:</Label>
+            <StyledTextField
+              type="text"
+              placeholder="Name"
+              value={guestData[currentStep]?.nome || ""}
+              onChange={(e: any) => handleInputChange(currentStep, "nome", e.target.value)}
+              required
+              size="small"
+            />
+          </InputBox>
+          <InputBox>
+            <Label>Last Name:</Label>
+            <TextField
+              type="text"
+              placeholder="Last Name"
+              value={guestData[currentStep]?.cognome || ""}
+              onChange={(e) => handleInputChange(currentStep, "cognome", e.target.value)}
+              required
+              size="small"
+            />
+          </InputBox>
+          <InputBox>
+            <Label>Gender:</Label>
+            <Dropdown
+              value={guestData[currentStep]?.sesso || ""}
+              onChange={(e: any) => handleInputChange(currentStep, "sesso", Number(e.target.value))}
+              required
+            >
+              <option value={1}>Male</option>
+              <option value={2}>Female</option>
+            </Dropdown>
+          </InputBox>
+          <InputBox>
+            <Label>Date of Birth:</Label>
+            <TextField
+              type="date"
+              value={guestData[currentStep]?.dataNascita || ""}
+              onChange={(e) => handleInputChange(currentStep, "dataNascita", e.target.value)}
+              required
+              size="small"
+            />
+          </InputBox>
+          <InputBox>
+            <Label>State of Birth Code:</Label>
+            <Dropdown
+              value={guestData[currentStep]?.statoNascita || ""}
+              onChange={(e: any) => handleInputChange(currentStep, "statoNascita", e.target.value)}
+              required
+            >
+              <option value="">Select a State</option>
+              {stati.map((stato) => (
+                <option key={stato.id} value={stato.codice}>
+                  {stato.descrizione}
+                </option>
+              ))}
+            </Dropdown>
+          </InputBox>
 
-        {isMainGuest && (
-          <>
-            {/* <InputBox>
+          {/* Conditionally show comune if Italy is selected */}
+          {guestData[currentStep]?.statoNascita === "100000100" && (
+            <InputBox>
+              <Label>City Code:</Label>
+              <Dropdown
+                value={guestData[currentStep]?.comuneCodice || ""}
+                onChange={(e: any) => handleInputChange(currentStep, "comuneCodice", e.target.value)}
+                required
+              >
+                <option value="">Select a City</option>
+                {comuni.map((comune) => (
+                  <option key={comune.id} value={comune.comuneCodice}>
+                    {comune.descrizione}
+                  </option>
+                ))}
+              </Dropdown>
+            </InputBox>
+          )}
+
+          <InputBox>
+            <Label>Citizenship Code:</Label>
+            <Dropdown
+              value={guestData[currentStep]?.cittadinaza || ""}
+              onChange={(e: any) => handleInputChange(currentStep, "cittadinaza", e.target.value)}
+              required
+            >
+              <option value="">Select a State</option>
+              {stati.map((stato) => (
+                <option key={stato.id} value={stato.codice}>
+                  {stato.descrizione}
+                </option>
+              ))}
+            </Dropdown>
+          </InputBox>
+
+          {isMainGuest && (
+            <>
+              {/* <InputBox>
               <Label>Document Code:</Label>
               <TextField
                 type="text"
@@ -437,67 +429,66 @@ console.log(guestData[0].statoNascita);
                 size="small"
               />
             </InputBox> */}
-            <InputBox>
-            <Label>Document type:</Label>
-            <Dropdown
-              value={guestData[currentStep]?.allogiatiWebDocumenti || ""}
-              onChange={(e:any) => handleInputChange(currentStep, "allogiatiWebDocumenti", e.target.value)}
-              required
-            >
-              <option value="">Select a document type</option>
-              {allogiatiWebDocumenti.map((tipo) => (
-                <option key={tipo.id} value={tipo.codice}>
-                  {tipo.descrizione}
-                </option>
-              ))}
-            </Dropdown>
-          </InputBox>
-          <InputBox>
-          <Label>State of document issues:</Label>
-          <Dropdown
-            value={guestData[currentStep]?.luogoRilacioDocumento || ""}
-            onChange={(e:any) => handleInputChange(currentStep, "luogoRilacioDocumento", e.target.value)}
-            required
-            
-          >
-            <option value="">Select a State</option>
-            {statii.map((stato) => (
-              <option key={stato.id} value={stato.codice}>
-                {stato.descrizione}
-              </option>
-            ))}
-          </Dropdown>
-        </InputBox>
-            <InputBox>
-              <Label>Document Number:</Label>
-              <TextField
-                type="text"
-                placeholder="Document Description"
-                value={guestData[currentStep]?.numeroDocumento || ""}
-                onChange={(e) => handleInputChange(currentStep, "numeroDocumento", e.target.value)}
-                required
-                size="small"
-              />
-            </InputBox>
-          </>
-        )}
-
-        <div style={{ marginTop: "20px" ,display:"flex",gap:"20px" }}>
-          <Button type="button" onClick={handlePrevious} disabled={currentStep === 0}>
-            Previous
-          </Button>
-          {currentStep < numberOfGuests - 1 ? (
-            <Button type="button" onClick={handleNext}>
-              Next
-            </Button>
-          ) : (
-            <Button type="button" onClick={handleSubmit} disabled={isSubmitting}>
-              {isSubmitting ? "Submitting..." : "Submit"}
-            </Button>
+              <InputBox>
+                <Label>Document type:</Label>
+                <Dropdown
+                  value={guestData[currentStep]?.allogiatiWebDocumenti || ""}
+                  onChange={(e: any) => handleInputChange(currentStep, "allogiatiWebDocumenti", e.target.value)}
+                  required
+                >
+                  <option value="">Select a document type</option>
+                  {allogiatiWebDocumenti.map((tipo) => (
+                    <option key={tipo.id} value={tipo.codice}>
+                      {tipo.descrizione}
+                    </option>
+                  ))}
+                </Dropdown>
+              </InputBox>
+              <InputBox>
+                <Label>State of document issues:</Label>
+                <Dropdown
+                  value={guestData[currentStep]?.luogoRilacioDocumento || ""}
+                  onChange={(e: any) => handleInputChange(currentStep, "luogoRilacioDocumento", e.target.value)}
+                  required
+                >
+                  <option value="">Select a State</option>
+                  {statii.map((stato) => (
+                    <option key={stato.id} value={stato.codice}>
+                      {stato.descrizione}
+                    </option>
+                  ))}
+                </Dropdown>
+              </InputBox>
+              <InputBox>
+                <Label>Document Number:</Label>
+                <TextField
+                  type="text"
+                  placeholder="Document Description"
+                  value={guestData[currentStep]?.numeroDocumento || ""}
+                  onChange={(e) => handleInputChange(currentStep, "numeroDocumento", e.target.value)}
+                  required
+                  size="small"
+                />
+              </InputBox>
+            </>
           )}
-        </div>
-        {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
-      </form>
+
+          <div style={{ marginTop: "20px", display: "flex", gap: "20px" }}>
+            <Button type="button" onClick={handlePrevious} disabled={currentStep === 0}>
+              Previous
+            </Button>
+            {currentStep < numberOfGuests - 1 ? (
+              <Button type="button" onClick={handleNext}>
+                Next
+              </Button>
+            ) : (
+              <Button type="button" onClick={handleSubmit} disabled={isSubmitting}>
+                {isSubmitting ? "Submitting..." : "Submit"}
+              </Button>
+            )}
+          </div>
+          {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
+        </form>
       </FirstStepStyledWrapper>
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </PageContainer>

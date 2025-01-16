@@ -4,10 +4,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import {
-  ReservationsButton,
-  ViewReservationsButton,
-} from "./style/Reservations.style";
+import { ReservationsButton, ViewReservationsButton } from "./style/Reservations.style";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { useTranslation } from "react-i18next";
@@ -79,10 +76,10 @@ export default function MediaCard() {
   const handleDownloadZIPfile = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.10.141:8080/TAM/checkin/downloadXML/ZIP/${userId}?startDate=${startDate}&endDate=${endDate}`,
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/checkin/downloadXML/ZIP/${userId}?startDate=${startDate}&endDate=${endDate}`,
         {
           responseType: "blob", // Set response type to blob
-        }
+        },
       );
       console.log("Response:", response);
 
@@ -129,7 +126,7 @@ export default function MediaCard() {
   const getAllReservations = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.10.210:8081/TAM/reservation/getAllReservationsPerOwner/${userId}`
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/reservation/getAllReservationsPerOwner/${userId}`,
       );
       console.log(userId, "userId");
       console.log("RESPOnse", response.data);
@@ -148,10 +145,7 @@ export default function MediaCard() {
     <div style={{ display: "flex", gap: "50px", flexDirection: "column" }}>
       <div style={{ flex: "1" }}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer
-            components={["DatePicker"]}
-            sx={{ justifyContent: "center" }}
-          >
+          <DemoContainer components={["DatePicker"]} sx={{ justifyContent: "center" }}>
             <DatePicker
               label={t("startdate")}
               onChange={handleStartDateChange}
@@ -274,18 +268,12 @@ export default function MediaCard() {
                   <TableCell align="left">{reservation.propertyName}</TableCell>
                   <TableCell align="left">{reservation.dateFrom}</TableCell>
                   <TableCell align="left">{reservation.dateTo}</TableCell>
-                  <TableCell align="left">
-                    {reservation.numberOfGuests}
-                  </TableCell>
+                  <TableCell align="left">{reservation.numberOfGuests}</TableCell>
                   <TableCell align="left">{reservation.ruPrice}</TableCell>
                   <TableCell align="left">{reservation.clientPrice}</TableCell>
                   <TableCell align="left">{reservation.createdDate}</TableCell>
                   <TableCell align="left">
-                    <ViewReservationsButton
-                      onClick={() =>
-                        handleReservationClick(reservation?.reservationID)
-                      }
-                    >
+                    <ViewReservationsButton onClick={() => handleReservationClick(reservation?.reservationID)}>
                       {t("View details")}
                     </ViewReservationsButton>
                   </TableCell>

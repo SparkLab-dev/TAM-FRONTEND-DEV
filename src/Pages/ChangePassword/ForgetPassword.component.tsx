@@ -1,11 +1,7 @@
 import { FC, useState } from "react";
 import axios from "axios";
 //style
-import {
-  ChangePassH2,
-  EmailParagraph,
-  ForgetPassHolder,
-} from "./style/ForgetPassword.style";
+import { ChangePassH2, EmailParagraph, ForgetPassHolder } from "./style/ForgetPassword.style";
 import { Button, Input, StyledForm } from "App/style/App.style";
 
 const ForgetPassword: FC<{}> = () => {
@@ -15,15 +11,11 @@ const ForgetPassword: FC<{}> = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        `http://192.168.10.210:8081/TAM/forgetPassword/${email}`
-      );
+      const response = await axios.post(`https://393e-95-107-162-162.ngrok-free.app/TAM/forgetPassword/${email}`);
       console.log("API Response:", response.data);
 
       if (response.data.success) {
-        console.log(
-          "Email sent successfully. Check your inbox for a reset link."
-        );
+        console.log("Email sent successfully. Check your inbox for a reset link.");
       } else {
         console.log("Email not found or an error occurred.");
       }
@@ -37,9 +29,7 @@ const ForgetPassword: FC<{}> = () => {
     <>
       <StyledForm height="fit-content" onSubmit={handleSubmit}>
         <ChangePassH2>Please, enter your Email!</ChangePassH2>
-        <EmailParagraph>
-          We will send a link to your Email address!
-        </EmailParagraph>
+        <EmailParagraph>We will send a link to your Email address!</EmailParagraph>
 
         <Input
           placeholder="Email"
@@ -55,19 +45,10 @@ const ForgetPassword: FC<{}> = () => {
           paddingleft="5px"
           padding="0 10px"
           value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
         />
         <ForgetPassHolder>
-          <Button
-            h="40px"
-            w="100%"
-            variant="primary"
-            borderradius="20px"
-            fontFamily="Poppins"
-            fontSize="15px"
-          >
+          <Button h="40px" w="100%" variant="primary" borderradius="20px" fontFamily="Poppins" fontSize="15px">
             Submit
           </Button>
         </ForgetPassHolder>
