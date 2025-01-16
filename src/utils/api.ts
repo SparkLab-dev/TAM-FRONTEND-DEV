@@ -1,11 +1,14 @@
 import axios from "axios";
 import { backendURL } from "./backend";
 
+const localStorageToken = localStorage.getItem("token");
 
 export const privApi = axios.create({
-    baseURL: backendURL
-  });
-  
-
-  privApi.defaults.headers.common['Authorization'] = `Bearer add auth token here`;
-  privApi.defaults.headers.common['ngrok-skip-browser-warning'] = '69420';
+  baseURL: backendURL,
+  headers: {
+    common: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorageToken}`,
+    },
+  },
+});

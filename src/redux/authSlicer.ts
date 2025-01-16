@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { privApi } from "utils/api";
 
 interface User {
   id: number | null;
@@ -26,8 +27,8 @@ const initialState: AuthState = {
 
 export const loginUser = createAsyncThunk("user/loginUser", async (userCredentials: object, { rejectWithValue }) => {
   try {
-    const response = await axios.post("https://393e-95-107-162-162.ngrok-free.app/TAM/auth/login", userCredentials);
-
+    const response = await privApi.post("auth/login", userCredentials);
+    //TODO : save token in localstorage
     const responseData = response.data;
 
     console.log(responseData);
@@ -63,9 +64,7 @@ export const logoutUser = createAsyncThunk<void, number | null>(
       if (!userIdFromLocalStorage) {
         throw new Error("User ID not found in user data");
       }
-      const response = await axios.post(
-        `https://393e-95-107-162-162.ngrok-free.app/TAM/auth/logout/${userIdFromLocalStorage}`,
-      );
+      const response = await privApi.post(`auth/logout/${userIdFromLocalStorage}`);
 
       console.log("Logout response:", response.data);
       localStorage.removeItem("user");
@@ -77,6 +76,7 @@ export const logoutUser = createAsyncThunk<void, number | null>(
   },
 );
 
+//TODO : Fix auth
 const authSlice = createSlice({
   name: "auth",
   initialState,
