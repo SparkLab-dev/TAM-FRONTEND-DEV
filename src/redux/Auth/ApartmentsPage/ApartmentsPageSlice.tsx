@@ -10,7 +10,7 @@ export interface ApartmentProps {
   // name: string;
   // id: number;
   propertyName: string;
-  ownerId: number;
+  ownerID: number;
   ownerName: string;
   detailLocationId: number;
   location: string;
@@ -18,6 +18,7 @@ export interface ApartmentProps {
   nla: boolean;
   createdDate: string;
   active: boolean;
+  id: { value: number };
 }
 
 export type AuthApartmentProps = {

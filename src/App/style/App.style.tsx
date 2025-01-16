@@ -182,7 +182,7 @@ interface dropdownProps {
   margin?: string;
 }
 export const StyledSelect = styled.select<dropdownProps>`
-  font-family: ${(props: any) => props.fontFamily || "Poppins"};
+  /* font-family: ${(props: any) => props.fontFamily || "Poppins"};
   font-weight: ${(props: any) => props.fontWeight};
   border-top-right-radius: ${(props: any) =>
     props.bordertoprightradius || "20px"};
@@ -201,7 +201,16 @@ export const StyledSelect = styled.select<dropdownProps>`
   padding: ${(props: any) => props.padding};
   margin-top: 12px;
   display: block;
-  margin: ${(props: any) => props.margin};
+  margin: ${(props: any) => props.margin}; */
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  :focus {
+    outline: none;
+    border-color: #4a90e2;
+    background-color: #f0f8ff;
+  }
 `;
 
 interface PasswordInputProps extends InputProps {

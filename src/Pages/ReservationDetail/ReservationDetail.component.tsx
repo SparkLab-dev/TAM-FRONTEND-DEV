@@ -289,9 +289,16 @@ const reservationsData = {
     archived: false,
   },
 };
+const cancellationTypes = [
+  { id: 1, typeName: "Guest", idCancellationType: 1 },
+  { id: 2, typeName: "Host", idCancellationType: 2 },
+];
 const ReservationDetail: FC<{}> = () => {
   const navigate = useNavigate();
   const [reservationData, setReservationData] = useState<any>(null);
+  const [cancellationType, setCancellationType] = useState<any>(null);
+  const [isCanceling, setIsCanceling] = useState(false); // For tracking the canceling status
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // To display errors
 
   const { id } = useParams();
   const reservationId = id ? parseInt(id) : 0;
@@ -314,14 +321,35 @@ const ReservationDetail: FC<{}> = () => {
       console.error("Error fetching reservation details:", error);
     }
   };
+  const getCancellationType = async () => {
+    try {
+      const response = await axios.get("http://192.168.10.210:8081/TAM/dictionary/allCancellationTypes");
+      setCancellationType(response.data);
+      console.log(response.data);
+      console.log(cancellationType);
+    } catch (error) {
+      console.error("Error fetching cancellation type:", error);
+    }
+  };
+  useEffect(() => {
+    getCancellationType();
+  }, []);
 
   const handleCancelReservation = async () => {
+    const selectedCancellationType = cancellationTypes.find((type) => type.idCancellationType === cancellationType);
+    console.log("selectedCancellationType", selectedCancellationType);
+    if (!selectedCancellationType) {
+      alert("Invalid cancellation type selected.");
+      return;
+    }
+    console.log(cancellationType);
     try {
-      await axios.put("https://393e-95-107-162-162.ngrok-free.app/TAM/reservation/cancelReservation", {
+      await axios.put("http://192.168.10.210:8081/TAM/reservation/cancelReservation", {
         reservationID: reservationId,
-        cancellationType: 1,
+        cancellationType: selectedCancellationType.idCancellationType,
       });
       alert("Reservation canceled successfully!");
+      console.log("selectedCancellationType", selectedCancellationType.idCancellationType);
       navigate("/reservation");
     } catch (error) {
       console.error("Failed to cancel reservation:", error);
@@ -333,8 +361,21 @@ const ReservationDetail: FC<{}> = () => {
       {reservationsData && (
         <>
           <CancelReservationButtonHolder>
-            <CancelReservationButton onClick={handleCancelReservation}>Cancel</CancelReservationButton>
+            {/* <label>Select Cancellation Type:</label> */}
+            <select onChange={(e) => setCancellationType(Number(e.target.value))} value={cancellationType || ""}>
+              <option value="" disabled>
+                -- Select Type --
+              </option>
+              <option value={1}>Guest</option>
+              <option value={2}>Host</option>
+            </select>
+
+            <CancelReservationButton onClick={handleCancelReservation} disabled={isCanceling}>
+              {isCanceling ? "Canceling..." : "Cancel"}
+            </CancelReservationButton>
+            {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
           </CancelReservationButtonHolder>
+
           <Section>
             <Title>Reservation Overview</Title>
             <List>

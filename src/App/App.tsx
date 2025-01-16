@@ -128,7 +128,10 @@ const App: FC<{}> = () => {
               />
               <Route path="/rulesFaq" element={<RulesFAQ />} />
               <Route path="/register" element={<RegisterPage />} />{" "}
-              <Route path="tam/registration/:token" element={<SavePasword />} />
+              <Route
+                path="auth/tam/registration/:token"
+                element={<SavePasword />}
+              />
               <Route path="/kyc/:id" element={<GradientPage />} />
               <Route path="/kyc/:token/:token/" element={<OnlineCheckin />} />
               <Route path="/apartmentAmenities" element={<ClientAmenities />} />

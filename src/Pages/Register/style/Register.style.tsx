@@ -43,3 +43,106 @@ export const LoginLink = styled(Link)`
   font-weight: bold;
   font-size: 15px;
 `;
+export const LoginPageContainer = styled.div`
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+`;
+
+export const FormContainer = styled.div`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const FormHeader = styled.h2`
+  margin-bottom: 20px;
+  height: 20px;
+`;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 404px;
+`;
+
+export const FormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+`;
+
+export const RegLabel = styled.label`
+  margin-bottom: 5px;
+`;
+
+export const FormInput = styled.input`
+  padding: 10px;
+  width: 95%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  :focus {
+    outline: none;
+    border-color: #4a90e2;
+    background-color: #f0f8ff;
+  }
+`;
+
+export const SubmitButton = styled.button`
+  padding: 10px;
+  background-color: #4f734c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  width: 404px;
+`;
+export const GoogleButton = styled.button`
+  padding: 10px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 35px;
+`;
+export const Buttons = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 23px;
+  margin-top: 50px;
+  width: 100%;
+`;
+export const ImageContainer = styled.div`
+  width: 50%;
+`;
+
+export const Image = styled.img`
+  width: 100%;
+  max-height: 100vh;
+  object-fit: cover;
+  border-radius: 50px 0 0 50px;
+`;
+
+export const RememberLine = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+`;
+
+export const RememberCheckbox = styled.input.attrs({ type: "checkbox" })`
+  margin-right: 5px;
+`;
+
+export const RememberText = styled.span`
+  margin-right: 10px;
+`;
