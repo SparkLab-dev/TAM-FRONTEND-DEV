@@ -36,7 +36,7 @@ const initialState: AuthApartmentProps = {
 export const fetchApartmentIds = createAsyncThunk<ApartmentProps[]>("apartments/fetchUserApartmentIds", async () => {
   try {
     const response = await privApi.get(`property/getUserProperties`);
-    return response.data?.properties || [];
+    return response.data || [];
   } catch (error) {
     console.error(error);
     throw error;

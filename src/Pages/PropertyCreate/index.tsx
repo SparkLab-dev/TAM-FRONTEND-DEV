@@ -174,7 +174,7 @@ const PropertCreate = () => {
 
   return (
     <PageContainer>
-      <Button onClick={handleGoBack}>
+      <Button sx={{ marginBottom: "20px" }} onClick={handleGoBack}>
         <ChevronLeft /> All properties
       </Button>
       <FormProvider {...formMethods}>

@@ -88,7 +88,7 @@ const ApartmentPage: FC<{}> = () => {
                 <ApartmentImg src={ApartmentImage} alt="apartimage" />
               </Icon>
               <ApartmentNameContainer>
-                <ApartmentNameParagraph>{apartment.propertyName}</ApartmentNameParagraph>
+                <ApartmentNameParagraph>{apartment.name}</ApartmentNameParagraph>
                 <HeartIcon>
                   <FontAwesomeIcon icon={faHeart} style={{ fontSize: "25px" }} />
                 </HeartIcon>

@@ -1,11 +1,20 @@
 import styled from "styled-components";
+
 export const Container = styled.div`
+  width: calc(100% - 183px);
+  margin-left: auto;
+  padding: 20px;
+  box-sizing: border-box;
   height: 100%;
-  width: 100%;
-  justify-content: center;
-  display: flex;
-  align-items: flex-start;
-  gap: 85px;
+  margin-top: 50px;
+  overflow-y: auto;
+  overflow-y: auto;
+  /* display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start; */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(315px, max-content));
+
   @media (max-width: 1268px) {
     flex-direction: column;
     align-items: center;

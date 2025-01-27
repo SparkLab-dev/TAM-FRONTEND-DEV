@@ -162,9 +162,7 @@ const HomepageTest: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await privApi.get<ApiResponse>(
-          `/TAM/dashboard/${userId}/${selectedOption}`,
-        );
+        const response = await privApi.get<ApiResponse>(`/TAM/dashboard/${selectedOption}`);
         setData(response.data);
         console.log(data);
       } catch (error) {

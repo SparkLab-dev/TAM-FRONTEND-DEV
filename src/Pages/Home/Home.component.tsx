@@ -23,6 +23,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { RootState } from "redux/store";
 import { useSelector } from "react-redux";
+import { privApi } from "utils/api";
 
 const Test = styled.div`
   width: 25%;
@@ -93,9 +94,7 @@ const Home: FC<{}> = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<ApiResponse>(
-          `https://393e-95-107-162-162.ngrok-free.app/TAM/dashboard/${userId}/${selectedOption}`,
-        );
+        const response = await privApi.get<ApiResponse>(`/TAM/dashboard/${selectedOption}`);
         setData(response.data);
         console.log(data);
       } catch (error) {
