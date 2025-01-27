@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Header = styled.header`
   position: fixed;
   top: 0;
-  left: 0;
+  // left: 0;
   right: 0;
   z-index: 999;
   display: flex;
@@ -11,11 +11,13 @@ export const Header = styled.header`
   align-items: center;
    background-color: white;
   color: #000000;
-  width: 100vw;
+  width: calc(100% - 185px);
   height: 50px;
   border-bottom: 1px solid black;
   @media (max-width: 768px) {
     padding-left:50px;
+    width: calc(100% - 50px);
+    justify-content: space-around;
   }
 `;
 
@@ -75,6 +77,13 @@ export const LogoutButton = styled.button`
   &:hover {
     background-color: #e3edf0;
   }
+     @media (max-width: 768px) {
+  
+    width:40px;
+    padding:0;
+    font-size:0;
+    justify-content:center;
+  }
 `;
 export const NewButton = styled.button`
   background-color: #9BDFC4;
@@ -97,9 +106,11 @@ export const NewButton = styled.button`
     background-color: #e3edf0;
   }
   @media (max-width: 768px) {
-    font-size: 10px;
-    width:100px;
+    
+    width:40px;
     padding:0;
+    font-size:0;
+    justify-content:center;
   }
 `;
 

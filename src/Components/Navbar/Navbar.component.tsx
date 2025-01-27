@@ -42,13 +42,13 @@ const Navbar: React.FC = () => {
   return (
     <Styled.Header>
       <Styled.NewButton onClick={() => navigate("/newreservation")}>
-        <AddCardIcon fontSize="small" />
-        {t("newbooking")}{" "}
+        <AddCardIcon fontSize="medium" />
+        {t("newbooking")}
       </Styled.NewButton>
       <Styled.Nav>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: "flex", alignItems: "center"}}>
             <label htmlFor="language-select">
-              <TranslateIcon />:
+              <TranslateIcon />
             </label>
             <select
               id="language-select"

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -56,14 +56,45 @@ interface StayInfo {
     comments: string;
   }
   
+  interface Language {
+    id: number;
+    idLanguage: number;
+    language: string;
+    languageCode: string;
+  }
+  
+  interface Country {
+    countryId: number;
+    currencyCode: string;
+    id: number;
+    location: string;
+    locationId: number;
+    locationTimeZone: string;
+    locationTypeId: number;
+    parentLocationId: number;
+  }
+  
+  interface Status {
+    id: number;
+    idReservationStatus: number;
+    statusName: string;
+  }
+  
 
 const FormWrapper = styled.form`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   margin: 20px;
-  margin-top: 350px;
+  
   padding-bottom:50px;
+
+   @media (max-width: 768px) {
+    display:flex;
+    flex-direction:column;
+    
+  }
+  
 `;
 
 const FieldWrapper = styled.div`
@@ -93,7 +124,7 @@ const Input = styled.input`
 const SubmitButton = styled.button`
   grid-column: span 3;
   padding: 12px;
-  background-color: #007bff;
+  background-color: #4f734c;
   color: #fff;
   font-size: 1.2rem;
   border: none;
@@ -103,10 +134,122 @@ const SubmitButton = styled.button`
   &:hover {
     background-color: #0056b3;
   }
+      @media (max-width: 768px) {
+   width:180px;
+   height:40px;
+   font-size:1rem;
+   padding:0
+  }
+    
+`;
+const ButtonHandler=styled.div`
+ width:100%;
+ margin: 20px;
+ padding-bottom:50px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+  
+`
+const Page = styled.div`
+  
+  
+  gap: 25px;
+  padding-top: 200px;
+  max-width: 1400px;
+  width: calc(100% - 400px);
+  margin-top: -100px;
+  height: 100%;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    width: calc(100% - 100px);
+  }
+`;
+const Label = styled.text`
+  font-weight: 500;
+  color: black;
 `;
 
 const ReservationForm: React.FC = () => {
-    const [formData, setFormData] = useState<Reservation>({
+    const [languages, setLanguages] = useState<Language[]>([]);
+    const [selectedLanguage, setSelectedLanguage] = useState<number | null>(null);
+    const [countries, setCountries] = useState<Country[]>([]);
+    const [selectedCountries, setSelectedCountries] = useState<number | null>(null);
+    const [status, setStatus] = useState<Status[]>([]);
+    const [selectedStatus, setSelectedStatus] = useState<number | null>(null);
+  
+    useEffect(() => {
+        const fetchLanguages = async () => {
+          try {
+            const response = await axios.get<Language[]>(
+              "http://192.168.10.210:8081/TAM/dictionary/allLanguages"
+            );
+            setLanguages(response.data); // Update state with API response
+          } catch (error) {
+            console.error("Error fetching languages:", error);
+          }
+        };
+    
+        fetchLanguages();
+      }, []);
+
+
+      const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        
+        setSelectedLanguage(Number(event.target.value)); // Convert value to number
+        console.log(selectedLanguage);
+      };
+
+      useEffect(() => {
+        const fetchCountries = async () => {
+          try {
+            const response = await axios.get<Country[]>(
+              "http://192.168.10.210:8081/TAM/dictionary/getLocationsCountry"
+            );
+            setCountries(response.data);
+            console.log(countries);
+          } catch (error) {
+            console.error("Error fetching countries:", error);
+          }
+        };
+    
+        fetchCountries();
+      }, []);
+
+      const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedCountries(Number(event.target.value)); // Convert value to number
+        console.log(selectedCountries);
+      };
+
+
+      useEffect(() => {
+        const fetchStatuses = async () => {
+          try {
+            const response = await axios.get<Status[]>(
+              "http://192.168.10.210:8081/TAM/dictionary/allReservationStatus"
+            );
+            setStatus(response.data); 
+            console.log(response.data);
+          } catch (error) {
+            console.error("Error fetching statuses:", error);
+          }
+        };
+    
+        fetchStatuses();
+      }, []);
+      const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedStatus(Number(event.target.value)); // Convert value to number
+        console.log(selectedStatus);
+      };
+
+
+      
+      const filteredStatuses = status.filter(
+        (s) => s.statusName === "Approved" || s.statusName === "Request"
+      );
+
+      const [formData, setFormData] = useState<Reservation>({
         stayInfos: [
           {
             propertyID: 0,
@@ -117,7 +260,7 @@ const ReservationForm: React.FC = () => {
             clientPrice: 0,
             alreadyPaid: 0,
             channelCommission: 0,
-            statusID: 0,
+            statusID: selectedStatus??6,
           },
         ],
         cancellationPolicyInfo: {
@@ -140,8 +283,8 @@ const ReservationForm: React.FC = () => {
           skypeID: "",
           address: "",
           zipCode: "",
-          languageID: 0,
-          countryID: 0,
+          languageID: selectedLanguage ?? 0,
+          countryID: selectedCountries ?? 0,
         },
         guestDetailsInfo: {
           numberOfAdults: 0,
@@ -171,29 +314,37 @@ const ReservationForm: React.FC = () => {
     
       const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+      
         try {
-          const response = await axios.post(
-            "http://192.168.10.210:8081/TAM/reservation/sendConfirmedReservation",
-            formData, // Send formData as request body in JSON format
-            {
-              headers: {
-                "Content-Type": "application/json", // Explicitly set the content type to JSON
-              },
-            }
+          // Choose the API endpoint based on the status
+          const apiEndpoint =
+            selectedStatus === 6
+              ? "https://app.hostai.it/TAM/reservation/sendConfirmedReservation"
+              : "http://192.168.10.210:8081/TAM/reservation/sendReservationRequest";
+      
+          
+          const response = await axios.post(apiEndpoint, formData);
+      
+          console.log(
+            `Reservation ${
+              selectedStatus === 6 ? "confirmed" : "requested"
+            } successfully:`,
+            response.data
           );
-          console.log("Reservation created successfully:", response.data);
         } catch (error) {
           console.error("Error creating reservation:", error);
         }
       };
+      
     
 
   return (
+    <Page>
     <FormWrapper onSubmit={handleSubmit}>
       
       <SectionTitle>Stay Info</SectionTitle>
       <FieldWrapper>
-        <label>Property ID</label>
+        <Label>Property ID</Label>
         <Input
           type="number"
           value={formData.stayInfos[0].propertyID}
@@ -203,7 +354,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Date From</label>
+        <Label>Date From</Label>
         <Input
           type="date"
           value={formData.stayInfos[0].dateFrom}
@@ -213,7 +364,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Date To</label>
+        <Label>Date To</Label>
         <Input
           type="date"
           value={formData.stayInfos[0].dateTo}
@@ -223,7 +374,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Number of Guests</label>
+        <Label>Number of Guests</Label>
         <Input
           type="number"
           value={formData.stayInfos[0].numberOfGuests}
@@ -233,7 +384,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>RU Price</label>
+        <Label>RU Price</Label>
         <Input
           type="number"
           value={formData.stayInfos[0].ruPrice}
@@ -243,7 +394,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Client Price</label>
+        <Label>Client Price</Label>
         <Input
           type="number"
           value={formData.stayInfos[0].clientPrice}
@@ -253,7 +404,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Already Paid</label>
+        <Label>Already Paid</Label>
         <Input
           type="number"
           value={formData.stayInfos[0].alreadyPaid}
@@ -263,7 +414,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Channel Commission</label>
+        <Label>Channel Commission</Label>
         <Input
           type="number"
           value={formData.stayInfos[0].channelCommission}
@@ -273,20 +424,23 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Status ID</label>
-        <Input
-          type="number"
-          value={formData.stayInfos[0].statusID}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleChange(e, "stayInfos.0.statusID")
-          }
-        />
+        <Label>Status</Label>
+        <select id="status-select" onChange={handleStatusChange} style={{height:"40px"}}>
+        <option value="" disabled>
+          --Choose a status--
+        </option>
+        {filteredStatuses.map((status) => (
+          <option key={status.id} value={status.idReservationStatus}>
+            {status.statusName}
+          </option>
+        ))}
+      </select>
       </FieldWrapper>
 
       
       <SectionTitle>Customer Info</SectionTitle>
       <FieldWrapper>
-        <label>Name</label>
+        <Label>Name</Label>
         <Input
           type="text"
           value={formData.customerInfo.name}
@@ -296,7 +450,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Surname</label>
+        <Label>Surname</Label>
         <Input
           type="text"
           value={formData.customerInfo.surName}
@@ -306,7 +460,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Email</label>
+        <Label>Email</Label>
         <Input
           type="email"
           value={formData.customerInfo.email}
@@ -316,7 +470,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Phone</label>
+        <Label>Phone</Label>
         <Input
           type="text"
           value={formData.customerInfo.phone}
@@ -326,7 +480,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Skype ID</label>
+        <Label>Skype ID</Label>
         <Input
           type="text"
           value={formData.customerInfo.skypeID}
@@ -336,7 +490,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Address</label>
+        <Label>Address</Label>
         <Input
           type="text"
           value={formData.customerInfo.address}
@@ -346,7 +500,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Zip Code</label>
+        <Label>Zip Code</Label>
         <Input
           type="text"
           value={formData.customerInfo.zipCode}
@@ -356,30 +510,36 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Language ID</label>
-        <Input
-          type="number"
-          value={formData.customerInfo.languageID}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleChange(e, "customerInfo.languageID")
-          }
-        />
+        <Label>Language</Label>
+          <select id="language-select" onChange={handleLanguageChange} style={{height:"40px"}}>
+        <option value="" disabled>
+          --Choose a language--
+        </option>
+        {languages.map((language) => (
+          <option key={language.id} value={language.idLanguage}>
+            {language.language}
+          </option>
+        ))}
+      </select>
       </FieldWrapper>
       <FieldWrapper>
-        <label>Country ID</label>
-        <Input
-          type="number"
-          value={formData.customerInfo.countryID}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleChange(e, "customerInfo.countryID")
-          }
-        />
+        <Label>Country</Label>
+        <select id="country-select" onChange={handleCountryChange} style={{height:"40px"}}>
+        <option value="" disabled>
+          --Choose a country--
+        </option>
+        {countries.map((country) => (
+          <option key={country.id} value={country.locationId}>
+            {country.location}
+          </option>
+        ))}
+      </select>
       </FieldWrapper>
 
     
       <SectionTitle>Guest Details</SectionTitle>
       <FieldWrapper>
-        <label>Number of Adults</label>
+        <Label>Number of Adults</Label>
         <Input
           type="number"
           value={formData.guestDetailsInfo.numberOfAdults}
@@ -389,7 +549,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Number of Children</label>
+        <Label>Number of Children</Label>
         <Input
           type="number"
           value={formData.guestDetailsInfo.numberOfChildren}
@@ -399,7 +559,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Number of Infants</label>
+        <Label>Number of Infants</Label>
         <Input
           type="number"
           value={formData.guestDetailsInfo.numberOfInfants}
@@ -409,7 +569,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Children Ages</label>
+        <Label>Children Ages</Label>
         <Input
           type="text"
           value={formData.guestDetailsInfo.childrenAges.join(", ")}
@@ -419,7 +579,7 @@ const ReservationForm: React.FC = () => {
         />
       </FieldWrapper>
       <FieldWrapper>
-        <label>Number of Pets</label>
+        <Label>Number of Pets</Label>
         <Input
           type="number"
           value={formData.guestDetailsInfo.numberOfPets}
@@ -432,7 +592,7 @@ const ReservationForm: React.FC = () => {
       {/* Comments Section */}
       <SectionTitle>Comments</SectionTitle>
       <FieldWrapper>
-        <label>Comments</label>
+        <Label>Comments</Label>
         <TextArea
           rows={3}
           value={formData.comments}
@@ -443,8 +603,12 @@ const ReservationForm: React.FC = () => {
       </FieldWrapper>
 
       {/* Submit Button */}
-      <SubmitButton type="submit">Submit Reservation</SubmitButton>
+     
     </FormWrapper>
+    <ButtonHandler>
+      <SubmitButton type="submit">Submit Reservation</SubmitButton>
+      </ButtonHandler>
+    </Page>
   );
 };
 
