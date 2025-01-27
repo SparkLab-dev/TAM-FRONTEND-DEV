@@ -114,11 +114,13 @@ const TextArea = styled.textarea`
   resize: none;
   padding: 8px;
   font-size: 1rem;
+  border: 1px solid;
 `;
 
 const Input = styled.input`
   padding: 8px;
   font-size: 1rem;
+  border: 1px solid;
 `;
 
 const SubmitButton = styled.button`
@@ -155,7 +157,7 @@ const Page = styled.div`
   
   
   gap: 25px;
-  padding-top: 200px;
+  padding-top: 150px;
   max-width: 1400px;
   width: calc(100% - 400px);
   margin-top: -100px;
@@ -164,6 +166,7 @@ const Page = styled.div`
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     width: calc(100% - 100px);
+    padding-top:80px;
   }
 `;
 const Label = styled.text`
@@ -197,7 +200,7 @@ const ReservationForm: React.FC = () => {
 
       const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         
-        setSelectedLanguage(Number(event.target.value)); // Convert value to number
+        setSelectedLanguage(Number(event.target.value)); 
         console.log(selectedLanguage);
       };
 
@@ -218,7 +221,7 @@ const ReservationForm: React.FC = () => {
       }, []);
 
       const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedCountries(Number(event.target.value)); // Convert value to number
+        setSelectedCountries(Number(event.target.value)); 
         console.log(selectedCountries);
       };
 
@@ -239,7 +242,7 @@ const ReservationForm: React.FC = () => {
         fetchStatuses();
       }, []);
       const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedStatus(Number(event.target.value)); // Convert value to number
+        setSelectedStatus(Number(event.target.value)); 
         console.log(selectedStatus);
       };
 
@@ -425,7 +428,7 @@ const ReservationForm: React.FC = () => {
       </FieldWrapper>
       <FieldWrapper>
         <Label>Status</Label>
-        <select id="status-select" onChange={handleStatusChange} style={{height:"40px"}}>
+        <select id="status-select" onChange={handleStatusChange} style={{height:"40px", border: "1px solid"}}>
         <option value="" disabled>
           --Choose a status--
         </option>
@@ -511,7 +514,7 @@ const ReservationForm: React.FC = () => {
       </FieldWrapper>
       <FieldWrapper>
         <Label>Language</Label>
-          <select id="language-select" onChange={handleLanguageChange} style={{height:"40px"}}>
+          <select id="language-select" onChange={handleLanguageChange} style={{height:"40px", border: "1px solid"}}>
         <option value="" disabled>
           --Choose a language--
         </option>
@@ -524,7 +527,7 @@ const ReservationForm: React.FC = () => {
       </FieldWrapper>
       <FieldWrapper>
         <Label>Country</Label>
-        <select id="country-select" onChange={handleCountryChange} style={{height:"40px"}}>
+        <select id="country-select" onChange={handleCountryChange} style={{height:"40px", border: "1px solid"}}>
         <option value="" disabled>
           --Choose a country--
         </option>
