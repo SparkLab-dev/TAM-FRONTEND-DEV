@@ -33,18 +33,15 @@ const initialState: AuthApartmentProps = {
   error: null,
 };
 
-export const fetchApartmentIds = createAsyncThunk<ApartmentProps[], number>(
-  "apartments/fetchUserApartmentIds",
-  async (userId: number) => {
-    try {
-      const response = await privApi.get(`property/getUserProperties/${userId}`);
-      return response.data?.properties || [];
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  },
-);
+export const fetchApartmentIds = createAsyncThunk<ApartmentProps[]>("apartments/fetchUserApartmentIds", async () => {
+  try {
+    const response = await privApi.get(`property/getUserProperties`);
+    return response.data?.properties || [];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+});
 const apartmentsSlice = createSlice({
   name: "apartments",
   initialState,

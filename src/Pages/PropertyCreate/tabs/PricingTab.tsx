@@ -5,23 +5,20 @@ import { schemas } from "Schemas/Property";
 import * as yup from "yup";
 
 export const PricingTab: React.FC = () => {
-  const { control, setValue, getValues, formState } =
-    useFormContext<yup.InferType<typeof schemas>>();
+  const { control, setValue, getValues, formState } = useFormContext<yup.InferType<typeof schemas>>();
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "16px" }}>
       <h4 className="text-blue-500 font-bold text-xl">Seasonal Prices</h4>
       <div>
-        <p>Number of guest in your daily price</p>
         <RHFTextField
-          label="number of guest"
+          label="Number of guest"
           type="number"
           name="step7.standardGuests"
           errorMessage={formState.errors.step7?.standardGuests?.message}
         />
       </div>
       <div>
-        <p>Minimum Stay Period in hours</p>
         <RHFTextField
           label="Minimum stay period"
           type="number"

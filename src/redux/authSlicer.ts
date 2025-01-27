@@ -28,7 +28,6 @@ const initialState: AuthState = {
 export const loginUser = createAsyncThunk("user/loginUser", async (userCredentials: object, { rejectWithValue }) => {
   try {
     const response = await privApi.post("auth/login", userCredentials);
-    //TODO : save token in localstorage
     const responseData = response.data;
 
     console.log(responseData);
@@ -40,6 +39,7 @@ export const loginUser = createAsyncThunk("user/loginUser", async (userCredentia
     }
 
     localStorage.setItem("user", JSON.stringify(responseData));
+    localStorage.setItem("token", responseData.token);
 
     return responseData;
   } catch (error) {

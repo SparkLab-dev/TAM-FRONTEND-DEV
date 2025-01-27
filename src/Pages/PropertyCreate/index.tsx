@@ -52,19 +52,17 @@ const amenitycomposition: AmenityComposition[] = [
 
 const PropertCreate = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  //step4
-  const [roomsCompositions, setRoomsCompositions] = React.useState<
-    CreatePropertyInput["compositionRoomAmenitiesList"]
-  >([]);
+  console.log("currentStep", currentStep);
 
-  const [roomsDropdownOptions, setRoomsDropdownOptions] = useState<
-    { label: string; value: number }[]
-  >([]);
+  const [roomsCompositions, setRoomsCompositions] = React.useState<CreatePropertyInput["compositionRoomAmenitiesList"]>(
+    [],
+  );
+
+  const [roomsDropdownOptions, setRoomsDropdownOptions] = useState<{ label: string; value: number }[]>([]);
 
   //step3
   const [composition, setComposition] = useState(amenitycomposition);
-  const [currentGeneralAmenities, setCurrentGeneralAmenities] =
-    useState(amenities);
+  const [currentGeneralAmenities, setCurrentGeneralAmenities] = useState(amenities);
 
   useEffect(() => {
     const options: { label: string; value: number }[] = [];
@@ -100,8 +98,8 @@ const PropertCreate = () => {
       prevComposition.map((composition) =>
         composition.id === id
           ? { ...composition, count: quantity } // Update count based on user input
-          : composition
-      )
+          : composition,
+      ),
     );
   };
 
@@ -155,11 +153,10 @@ const PropertCreate = () => {
 
     //Trigger validation for the current step
     // and if there are no errors, move to the next step
-    await formMethods.trigger(currentStepName);
-    const currentStepHasErrors =
-      formMethods.getFieldState(currentStepName).error;
+    // await formMethods.trigger(currentStepName);
+    const currentStepHasErrors = formMethods.getFieldState(currentStepName).error;
 
-    if (currentStepHasErrors) return;
+    // if (currentStepHasErrors) return;
     setCurrentStep(currentStep + 1);
   };
 
@@ -181,24 +178,14 @@ const PropertCreate = () => {
         <ChevronLeft /> All properties
       </Button>
       <FormProvider {...formMethods}>
-        <form
-          ref={formRef}
-          onSubmit={formMethods.handleSubmit(handleFormSubmit)}
-        >
+        <form ref={formRef} onSubmit={formMethods.handleSubmit(handleFormSubmit)}>
           {steps[currentStepName]}
           <div className="mt-10">
-            <Button
-              disabled={isFirstStep}
-              onClick={handlePreviousStep}
-              type="button"
-            >
+            <Button disabled={isFirstStep} onClick={handlePreviousStep} type="button">
               <ChevronLeft /> Previous
             </Button>
 
-            <Button
-              type="button"
-              onClick={(event: any) => handleNextStep(event)}
-            >
+            <Button type="button" onClick={(event: any) => handleNextStep(event)}>
               Next <ChevronRight />
             </Button>
           </div>

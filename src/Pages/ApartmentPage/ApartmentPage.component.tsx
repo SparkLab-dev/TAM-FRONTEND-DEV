@@ -41,24 +41,19 @@ const ApartmentPage: FC<{}> = () => {
 
   useEffect(() => {
     const fetchData = () => {
-      if (userId) {
-        console.log(userId);
-        dispatch(fetchApartmentIds(userId))
-          .then((result: any) => {
-            console.log("result", result);
-            if (fetchApartmentIds.fulfilled.match(result)) {
-              setApartmentNames(result.payload);
-            } else if (fetchApartmentIds.rejected.match(result)) {
-              setError("Error fetching apartment names. Please try again later!");
-            }
-          })
-          .catch((error: any) => {
-            console.error("Error fetching apartment names:", error);
+      dispatch(fetchApartmentIds())
+        .then((result: any) => {
+          console.log("result", result);
+          if (fetchApartmentIds.fulfilled.match(result)) {
+            setApartmentNames(result.payload);
+          } else if (fetchApartmentIds.rejected.match(result)) {
             setError("Error fetching apartment names. Please try again later!");
-          });
-      } else {
-        setError("User ID not available.");
-      }
+          }
+        })
+        .catch((error: any) => {
+          console.error("Error fetching apartment names:", error);
+          setError("Error fetching apartment names. Please try again later!");
+        });
     };
 
     fetchData();

@@ -1,12 +1,5 @@
 import { useState } from "react";
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Box, Button, TextField, Typography, Select, MenuItem } from "@mui/material";
 import { MdAddCircle, MdDelete } from "react-icons/md";
 import RHFSelect from "Components/Form/RHFSelect";
 import classes from "../styles/step6.module.css";
@@ -33,8 +26,7 @@ const calChargeList = [
 ];
 
 export const FeesTab: React.FC = () => {
-  const { control, watch, setValue, trigger, formState } =
-    useFormContext<yup.InferType<typeof schemas>>();
+  const { control, watch, setValue, trigger, formState } = useFormContext<yup.InferType<typeof schemas>>();
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -47,10 +39,7 @@ export const FeesTab: React.FC = () => {
 
   console.log(formState.errors.step7?.additionalFees);
 
-  const handleCreateAdditionFees = (
-    index: number,
-    type: "etra charges" | "taxes"
-  ) => {
+  const handleCreateAdditionFees = (index: number, type: "etra charges" | "taxes") => {
     append({
       feeTaxType: type === "etra charges" ? 100 : 1,
       discriminatorID: 1,
@@ -62,7 +51,7 @@ export const FeesTab: React.FC = () => {
   const handleTaxChange = (
     feeTaxType: number,
     field: "feeTaxType" | "discriminatorID" | "order" | "value",
-    value: number
+    value: number,
   ) => {
     const updatedData = [...additionalFees];
     const index = updatedData.findIndex((fee) => fee.feeTaxType === feeTaxType);
@@ -76,13 +65,9 @@ export const FeesTab: React.FC = () => {
   };
 
   const handleDeleteTax = (id: number) => {
-    const dataToRemove = additionalFees.filter(
-      (data) => data.feeTaxType === id
-    )[0];
+    const dataToRemove = additionalFees.filter((data) => data.feeTaxType === id)[0];
 
-    const updatedFees = additionalFees.filter(
-      (fee) => fee.feeTaxType !== dataToRemove.feeTaxType
-    );
+    const updatedFees = additionalFees.filter((fee) => fee.feeTaxType !== dataToRemove.feeTaxType);
 
     setValue("step7.additionalFees", updatedFees);
   };
@@ -98,11 +83,10 @@ export const FeesTab: React.FC = () => {
           Taxes
         </Typography>
         <Button
+          sx={{ marginBottom: "15px" }}
           variant="outlined"
           startIcon={<MdAddCircle />}
-          onClick={() =>
-            handleCreateAdditionFees(additionalFees.length, "taxes")
-          }
+          onClick={() => handleCreateAdditionFees(additionalFees.length, "taxes")}
         >
           Add Tax
         </Button>
@@ -117,16 +101,9 @@ export const FeesTab: React.FC = () => {
                 value={tax.feeTaxType}
                 className={classes.selectLanguage}
                 onChange={(event) => {
-                  handleTaxChange(
-                    index,
-                    "feeTaxType",
-                    Number(event.target.value)
-                  );
+                  handleTaxChange(index, "feeTaxType", Number(event.target.value));
                 }}
-                error={
-                  !!formState?.errors?.step7?.additionalFees?.[index]
-                    ?.feeTaxType?.message
-                }
+                error={!!formState?.errors?.step7?.additionalFees?.[index]?.feeTaxType?.message}
                 sx={{ mr: 2, flexGrow: 1 }}
               >
                 {taxChargeList.map((tax) => (
@@ -140,17 +117,8 @@ export const FeesTab: React.FC = () => {
                 variant="outlined"
                 name={`step7.additionalFees.${index}.value`}
                 value={tax.value}
-                error={
-                  !!formState?.errors?.step7?.additionalFees?.[index]?.value
-                    ?.message
-                }
-                onChange={(e) =>
-                  handleTaxChange(
-                    tax.feeTaxType,
-                    "value",
-                    Number(e.target.value)
-                  )
-                }
+                error={!!formState?.errors?.step7?.additionalFees?.[index]?.value?.message}
+                onChange={(e) => handleTaxChange(tax.feeTaxType, "value", Number(e.target.value))}
                 sx={{ mr: 2, flexGrow: 1 }}
               />
               <RHFSelect
@@ -159,16 +127,9 @@ export const FeesTab: React.FC = () => {
                 value={tax.discriminatorID}
                 className={classes.selectLanguage}
                 onChange={(event) => {
-                  handleTaxChange(
-                    tax.feeTaxType,
-                    "discriminatorID",
-                    Number(event?.target.value)
-                  );
+                  handleTaxChange(tax.feeTaxType, "discriminatorID", Number(event?.target.value));
                 }}
-                error={
-                  !!formState?.errors?.step7?.additionalFees?.[index]
-                    ?.discriminatorID?.message
-                }
+                error={!!formState?.errors?.step7?.additionalFees?.[index]?.discriminatorID?.message}
                 sx={{ mr: 2, flexGrow: 1 }}
               >
                 {calChargeList.map((tax) => (
@@ -179,6 +140,7 @@ export const FeesTab: React.FC = () => {
               </RHFSelect>
 
               <Button
+                sx={{ width: "180px" }}
                 variant="outlined"
                 color="error"
                 className="text-xs"
@@ -196,6 +158,7 @@ export const FeesTab: React.FC = () => {
           Extra Charges
         </Typography>
         <Button
+          sx={{ marginBottom: "15px" }}
           variant="outlined"
           startIcon={<MdAddCircle />}
           onClick={() => handleCreateAdditionFees(100, "etra charges")}
@@ -213,11 +176,7 @@ export const FeesTab: React.FC = () => {
                 value={charge.feeTaxType}
                 className={classes.selectLanguage}
                 onChange={(event) => {
-                  handleTaxChange(
-                    charge.feeTaxType,
-                    "feeTaxType",
-                    Number(event.target.value)
-                  );
+                  handleTaxChange(charge.feeTaxType, "feeTaxType", Number(event.target.value));
                 }}
                 sx={{ mr: 2, flexGrow: 1 }}
               >
@@ -232,13 +191,7 @@ export const FeesTab: React.FC = () => {
                 variant="outlined"
                 name={`step7.additionalFees.${index}.value`}
                 value={charge.value}
-                onChange={(e) =>
-                  handleTaxChange(
-                    charge.feeTaxType,
-                    "value",
-                    Number(e.target.value)
-                  )
-                }
+                onChange={(e) => handleTaxChange(charge.feeTaxType, "value", Number(e.target.value))}
                 sx={{ mr: 2, flexGrow: 1 }}
               />
               <RHFSelect
@@ -247,11 +200,7 @@ export const FeesTab: React.FC = () => {
                 value={charge.discriminatorID}
                 className={classes.selectLanguage}
                 onChange={(event) => {
-                  handleTaxChange(
-                    charge.feeTaxType,
-                    "discriminatorID",
-                    Number(event?.target.value)
-                  );
+                  handleTaxChange(charge.feeTaxType, "discriminatorID", Number(event?.target.value));
                 }}
                 sx={{ mr: 2, flexGrow: 1 }}
               >
@@ -263,6 +212,7 @@ export const FeesTab: React.FC = () => {
               </RHFSelect>
 
               <Button
+                sx={{ width: "180px" }}
                 variant="outlined"
                 color="error"
                 startIcon={<MdDelete />}
@@ -279,15 +229,13 @@ export const FeesTab: React.FC = () => {
           Down Payment
         </Typography>
         <RHFSelect
+          sx={{ marginBottom: "15px" }}
           name={`step7.deposite.depositTypeID`}
           label="Calculated by"
           value={deposite.depositTypeID}
           className={classes.selectLanguage}
           onChange={(event) => {
-            setValue(
-              "step7.deposite.depositTypeID",
-              Number(event.target.value)
-            );
+            setValue("step7.deposite.depositTypeID", Number(event.target.value));
           }}
         >
           {calChargeList.map((tax) => (
@@ -302,9 +250,7 @@ export const FeesTab: React.FC = () => {
           name={`step7.deposite.amount`}
           variant="outlined"
           value={deposite.amount}
-          onChange={(event) =>
-            setValue("step7.deposite.amount", Number(event.target.value))
-          }
+          onChange={(event) => setValue("step7.deposite.amount", Number(event.target.value))}
         />
       </Box>
 
@@ -313,15 +259,13 @@ export const FeesTab: React.FC = () => {
           Security Deposit
         </Typography>
         <RHFSelect
+          sx={{ marginBottom: "15px" }}
           name={`step7.securityDeposit.depositTypeID`}
           label="Calculated by"
           value={securityDeposite.depositTypeID}
           className={classes.selectLanguage}
           onChange={(event) => {
-            setValue(
-              "step7.securityDeposit.depositTypeID",
-              Number(event.target.value)
-            );
+            setValue("step7.securityDeposit.depositTypeID", Number(event.target.value));
           }}
         >
           {calChargeList.map((tax) => (
@@ -336,9 +280,7 @@ export const FeesTab: React.FC = () => {
           name={`step7.securityDeposit.amount`}
           variant="outlined"
           value={securityDeposite.amount}
-          onChange={(event) =>
-            setValue("step7.securityDeposit.amount", Number(event.target.value))
-          }
+          onChange={(event) => setValue("step7.securityDeposit.amount", Number(event.target.value))}
         />
       </Box>
     </Box>

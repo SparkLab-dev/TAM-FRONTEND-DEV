@@ -16,8 +16,7 @@ import * as yup from "yup";
 type DistancesToAttractionType = CreatePropertyInput["distances"];
 
 const Step2 = () => {
-  const { control, watch, setValue, trigger, formState } =
-    useFormContext<yup.InferType<typeof schemas>>();
+  const { control, watch, setValue, trigger, formState } = useFormContext<yup.InferType<typeof schemas>>();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "step2.distances",
@@ -42,11 +41,7 @@ const Step2 = () => {
   const handleSaveAttraction = async () => {
     await trigger(`step2.distances`); // Trigger validation for distances
 
-    if (
-      newAttraction.destinationID &&
-      newAttraction.distanceValue &&
-      newAttraction.distanceUnitID
-    ) {
+    if (newAttraction.destinationID && newAttraction.distanceValue && newAttraction.distanceUnitID) {
       if (editingIndex !== null) {
         // If editing an existing attraction
         setValue(`step2.distances[${editingIndex}]` as any, newAttraction); // Update the existing attraction
@@ -86,9 +81,8 @@ const Step2 = () => {
     <StepWrapper>
       <div className="licenceNumberBox">
         <h3>Tourist License number</h3>
-        <p>
-          Tourist License number is mandatory in some cities, you need to add it
-          here in order for your properties to be accepted
+        <p style={{ marginBottom: "40px" }}>
+          This number is mandatory in some cities, you need to add it here in order for your properties to be accepted
         </p>
         <RHFTextField
           variant="outlined"
@@ -96,19 +90,13 @@ const Step2 = () => {
           label="Licence Number"
           placeholder="Tourist Licence Number"
           className="textfield"
-          errorMessage={
-            formState?.errors?.step2?.licenceInfo?.licenceNumber?.message
-          }
+          errorMessage={formState?.errors?.step2?.licenceInfo?.licenceNumber?.message}
         />
       </div>
 
       <AttractionsWrapper>
-        <h3>Add distances to attractions</h3>
-        <Button
-          variant="outlined"
-          className="addButton"
-          onClick={handleAddAttraction}
-        >
+        <h3 style={{ marginBottom: "10px" }}>Add distances to attractions</h3>
+        <Button variant="outlined" className="addButton" onClick={handleAddAttraction}>
           <Add /> Add attraction
         </Button>
 
@@ -143,9 +131,7 @@ const Step2 = () => {
                     })
                   }
                   errorMessage={
-                    formState?.errors?.step2?.distances?.[
-                      attractionsDistances.length
-                    ]?.distanceValue?.message ?? ""
+                    formState?.errors?.step2?.distances?.[attractionsDistances.length]?.distanceValue?.message ?? ""
                   }
                 />
               </div>
@@ -188,10 +174,7 @@ const Step2 = () => {
           <div className="body h-[200px] overflow-y-scroll">
             {attractionsDistances.length ? (
               attractionsDistances.map((attraction, index) => (
-                <div
-                  key={attraction.destinationID}
-                  className="grid grid-cols-4 gap-48 py-4"
-                >
+                <div key={attraction.destinationID} className="grid grid-cols-4 gap-48 py-4">
                   <div>{attraction.destinationID}</div>
                   <div>{attraction.distanceValue}</div>
                   <div>{attraction.distanceUnitID}</div>
@@ -210,9 +193,7 @@ const Step2 = () => {
             )}
           </div>
           {formState?.errors?.step2?.distances && (
-            <p className="text-red-400">
-              {formState?.errors?.step2?.distances?.message}
-            </p>
+            <p className="text-red-400">{formState?.errors?.step2?.distances?.message}</p>
           )}
         </AttractionsTable>
       </AttractionsWrapper>

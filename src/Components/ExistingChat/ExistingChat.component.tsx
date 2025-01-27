@@ -18,6 +18,7 @@ import AdminLogo from "../ExistingChat/assets/adminlogo.png";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import styled from "styled-components";
+import { privApi } from "utils/api";
 
 interface Conversation {
   id: number;
@@ -46,7 +47,7 @@ const ExistingChat: FC<{}> = () => {
   const email = useSelector((state: RootState) => state.auth.user?.email);
   const messages = useSelector((state: RootState) => state.messages.messages?.total_items);
   console.log(messages);
-  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [conversations, setConversations] = useState<any>([]);
   const [selectedGuest, setSelectedGuest] = useState<string | null>(null);
 
   const handleGuestClick = (conversation: any) => {
@@ -60,15 +61,8 @@ const ExistingChat: FC<{}> = () => {
   };
 
   useEffect(() => {
-    fetch("https://393e-95-107-162-162.ngrok-free.app/TAM/conversation/3")
-      .then((response) => response.json())
-      .then((data: Conversation[]) => {
-        if (conversations.length) setConversations(data);
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching conversations:", error);
-      });
+    const conversationsdata: any = privApi.get("/TAM/conversation");
+    if (conversationsdata?.length) setConversations(conversationsdata);
   }, []);
 
   return (
@@ -81,7 +75,7 @@ const ExistingChat: FC<{}> = () => {
           <div>
             <h3 style={{ display: "flex", alignItems: "baseline" }}>Conversation List</h3>
             <ul>
-              {(conversations || []).map((conversation) => (
+              {(conversations || []).map((conversation: Conversation) => (
                 <li key={conversation.id}>
                   <ConversationItem onClick={() => handleGuestClick(conversation)}>
                     <GuestName>{conversation.guestName}</GuestName>
