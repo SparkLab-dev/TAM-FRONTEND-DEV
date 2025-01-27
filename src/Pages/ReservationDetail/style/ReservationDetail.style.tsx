@@ -81,7 +81,7 @@ export const TableRow = styled.tr`
     background-color: #f9f9f9;
   }
 `;
-
+export const TableBody=styled.tbody``
 export const TableCell = styled.td`
   border: 1px solid #ddd;
   padding: 8px;
@@ -95,4 +95,41 @@ export const TableHeaderCell = styled.th`
   text-align: left;
   font-weight: bold;
   background-color: #eaeaea;
+`;
+export const RejectOrAcceptButton = styled.button`
+  background-color: #4f734c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: "Poppins";
+  /* font-weight: 400; */
+  width: 104px;
+  height: 30px;
+  margin: 0 5px 0 0;
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &.accept {
+    background-color: #4f734c;
+    color: white;
+  }
+
+  &.reject {
+    background-color: #f44336;
+    color: white;
+  }
+`;
+export const ReservationTypeSelect = styled.select`
+  width: 104px;
+  height: 30px;
+  border-radius: 5px;
+`;
+export const ReservationConditionsButtonContainer = styled.div`
+  flex: 1;
+`;
+export const ReservationConditionsButtonsContentHolder = styled.div`
+  display: flex;
 `;

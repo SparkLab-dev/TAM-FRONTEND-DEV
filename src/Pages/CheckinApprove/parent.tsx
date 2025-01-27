@@ -33,7 +33,7 @@ export const Button = styled.button`
   font-weight: 700;
 `;
 
-const Dropdown = styled.select`
+export const Dropdown = styled.select`
   margin-top: 10px;
   padding: 5px;
   height: 30px;

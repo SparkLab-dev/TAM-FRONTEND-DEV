@@ -33,7 +33,7 @@ export const registerUser = createAsyncThunk(
   async (userCredentials: object, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://192.168.10.210:8081/TAM/registration",
+        "http://app.hostai.it/TAM/registration",
         userCredentials
       );
 

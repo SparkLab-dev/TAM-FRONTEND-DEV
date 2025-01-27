@@ -29,7 +29,7 @@ export const loginUser = createAsyncThunk(
   async (userCredentials: object, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://192.168.10.210:8081/TAM/auth/login",
+        "http://app.hostai.it/TAM/auth/login",
         userCredentials
       );
 

@@ -5,7 +5,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import {
-  ReservationsButton,
+  ReservationsDropdown,
   ViewReservationsButton,
 } from "./style/Reservations.style";
 import { useSelector } from "react-redux";
@@ -19,7 +19,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
-
 const reservations = [
   {
     clientPrice: 360.22,
@@ -42,7 +41,6 @@ const reservations = [
     userId: 6,
   },
 ];
-
 interface Reservations {
   clientPrice: number;
   createdDate: string;
@@ -68,42 +66,21 @@ export default function MediaCard() {
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [allReservations, setAllReservations] = useState<Reservations[]>([]);
+  const [selectedStatus, setSelectedStatus] = useState<number | string | null>(
+    null
+  );
 
+  const [selectedProperty, setSelectedProperty] = useState<
+    number | string | null
+  >(null);
   const user = useSelector((state: RootState) => state.auth.user);
   const userId = user?.id;
   const { t } = useTranslation();
   console.log(userId);
   console.log(startDate);
   console.log(endDate);
-
-  const handleDownloadZIPfile = async () => {
-    try {
-      const response = await axios.get(
-        `http://192.168.10.141:8080/TAM/checkin/downloadXML/ZIP/${userId}?startDate=${startDate}&endDate=${endDate}`,
-        {
-          responseType: "blob", // Set response type to blob
-        }
-      );
-      console.log("Response:", response);
-
-      const blob = new Blob([response.data], {
-        type: response.headers["content-type"],
-      });
-
-      const url = window.URL.createObjectURL(blob);
-
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `invoice.zip`;
-
-      a.click();
-
-      // Cleanup: revoke the URL object to free up memory
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Error downloading invoice:", error);
-    }
-  };
+  console.log(selectedProperty);
+  console.log(selectedStatus);
 
   function handleStartDateChange(event: any) {
     if (event) {
@@ -144,37 +121,110 @@ export default function MediaCard() {
     console.log("RESS", reservation);
     navigate(`/reservationDetail/${reservation}`);
   };
+  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedStatus(event.target.value);
+  };
+  const handlePropertyChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedProperty(event.target.value);
+  };
+
+  const filterAllReservations = async () => {
+    if (!startDate || !endDate) {
+      console.error("Start and end dates must be selected.");
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `http://192.168.10.210:8081/TAM/reservation/filterReservations/${userId}`,
+        {
+          params: {
+            statusId: selectedStatus,
+            dateFrom: startDate,
+            dateTo: endDate,
+            propertyId: selectedProperty,
+          },
+        }
+      );
+      if (response.data.length === 0) {
+        console.warn("No reservations found for the applied filters.");
+        setAllReservations([]); // Clear the list if no data is returned
+      } else {
+        console.log("Filtered reservations:", response.data);
+        setAllReservations(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching filtered reservations:", error);
+    }
+  };
+  useEffect(() => {
+    filterAllReservations();
+  }, [selectedStatus, selectedProperty, startDate, endDate]);
   return (
     <div style={{ display: "flex", gap: "50px", flexDirection: "column" }}>
       <div style={{ flex: "1" }}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer
-            components={["DatePicker"]}
-            sx={{ justifyContent: "center" }}
-          >
-            <DatePicker
-              label={t("startdate")}
-              onChange={handleStartDateChange}
-              sx={{
-                margin: "10px  !important",
-                width: "200px",
-                marginLeft: "50px !important",
-              }}
-            />
-            <DatePicker
-              label={t("enddate")}
-              onChange={handleEndDateChange}
-              sx={{
-                margin: "10px  !important",
-                width: "200px",
-                // marginLeft: "50px !important",
-              }}
-            />
-            <div style={{ marginTop: "10px" }}>
-              <ReservationsButton>{t("download")}</ReservationsButton>
-            </div>
-          </DemoContainer>
-        </LocalizationProvider>
+        <div style={{ display: "flex" }}>
+          <div style={{ flex: "1" }}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer
+                components={["DatePicker"]}
+                sx={{ justifyContent: "center" }}
+              >
+                <DatePicker
+                  label={t("startdate")}
+                  onChange={handleStartDateChange}
+                  sx={{
+                    margin: "10px  !important",
+                    width: "200px",
+                    // marginLeft: "50px !important",
+                  }}
+                />
+                <DatePicker
+                  label={t("enddate")}
+                  onChange={handleEndDateChange}
+                  sx={{
+                    margin: "10px  !important",
+                    width: "200px",
+                    // marginLeft: "50px !important",
+                  }}
+                />
+                {/* <div style={{ marginTop: "10px" }}>
+              <ReservationsButton onClick={filterAllReservations}>
+                {t("Filter")}
+              </ReservationsButton>
+            </div> */}
+              </DemoContainer>
+            </LocalizationProvider>
+          </div>
+          <div style={{ flex: "1", marginTop: "9px" }}>
+            <ReservationsDropdown
+              value={selectedStatus ?? undefined}
+              onChange={handleStatusChange}
+              style={{ fontFamily: "Poppins" }}
+            >
+              <option value="">Select Status</option>
+              {reservations.map((status: any) => (
+                <option key={status.id} value={status.id}>
+                  {status.statusID}
+                </option>
+              ))}
+            </ReservationsDropdown>
+            <ReservationsDropdown
+              value={selectedProperty ?? ""}
+              onChange={handlePropertyChange}
+              style={{ fontFamily: "Poppins" }}
+            >
+              <option value="">Select Property</option>
+              {reservations.map((reservation: any) => (
+                <option key={reservation.id} value={reservation.id}>
+                  {reservation.propertyName}
+                </option>
+              ))}
+            </ReservationsDropdown>
+          </div>
+        </div>
       </div>
       <div style={{ flex: "1", display: "flex", gap: "50px" }}>
         <TableContainer component={Paper}>

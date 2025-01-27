@@ -11,8 +11,13 @@ import {
   Label,
   List,
   ListItem,
+  RejectOrAcceptButton,
+  ReservationConditionsButtonContainer,
+  ReservationConditionsButtonsContentHolder,
+  ReservationTypeSelect,
   Section,
   Table,
+  TableBody,
   TableHead,
   TableHeaderCell,
   TableRow,
@@ -297,8 +302,8 @@ const ReservationDetail: FC<{}> = () => {
   const navigate = useNavigate();
   const [reservationData, setReservationData] = useState<any>(null);
   const [cancellationType, setCancellationType] = useState<any>(null);
-  const [isCanceling, setIsCanceling] = useState(false); // For tracking the canceling status
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); // To display errors
+  const [isCanceling, setIsCanceling] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const { id } = useParams();
   const reservationId = id ? parseInt(id) : 0;
@@ -366,32 +371,76 @@ const ReservationDetail: FC<{}> = () => {
       alert("Failed to cancel reservation. Please try again.");
     }
   };
+  const statusID = reservationsData?.reservation.statusID;
+  console.log(statusID);
+  const handleRejectReservationRequest = async () => {
+    try {
+      await axios.put(
+        `http://192.168.10.210:8081/TAM/reservation/rejectAReservationRequest/${reservationID}`
+      );
+      console.log("Reservation rejected successfully.");
+      navigate("/reservations");
+    } catch (error) {
+      console.log("Failed to reject reservation request", error);
+    }
+  };
+  const handleAcceptReservationRequest = async () => {
+    try {
+      await axios.put(
+        `http://192.168.10.210:8081/TAM/reservation/confirmAReservationRequest/${reservationID}`
+      );
+      navigate("/reservations");
+      console.log("Reservation accepted successfully.");
+    } catch (error) {
+      console.error("Failed to accept reservation request:", error);
+    }
+  };
   return (
     <Container>
       {reservationsData && (
         <>
-          <CancelReservationButtonHolder>
-            {/* <label>Select Cancellation Type:</label> */}
-            <select
-              onChange={(e) => setCancellationType(Number(e.target.value))}
-              value={cancellationType || ""}
-            >
-              <option value="" disabled>
-                -- Select Type --
-              </option>
-              <option value={1}>Guest</option>
-              <option value={2}>Host</option>
-            </select>
+          <ReservationConditionsButtonsContentHolder>
+            {statusID === 4 && (
+              <ReservationConditionsButtonContainer>
+                <RejectOrAcceptButton
+                  className="accept"
+                  onClick={handleAcceptReservationRequest}
+                >
+                  Accept
+                </RejectOrAcceptButton>
+                <RejectOrAcceptButton
+                  className="reject"
+                  onClick={handleRejectReservationRequest}
+                >
+                  Reject
+                </RejectOrAcceptButton>
+              </ReservationConditionsButtonContainer>
+            )}
+            <ReservationConditionsButtonContainer>
+              <CancelReservationButtonHolder>
+                <ReservationTypeSelect
+                  onChange={(e: any) =>
+                    setCancellationType(Number(e.target.value))
+                  }
+                  value={cancellationType || ""}
+                >
+                  <option value="" disabled>
+                    Select Type
+                  </option>
+                  <option value={1}>Guest</option>
+                  <option value={2}>Host</option>
+                </ReservationTypeSelect>
 
-            <CancelReservationButton
-              onClick={handleCancelReservation}
-              disabled={isCanceling}
-            >
-              {isCanceling ? "Canceling..." : "Cancel"}
-            </CancelReservationButton>
-            {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-          </CancelReservationButtonHolder>
-
+                <CancelReservationButton
+                  onClick={handleCancelReservation}
+                  disabled={isCanceling}
+                >
+                  {isCanceling ? "Canceling..." : "Cancel"}
+                </CancelReservationButton>
+                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+              </CancelReservationButtonHolder>
+            </ReservationConditionsButtonContainer>
+          </ReservationConditionsButtonsContentHolder>
           <Section>
             <Title>Reservation Overview</Title>
             <List>
@@ -544,7 +593,7 @@ const ReservationDetail: FC<{}> = () => {
                         <TableHeaderCell>Fees</TableHeaderCell>
                       </TableRow>
                     </TableHead>
-                    <tbody>
+                    <TableBody>
                       {stay.reservationBreakdown.ruBreakdown.dayPrices.map(
                         (day: any, index: number) => (
                           <TableRow key={index}>
@@ -568,7 +617,7 @@ const ReservationDetail: FC<{}> = () => {
                           </TableRow>
                         )
                       )}
-                    </tbody>
+                    </TableBody>
                   </Table>
                   <Title>Total Fee Taxes</Title>
                   <Table>
@@ -579,7 +628,7 @@ const ReservationDetail: FC<{}> = () => {
                         <TableHeaderCell>Type</TableHeaderCell>
                       </TableRow>
                     </TableHead>
-                    <tbody>
+                    <TableBody>
                       {stay.reservationBreakdown.ruBreakdown.totalFeeTaxes.map(
                         (feeTaxes: any, index: number) => (
                           <TableRow key={index}>
@@ -589,21 +638,21 @@ const ReservationDetail: FC<{}> = () => {
                           </TableRow>
                         )
                       )}
-                    </tbody>
+                    </TableBody>
                   </Table>
                   <Title>Channel Day Prices</Title>
                   <List>
                     <ListItem>
                       <Label>Total amount of channel: </Label>
-                      {stay.reservationBreakdown.channelBreakdown.channelTotal}
+                      {stay.reservationBreakdown.channelBreakdown?.channelTotal}
                     </ListItem>
                     <ListItem>
                       <Label>Total rent of channel: </Label>
-                      {stay.reservationBreakdown.channelBreakdown.channelRent}
+                      {stay.reservationBreakdown.channelBreakdown?.channelRent}
                     </ListItem>
                     <ListItem>
                       <Label>Channel commission: </Label>
-                      {stay.reservationBreakdown.channelCommission}
+                      {stay.reservationBreakdown?.channelCommission}
                     </ListItem>
                   </List>
                   <Table>
@@ -616,8 +665,8 @@ const ReservationDetail: FC<{}> = () => {
                         <TableHeaderCell>Price</TableHeaderCell>
                       </TableRow>
                     </TableHead>
-                    <tbody>
-                      {stay.reservationBreakdown.channelBreakdown.dayPrices.map(
+                    <TableBody>
+                      {stay.reservationBreakdown.channelBreakdown?.dayPrices.map(
                         (channelDay: any, index: number) => (
                           <TableRow key={index}>
                             <TableCell>{channelDay.date}</TableCell>
@@ -659,7 +708,7 @@ const ReservationDetail: FC<{}> = () => {
                           </TableRow>
                         )
                       )}
-                    </tbody>{" "}
+                    </TableBody>{" "}
                   </Table>
                   <Title>Chanel Total Fee Taxes</Title>
                   <Table>
@@ -671,8 +720,8 @@ const ReservationDetail: FC<{}> = () => {
                         <TableHeaderCell>Type</TableHeaderCell>
                       </TableRow>
                     </TableHead>
-                    <tbody>
-                      {stay.reservationBreakdown.channelBreakdown.channelTotalFeeTax.map(
+                    <TableBody>
+                      {stay.reservationBreakdown.channelBreakdown?.channelTotalFeeTax.map(
                         (chanelFeeTaxes: any, index: number) => (
                           <TableRow key={index}>
                             <TableCell>{chanelFeeTaxes.name}</TableCell>
@@ -682,7 +731,7 @@ const ReservationDetail: FC<{}> = () => {
                           </TableRow>
                         )
                       )}
-                    </tbody>
+                    </TableBody>
                   </Table>
                 </div>
               )

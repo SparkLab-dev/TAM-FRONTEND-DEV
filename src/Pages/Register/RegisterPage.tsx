@@ -67,7 +67,7 @@ const RegisterPage: React.FC = () => {
   //user role api call
   useEffect(() => {
     axios
-      .get<DropdownItem[]>("http://192.168.10.210:8081/TAM/role/getAllRoles")
+      .get<DropdownItem[]>("http://app.hostai.it/TAM/role/getAllRoles")
       .then((res: any) => {
         setRoles(res.data);
         console.log(res.data);
@@ -194,7 +194,9 @@ const RegisterPage: React.FC = () => {
                 Register
               </SubmitButton>
             </FormGroup>
-            <RegisterDontHaveAccountHold>
+            <RegisterDontHaveAccountHold
+              style={{ display: "flex", justifyContent: "center" }}
+            >
               <RegParagraph>Already have an account?</RegParagraph>
               <LoginLink to="/login">
                 <RegParagraph>Sign In!</RegParagraph>
