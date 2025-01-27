@@ -32,7 +32,7 @@
 //     setLoading(true);
 //     try {
 //       const response = await axios.get<Reservation[]>(
-//         "http://192.168.10.210:8081/TAM/2/reservations/allReservations/all",
+//         "https://393e-95-107-162-162.ngrok-free.app/TAM/2/reservations/allReservations/all",
 //         {
 //           params: { fromDate, toDate },
 //         }
@@ -257,8 +257,7 @@ const ReservationsTable: React.FC = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [selectedReservation, setSelectedReservation] =
-    useState<Reservation | null>(null);
+  const [selectedReservation, setSelectedReservation] = useState<Reservation | null>(null);
   const [client_address, setClient_address] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
@@ -267,10 +266,10 @@ const ReservationsTable: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.get<Reservation[]>(
-        "http://192.168.10.210:8081/TAM/2/reservations/allReservations/all",
+        "https://393e-95-107-162-162.ngrok-free.app/TAM/2/reservations/allReservations/all",
         {
           params: { fromDate, toDate },
-        }
+        },
       );
       setReservations(response.data);
     } catch (error) {
@@ -305,10 +304,7 @@ const ReservationsTable: React.FC = () => {
     };
 
     try {
-      await axios.post(
-        "http://192.168.10.210:8081/TAM/Web3/sendweb3Request",
-        data
-      );
+      await axios.post("https://393e-95-107-162-162.ngrok-free.app/TAM/Web3/sendweb3Request", data);
       setSuccessMessage("Data sent successfully!");
       setTimeout(() => {
         closeModal();
@@ -386,21 +382,11 @@ const ReservationsTable: React.FC = () => {
       >
         <label>
           From Date:
-          <input
-            type="date"
-            value={fromDate}
-            style={inputStyles}
-            onChange={(e) => setFromDate(e.target.value)}
-          />
+          <input type="date" value={fromDate} style={inputStyles} onChange={(e) => setFromDate(e.target.value)} />
         </label>
         <label>
           To Date:
-          <input
-            type="date"
-            value={toDate}
-            style={inputStyles}
-            onChange={(e) => setToDate(e.target.value)}
-          />
+          <input type="date" value={toDate} style={inputStyles} onChange={(e) => setToDate(e.target.value)} />
         </label>
         <div style={buttonContainerStyles}>
           <button style={buttonStyles} type="submit">
@@ -425,19 +411,12 @@ const ReservationsTable: React.FC = () => {
           <tbody>
             {reservations.map((reservation, index) => (
               <tr key={index}>
-                <td style={tdStyles}>
-                  {moment(reservation.arrival).format("YYYY-MM-DD")}
-                </td>
-                <td style={tdStyles}>
-                  {moment(reservation.departure).format("YYYY-MM-DD")}
-                </td>
+                <td style={tdStyles}>{moment(reservation.arrival).format("YYYY-MM-DD")}</td>
+                <td style={tdStyles}>{moment(reservation.departure).format("YYYY-MM-DD")}</td>
                 <td style={tdStyles}>{reservation.apartment.name}</td>
                 <td style={tdStyles}>{reservation.guests}</td>
                 <td style={tdStyles}>
-                  <button
-                    style={buttonStyles}
-                    onClick={() => openModal(reservation)}
-                  >
+                  <button style={buttonStyles} onClick={() => openModal(reservation)}>
                     Create NFT
                   </button>
                 </td>
@@ -460,13 +439,7 @@ const ReservationsTable: React.FC = () => {
             />
           </InputBox>
           <InputBox>
-            <StyledTextField
-              type="url"
-              placeholder="Image URL"
-              value={imageUrl}
-              onChange={handleChange}
-              required
-            />
+            <StyledTextField type="url" placeholder="Image URL" value={imageUrl} onChange={handleChange} required />
           </InputBox>
           <Button onClick={handleSubmit}>Submit</Button>
           {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}

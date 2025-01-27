@@ -3,6 +3,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 //axios
 import axios from "axios";
+import { useId } from "react";
+import { privApi } from "utils/api";
 
 export interface ApartmentProps {
   // name: string;
@@ -16,7 +18,7 @@ export interface ApartmentProps {
   nla: boolean;
   createdDate: string;
   active: boolean;
-  id:{value:number}
+  id: { value: number };
 }
 
 export type AuthApartmentProps = {
@@ -31,21 +33,15 @@ const initialState: AuthApartmentProps = {
   error: null,
 };
 
-export const fetchApartmentIds = createAsyncThunk<ApartmentProps[], number>(
-  "apartments/fetchUserApartmentIds",
-  async (userId: number) => {
-    try {
-      const response = await axios.get(
-        `http://192.168.10.210:8081/TAM/property/getOwnersProperties/${userId}`
-      );
-      console.log("res", response);
-      return response.data.properties;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+export const fetchApartmentIds = createAsyncThunk<ApartmentProps[]>("apartments/fetchUserApartmentIds", async () => {
+  try {
+    const response = await privApi.get(`property/getUserProperties`);
+    return response.data?.properties || [];
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
-);
+});
 const apartmentsSlice = createSlice({
   name: "apartments",
   initialState,

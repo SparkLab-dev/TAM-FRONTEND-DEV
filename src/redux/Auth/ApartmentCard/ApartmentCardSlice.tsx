@@ -1,5 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { privApi } from "utils/api";
 
 interface ApartmentDetails {
   id: number;
@@ -55,23 +56,18 @@ export const fetchApartmentCardDetails = createAsyncThunk<
   {
     rejectValue: string;
   }
->(
-  "apartments/fetchUserApartmentCardDetails",
-  async ({ userId, id }, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(
-        `http://192.168.10.210:8081/TAM/${userId}/apartments/${id}`
-      );
-      console.log("userId", userId);
-      console.log("id", id);
-      console.log("res", response);
-      return response.data as ApartmentDetails;
-    } catch (error) {
-      console.error("err", error);
-      return rejectWithValue("Failed to fetch apartment details.");
-    }
+>("apartments/fetchUserApartmentCardDetails", async ({ userId, id }, { rejectWithValue }) => {
+  try {
+    const response = await privApi.get(`/TAM/${userId}/apartments/${id}`);
+    console.log("userId", userId);
+    console.log("id", id);
+    console.log("res", response);
+    return response.data as ApartmentDetails;
+  } catch (error) {
+    console.error("err", error);
+    return rejectWithValue("Failed to fetch apartment details.");
   }
-);
+});
 
 const apartmentsCardSlice = createSlice({
   name: "apartmentCard",

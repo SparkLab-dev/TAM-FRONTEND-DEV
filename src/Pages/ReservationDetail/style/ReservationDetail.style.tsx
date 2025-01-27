@@ -2,6 +2,7 @@ import styled from "styled-components";
 export const CancelReservationButtonHolder = styled.div`
   display: flex;
   justify-content: flex-end;
+  gap: 10px;
 `;
 export const CancelReservationButton = styled.button`
   background-color: #4f734c;

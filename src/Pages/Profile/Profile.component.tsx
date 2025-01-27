@@ -28,7 +28,7 @@ const UserProfile: React.FC = () => {
 
   const fetchData = () => {
     axios
-      .get(`http://192.168.10.210:8081/TAM/user/${userId}`)
+      .get(`https://393e-95-107-162-162.ngrok-free.app/TAM/user/${userId}`)
       .then((response) => {
         setUserData(response.data);
         setEditedData(response.data);
@@ -45,7 +45,7 @@ const UserProfile: React.FC = () => {
   const handleSaveClick = () => {
     if (editedData) {
       axios
-        .post("http://192.168.10.210:8081/TAM/user/update", editedData)
+        .post("https://393e-95-107-162-162.ngrok-free.app/TAM/user/update", editedData)
         .then((response) => {
           setUserData({ ...editedData });
           setEditable(false);
@@ -78,12 +78,7 @@ const UserProfile: React.FC = () => {
         <UserInfo>
           <Label>{t("name")}:</Label>
           {editable ? (
-            <Input
-              type="text"
-              name="firstName"
-              value={editedData?.firstName}
-              onChange={handleInputChange}
-            />
+            <Input type="text" name="firstName" value={editedData?.firstName} onChange={handleInputChange} />
           ) : (
             <p>{userData?.firstName}</p>
           )}
@@ -91,12 +86,7 @@ const UserProfile: React.FC = () => {
         <UserInfo>
           <Label>{t("surname")}:</Label>
           {editable ? (
-            <Input
-              type="text"
-              name="lastName"
-              value={editedData?.lastName}
-              onChange={handleInputChange}
-            />
+            <Input type="text" name="lastName" value={editedData?.lastName} onChange={handleInputChange} />
           ) : (
             <p>{userData?.lastName}</p>
           )}
@@ -104,12 +94,7 @@ const UserProfile: React.FC = () => {
         <UserInfo>
           <Label>Email:</Label>
           {editable ? (
-            <Input
-              type="text"
-              name="email"
-              value={editedData?.email}
-              onChange={handleInputChange}
-            />
+            <Input type="text" name="email" value={editedData?.email} onChange={handleInputChange} />
           ) : (
             <p>{userData?.email}</p>
           )}
@@ -117,12 +102,7 @@ const UserProfile: React.FC = () => {
         <UserInfo>
           <Label>{t("role")}:</Label>
           {editable ? (
-            <Input
-              type="text"
-              name="role"
-              value={editedData?.role}
-              onChange={handleInputChange}
-            />
+            <Input type="text" name="role" value={editedData?.role} onChange={handleInputChange} />
           ) : (
             <p>{userData?.role}</p>
           )}

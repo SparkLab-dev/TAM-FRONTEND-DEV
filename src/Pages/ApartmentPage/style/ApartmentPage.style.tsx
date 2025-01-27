@@ -9,8 +9,7 @@ export const Container = styled.div`
   @media (max-width: 1268px) {
     flex-direction: column;
     align-items: center;
-    margin-top:450px;
-    
+    margin-top: 450px;
   }
 `;
 export const ApartmentImg = styled.img`
@@ -26,7 +25,7 @@ export const HeartIcon = styled.p`
 `;
 export const ApartmentContentHolder = styled.div`
   box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.15);
-  width: 300px; 
+  width: 300px;
   height: 300px; /* Height matches the photo height */
   margin: 15px;
   cursor: pointer;
@@ -34,16 +33,16 @@ export const ApartmentContentHolder = styled.div`
     background-color: white;
   }
   @media (max-width: 768px) {
-    // width: calc(100% - 30px); 
-    height: auto; 
-    display: flex; 
+    // width: calc(100% - 30px);
+    height: auto;
+    display: flex;
     flex-direction: column;
   }
 `;
 export const Icon = styled.div`
-font-size: larger; */
-width: 325px;
-height: 245px;
+  font-size: larger;
+  width: 325px;
+  height: 245px;
 `;
 export const ApartmentNameParagraph = styled.p`
   /* text-align: center; */

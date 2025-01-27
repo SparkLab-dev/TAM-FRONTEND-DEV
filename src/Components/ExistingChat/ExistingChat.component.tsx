@@ -18,6 +18,7 @@ import AdminLogo from "../ExistingChat/assets/adminlogo.png";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import styled from "styled-components";
+import { privApi } from "utils/api";
 
 interface Conversation {
   id: number;
@@ -44,11 +45,9 @@ const GuestName = styled.div`
 
 const ExistingChat: FC<{}> = () => {
   const email = useSelector((state: RootState) => state.auth.user?.email);
-  const messages = useSelector(
-    (state: RootState) => state.messages.messages?.total_items
-  );
+  const messages = useSelector((state: RootState) => state.messages.messages?.total_items);
   console.log(messages);
-  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [conversations, setConversations] = useState<any>([]);
   const [selectedGuest, setSelectedGuest] = useState<string | null>(null);
 
   const handleGuestClick = (conversation: any) => {
@@ -62,15 +61,8 @@ const ExistingChat: FC<{}> = () => {
   };
 
   useEffect(() => {
-    fetch("http://192.168.10.210:8081/TAM/conversation/3")
-      .then((response) => response.json())
-      .then((data: Conversation[]) => {
-        setConversations(data);
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching conversations:", error);
-      });
+    const conversationsdata: any = privApi.get("/TAM/conversation");
+    if (conversationsdata?.length) setConversations(conversationsdata);
   }, []);
 
   return (
@@ -81,15 +73,11 @@ const ExistingChat: FC<{}> = () => {
       <InboxMessages>
         <div style={{ display: "flex" }}>
           <div>
-            <h3 style={{ display: "flex", alignItems: "baseline" }}>
-              Conversation List
-            </h3>
+            <h3 style={{ display: "flex", alignItems: "baseline" }}>Conversation List</h3>
             <ul>
-              {conversations.map((conversation) => (
+              {(conversations || []).map((conversation: Conversation) => (
                 <li key={conversation.id}>
-                  <ConversationItem
-                    onClick={() => handleGuestClick(conversation)}
-                  >
+                  <ConversationItem onClick={() => handleGuestClick(conversation)}>
                     <GuestName>{conversation.guestName}</GuestName>
                   </ConversationItem>
                 </li>

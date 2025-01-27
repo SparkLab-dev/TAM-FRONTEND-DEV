@@ -3,17 +3,19 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 
 //axios
 import axios from "axios";
+import { privApi } from "utils/api";
 
 interface RegisterState {
+  email: string;
   firstName: string;
   lastName: string;
-  username: string;
-  email: string;
-  roleId: string;
-  roleName: string | null;
-  token: string | null;
+  phoneNumber: string;
+  role: {
+    id: number;
+    roleName: string;
+    roleDescription: string;
+  };
 }
-
 export type AuthRegState = {
   user: RegisterState | null;
   isAuthenticated: boolean;
@@ -31,10 +33,7 @@ export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (userCredentials: object, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://192.168.10.210:8081/TAM/registration",
-        userCredentials
-      );
+      const response = await privApi.post("/TAM/registration", userCredentials);
 
       const responseRegData = response.data.body;
 
@@ -47,7 +46,7 @@ export const registerUser = createAsyncThunk(
       console.log(error.response.data);
       return rejectWithValue("Register failed");
     }
-  }
+  },
 );
 
 const registerSlice = createSlice({

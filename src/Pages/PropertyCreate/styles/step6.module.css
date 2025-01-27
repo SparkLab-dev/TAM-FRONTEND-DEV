@@ -1,0 +1,62 @@
+.addBtn {
+  align-self: right;
+  justify-self: right;
+  width: 10em;
+  cursor: pointer;
+}
+
+.btnContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.btnContainer > button {
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  padding: 0 5px;
+  box-sizing: border-box;
+  width: 185px;
+}
+.stepContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.langForm {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin: 5px;
+}
+
+.selectLanguage {
+  /* width: 50%; */
+  max-width: 550px;
+  background-color: white;
+}
+.langBtn {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.langHeading {
+  width: 100%;
+  border-bottom: 2px solid grey;
+}
+
+.langHeading span {
+  margin-bottom: 0px;
+  font-size: x-large;
+  font-weight: 600;
+  padding: 2px 15px;
+  border-bottom: 5px solid rgb(28, 166, 247);
+}
+
+.textArea {
+  height: 250px;
+}

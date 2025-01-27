@@ -20,10 +20,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import {
-  ApartmentProps,
-  fetchApartmentIds,
-} from "redux/Auth/ApartmentsPage/ApartmentsPageSlice";
+import { ApartmentProps, fetchApartmentIds } from "redux/Auth/ApartmentsPage/ApartmentsPageSlice";
 import { AppDispatch } from "../../redux/store";
 //mui
 import { Button } from "@mui/material";
@@ -37,33 +34,26 @@ const ApartmentPage: FC<{}> = () => {
 
   const user = useSelector((state: RootState) => state.auth.user);
   console.log(user);
-  const userId = user?.ownerId;
+  const userId = user?.id;
   const { t } = useTranslation();
 
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = () => {
-      if (userId) {
-        console.log(userId);
-        dispatch(fetchApartmentIds(userId))
-          .then((result: any) => {
-            console.log("result", result);
-            if (fetchApartmentIds.fulfilled.match(result)) {
-              setApartmentNames(result.payload);
-            } else if (fetchApartmentIds.rejected.match(result)) {
-              setError(
-                "Error fetching apartment names. Please try again later!"
-              );
-            }
-          })
-          .catch((error: any) => {
-            console.error("Error fetching apartment names:", error);
+      dispatch(fetchApartmentIds())
+        .then((result: any) => {
+          console.log("result", result);
+          if (fetchApartmentIds.fulfilled.match(result)) {
+            setApartmentNames(result.payload);
+          } else if (fetchApartmentIds.rejected.match(result)) {
             setError("Error fetching apartment names. Please try again later!");
-          });
-      } else {
-        setError("User ID not available.");
-      }
+          }
+        })
+        .catch((error: any) => {
+          console.error("Error fetching apartment names:", error);
+          setError("Error fetching apartment names. Please try again later!");
+        });
     };
 
     fetchData();
@@ -77,33 +67,30 @@ const ApartmentPage: FC<{}> = () => {
   const handleRules = () => {
     navigate(`/minstay`);
   };
+  const handlePropertyCreate = () => {
+    navigate(`/propertycreate`);
+  };
+  console.log("apartmentName", apartmentName);
 
   return (
     <>
       <div style={{ marginTop: "70px" }}>
         <Button onClick={handleRules}>{t("seetherules")}</Button>
+        <Button onClick={handlePropertyCreate}>{t("createProperty")}</Button>
       </div>
       <Container>
         {error ? (
           <ErrorMessage>{error}</ErrorMessage>
         ) : (
-          apartmentName.map((apartment: any) => (
-            <ApartmentContentHolder
-              key={apartment.id}
-              onClick={() => handleApartmentClick(apartment)}
-            >
+          (apartmentName || []).map((apartment: any) => (
+            <ApartmentContentHolder key={apartment.id} onClick={() => handleApartmentClick(apartment)}>
               <Icon>
                 <ApartmentImg src={ApartmentImage} alt="apartimage" />
               </Icon>
               <ApartmentNameContainer>
-                <ApartmentNameParagraph>
-                  {apartment.propertyName}
-                </ApartmentNameParagraph>
+                <ApartmentNameParagraph>{apartment.propertyName}</ApartmentNameParagraph>
                 <HeartIcon>
-                  <FontAwesomeIcon
-                    icon={faHeart}
-                    style={{ fontSize: "25px" }}
-                  />
+                  <FontAwesomeIcon icon={faHeart} style={{ fontSize: "25px" }} />
                 </HeartIcon>
               </ApartmentNameContainer>
             </ApartmentContentHolder>

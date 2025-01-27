@@ -28,11 +28,7 @@ export const resetPassword = createAsyncThunk(
       console.log("pathname", pathnameParts);
       const token = pathnameParts[pathnameParts.length - 1];
 
-      const response = await axios.post(
-        `http://192.168.10.210:8081/TAM/savepassword/${token}`,
-
-        newPassword
-      );
+      const response = await axios.post(`http://192.168.10.210:8081/TAM/savepassword/${token}`, newPassword);
 
       const responseData = response.data.body;
 
@@ -46,7 +42,7 @@ export const resetPassword = createAsyncThunk(
 
       return rejectWithValue("savepassword failed");
     }
-  }
+  },
 );
 const resetPasswordSlice = createSlice({
   name: "recoverPassword",

@@ -24,14 +24,11 @@ const initialState: ModalState = {
 
 export const openModal = createAsyncThunk(
   "modal/openModal",
-  async (
-    { userId, userCredentials }: { userId: number; userCredentials: object },
-    { rejectWithValue }
-  ) => {
+  async ({ userId, userCredentials }: { userId: number; userCredentials: object }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `http://192.168.10.210:8081/TAM/${userId}/apartmentAvailability`,
-        userCredentials
+        `https://393e-95-107-162-162.ngrok-free.app/TAM/${userId}/apartmentAvailability`,
+        userCredentials,
       );
 
       const responseRegData = response.data;
@@ -47,7 +44,7 @@ export const openModal = createAsyncThunk(
 
       return rejectWithValue("Modal register failed");
     }
-  }
+  },
 );
 
 //get api
@@ -55,29 +52,25 @@ export const openRentList = createAsyncThunk<
   Modal,
   { userId: number; rentListProperties: object },
   { rejectValue: string }
->(
-  "rentList/openRentList",
-  async ({ userId, rentListProperties }, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(
-        `http://192.168.10.210:8081/TAM/${userId}/apartmentAvailability`,
-        { params: rentListProperties }
-      );
+>("rentList/openRentList", async ({ userId, rentListProperties }, { rejectWithValue }) => {
+  try {
+    const response = await axios.get(`https://393e-95-107-162-162.ngrok-free.app/TAM/${userId}/apartmentAvailability`, {
+      params: rentListProperties,
+    });
 
-      const responseRentListData = response.data.data;
-      console.log(responseRentListData);
+    const responseRentListData = response.data.data;
+    console.log(responseRentListData);
 
-      if (response.status !== 200) {
-        return rejectWithValue(responseRentListData.error);
-      }
-
-      return responseRentListData;
-    } catch (error: any) {
-      console.log(error.response);
-      return rejectWithValue("Rent list fetch failed");
+    if (response.status !== 200) {
+      return rejectWithValue(responseRentListData.error);
     }
+
+    return responseRentListData;
+  } catch (error: any) {
+    console.log(error.response);
+    return rejectWithValue("Rent list fetch failed");
   }
-);
+});
 const modalSlice = createSlice({
   name: "modal",
   initialState,

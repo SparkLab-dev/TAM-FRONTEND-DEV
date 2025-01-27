@@ -1,0 +1,71 @@
+.amenityContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 30%;
+  max-width: 350px;
+}
+
+.topContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  width: 100px;
+  height: 120px;
+  color: #4f734c;
+  /* background: #4F734C; */
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0px;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputContainer span {
+  padding: 2px;
+  border: 1px solid black;
+  cursor: pointer;
+  height: 20px;
+  width: 25px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputContainer input {
+  padding: 2px;
+  outline: none;
+  border: 1px solid black;
+  height: 20px;
+  width: 50px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.titlesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  color: black;
+  font-weight: 500;
+}
+
+.subtitle {
+  color: rgb(86, 76, 76);
+}
